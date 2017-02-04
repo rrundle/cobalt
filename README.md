@@ -1,2 +1,2 @@
 # cobalt
-cobalt (temp. name) is an app for teams and team members to view schedules, pay dues, and communicate.
+Content management system - add news, events, and more to a unique site
