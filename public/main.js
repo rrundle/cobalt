@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Input } = require('semantic-react')
+const { Input, Button } = require('semantic-react')
 
 const initialState = {
   org: ''
@@ -27,23 +27,31 @@ const reducer = (state, action) => {
 
 const Signup = () => {
   const handlePress = event => {
-    let value = event.target.value
+    let value = event.target.value.replace(/\s/g, "")
     store.dispatch({ type: "INPUT", value})
   }
+
+  const disableSpace = event => {
+    if (event.which === 32) {
+      return false
+    }
+  }
+
+  const required = true
 
   return (
     <div className="start">
       <div className="name-title">{'Your name'}
-        <input className="name"></input>
+        <input className="name" required={required}></input>
       </div>
       <div className="org-title">{'Organization name'}
-        <Input className="org" onChange={handlePress}/>
+        <Input keyboardType='numeric' className="org" required={required} keydown={disableSpace} onChange={handlePress}/>
       </div>
       <div className="org-display">
-        <div>{'http://www.' + store.getState().org + '.cobalt.com'}>
+        <div>{'http://www.' + store.getState().org + '.cobalt.com'}
         </div>
       </div>
-      <button className="go">{'Let\'s go!'}</button>
+      <Button disabled className="go">{'Let\'s go!'}</Button>
     </div>
   )
 }
