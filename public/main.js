@@ -38,7 +38,7 @@ function sendData(data, path, route) {
 
 const Signup = () => {
   const handlePress = event => {
-    let value = event.target.value.replace(/\s/g, "")
+    const value = event.target.value.replace(/\s/g, "")
     store.dispatch({ type: "INPUT", value})
     const data = {
       url: store.getState().org
@@ -55,6 +55,20 @@ const Signup = () => {
           matches.textContent = 'unavailable'
         }
       })
+  }
+
+  const handleClick = event => {
+    const nameValue = document.querySelector('.name').firstChild.value
+    console.log(nameValue)
+    const urlValue = `http://www.${store.getState().org}.cobalt.com`
+    const data = {
+      nameValue: nameValue,
+      urlValue: urlValue
+    }
+    const route = 'POST'
+    const path = '/site'
+    sendData(data, path, route)
+      .then(result => console.log(result))
   }
 
   const disableSpace = event => {
@@ -84,7 +98,7 @@ const Signup = () => {
         </div>
         <span id="matches"></span>
       </div>
-      <Button disabled className="go">{'Let\'s go!'}</Button>
+      <Button className="go" onClick={handleClick}>{'Let\'s go!'}</Button>
     </div>
   )
 }

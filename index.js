@@ -18,7 +18,7 @@ app.use(jsonParser)
 app.use(express.static('public'))
 
 app.post('/org', (req, res) => {
-  var query = knex('sites')
+  const query = knex('sites')
     .where({
       site_url: `http://www.${req.body.url}.cobalt.com`
     })
@@ -27,6 +27,18 @@ app.post('/org', (req, res) => {
   query
     .then(match => res.json(match))
     .catch(error => res.send('Sorry, couldn\'t check that', error))
+})
+
+app.post('/site', (req, res) => {
+  console.log(req.body)
+  const query = knex('sites')
+    .insert({
+      name: req.body.nameValue,
+      site_url: req.body.urlValue
+    })
+  query
+    .then(result => res.send(result))
+    .catch(err => res.send("Sorry we couldn't insert that", err))
 })
 
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}`) })
