@@ -1,7 +1,7 @@
 
 exports.up = (knex, Promise) => {
   const query = knex.schema.createTable('news', table => {
-    table.string('site-id')
+    table.string('site_id')
     table.string('content')
     table.timestamp('timestamp')
   })

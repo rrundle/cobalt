@@ -1,11 +1,12 @@
+
 exports.up = (knex, Promise) => {
   const query = knex.schema.createTable('plugins', table => {
-    table.string('org-address')
-    table.string('org-phone')
-    table.string('site-color-primary')
-    table.string('site-color-secondary')
-    table.string('site-photo')
-    table.string('site-background-photo')
+    table.string('org_address')
+    table.string('org_phone')
+    table.string('site_color_primary')
+    table.string('site_color_secondary')
+    table.string('site_photo')
+    table.string('site_background_photo')
     table.string('news')
     table.string('events')
   })
