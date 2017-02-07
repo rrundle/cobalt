@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Input, Button } = require('semantic-react')
+const { Input, Button, Dropdown } = require('semantic-ui-react')
 
 const initialState = {
   org: ''
@@ -41,6 +41,12 @@ const Signup = () => {
 
   return (
     <div className="start">
+      <div>{'Select existing site'}
+        <Dropdown fluid selection />
+      </div>
+      <div id="action-container">
+        <p id="call-action">{'Get started'}</p>
+      </div>
       <div className="name-title">{'Your name'}
         <input className="name" required={required}></input>
       </div>
