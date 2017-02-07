@@ -30,7 +30,6 @@ app.post('/org', (req, res) => {
 })
 
 app.post('/site', (req, res) => {
-  console.log(req.body)
   const query = knex('sites')
     .insert({
       name: req.body.nameValue,

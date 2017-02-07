@@ -1,5 +1,6 @@
 /* global React, ReactDOM, Redux */
 const { Input, Button, Dropdown } = require('semantic-ui-react')
+const { Provider } = require('react-redux')
 
 const initialState = {
   org: ''
@@ -36,12 +37,13 @@ function sendData(data, path, route) {
   return result
 }
 
-const Signup = () => {
+const Signup = ({ state, dispatch }) => {
+
   const handlePress = event => {
     const value = event.target.value.replace(/\s/g, "")
-    store.dispatch({ type: "INPUT", value})
+    dispatch({ type: "INPUT", value})
     const data = {
-      url: store.getState().org
+      url: state.org
     }
     const route = 'POST'
     const path = '/org'
@@ -59,8 +61,7 @@ const Signup = () => {
 
   const handleClick = event => {
     const nameValue = document.querySelector('.name').firstChild.value
-    console.log(nameValue)
-    const urlValue = `http://www.${store.getState().org}.cobalt.com`
+    const urlValue = `http://www.${state.org}.cobalt.com`
     const data = {
       nameValue: nameValue,
       urlValue: urlValue
@@ -94,7 +95,7 @@ const Signup = () => {
         <Input keyboardType='numeric' className="org" required={required} keydown={disableSpace} onChange={handlePress}/>
       </div>
       <div className="org-display">
-        <div>{`http://www.${store.getState().org}.cobalt.com`}
+        <div>{`http://www.${state.org}.cobalt.com`}
         </div>
         <span id="matches"></span>
       </div>
@@ -108,12 +109,16 @@ const draw = () => console.log(store.getState())
 store.subscribe(draw)
 
 const redraw = () => {
+  const state = store.getState()
+  const { dispatch } = store
    ReactDOM.render(
-     <Signup/>,
+     <Provider store={store} dispatch={dispatch}>
+      <Signup state={state} dispatch={dispatch} />
+    </Provider>,
      document.querySelector('.start')
    )
- }
+}
 
- store.subscribe(redraw)
+store.subscribe(redraw)
 
- redraw()
+redraw()

@@ -18,7 +18,6 @@ exports.up = (knex, Promise) => {
   return query
 }
 
-
 exports.down = (knex, Promise) => {
   const query = knex.schema.dropTable('sites')
   return query
