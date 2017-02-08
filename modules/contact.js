@@ -1,5 +1,6 @@
 /* global React, ReactDOM, Redux */
 const { Step, Button, Icon, Input, Popup, Grid } = require('semantic-ui-react')
+const { IndexLink } = require('react-router')
 
 const StepTwo = () => {
   return (
@@ -47,10 +48,12 @@ const Form = () => {
 const Next = () => (
   <div>
     <Button animated>
-      <Button.Content visible>Next</Button.Content>
-      <Button.Content hidden>
-        <Icon name='right arrow' />
-      </Button.Content>
+      <IndexLink to='/colors' activeClassName="active">
+        <Button.Content visible>Next</Button.Content>
+        <Button.Content hidden>
+          <Icon name='right arrow' />
+        </Button.Content>
+      </IndexLink>
     </Button>
   </div>
 )
