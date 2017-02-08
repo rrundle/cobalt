@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Input, Button, Dropdown } = require('semantic-ui-react')
+const { Input, Button, Dropdown, Icon } = require('semantic-ui-react')
 const { Provider } = require('react-redux')
 const { Router, Route, hashHistory } = require('react-router')
 const StepTwo = require('../modules/contact.js')
@@ -105,7 +105,7 @@ const Signup = () => {
         <div className="title">{'Your name'}</div>
       </div>
       <div>
-        <Input keyboardType='numeric' className="org" id="org" required={required} keydown={disableSpace} onChange={handlePress}/>
+        <Input className="org" id="org" required={required} keydown={disableSpace} onChange={handlePress}/>
         <div className="title">{'Organization name'}</div>
       </div>
       <div className="org-display">
@@ -114,7 +114,12 @@ const Signup = () => {
         <span id="matches"></span>
         </div>
       </div>
-      <Button id="go" onClick={handleClick}>{'Let\'s go!'}</Button>
+      <Button animated id="go" onClick={handleClick}>
+        <Button.Content visible>{'Let\'s go!'}</Button.Content>
+          <Button.Content hidden>
+            <Icon name='thumbs up' />
+          </Button.Content>
+      </Button>
     </div>
   )
 }

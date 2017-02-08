@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Step, Button, Icon } = require('semantic-ui-react')
+const { Step, Button, Icon, Input, Popup, Grid } = require('semantic-ui-react')
 
 const StepTwo = () => {
   return (
@@ -18,11 +18,27 @@ const StepTwo = () => {
 
         <Step title='Photos' description='Enter profile & background photos' />
       </Step.Group>
+
+      <Form></Form>
+
     </div>
   )
 }
 
-/*
+const Form = () => {
+  return (
+    <div>
+      <div>{'Enter the contact info for your organization'}</div>
+      <div>{'Your organization\'s address'}</div>
+      <Input defaultText="Optional" id="org-address" />
+      <div>{'Your organization\'s phone number'}</div>
+      <Input defaultText="Optional" keyboardType='numeric' id="org-phone" />
+      <Back></Back>
+      <Next></Next>
+    </div>
+  )
+}
+
 const Next = () => (
   <div>
     <Button animated>
@@ -38,12 +54,12 @@ const Back = () => (
   <div>
     <Button animated>
       <Button.Content visible>Back</Button.Content>
-      <Button.Content hidden>
-        <Icon name='left arrow' />
-      </Button.Content>
+        <Button.Content hidden>
+          <Icon name='left arrow' />
+        </Button.Content>
     </Button>
   </div>
 )
-*/
+
 
 module.exports = StepTwo
