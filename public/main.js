@@ -2,6 +2,9 @@
 const { Input, Button, Dropdown } = require('semantic-ui-react')
 const { Provider } = require('react-redux')
 const { Router, Route, hashHistory } = require('react-router')
+const StepTwo = require('../modules/contact.js')
+const StepThree = require('../modules/colors.js')
+const StepFour = require('../modules/photos.js')
 
 const initialState = {
   org: ''
@@ -67,6 +70,8 @@ const Signup = () => {
   }
 
   const handleClick = event => {
+    const tagline = document.getElementById('tagline-container')
+    tagline.parentNode.removeChild(tagline)
     const nameValue = document.querySelector('.name').firstChild.value
     const urlValue = `http://www.${state.org}.cobalt.com`
     const data = {
@@ -125,6 +130,9 @@ const redraw = () => {
     <Provider store={store} dispatch={dispatch}>
       <Router history={hashHistory} store={store} dispatch={dispatch}>
         <Route path='/' component={Signup} />
+        <Route path='/contact' component={StepTwo} />
+        <Route path='/colors' component={StepThree} />
+        <Route path='/photos' component={StepFour} />
       </Router>
     </Provider>,
      document.querySelector('.start')
