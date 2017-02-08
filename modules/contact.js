@@ -29,6 +29,11 @@ const Form = () => {
   return (
     <div>
       <div>{'Enter the contact info for your organization'}</div>
+      <Popup
+        trigger={<Button icon='question' />}
+        content="This displays live on your website."
+        basic
+      />
       <div>{'Your organization\'s address'}</div>
       <Input defaultText="Optional" id="org-address" />
       <div>{'Your organization\'s phone number'}</div>
