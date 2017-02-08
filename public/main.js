@@ -1,6 +1,7 @@
 /* global React, ReactDOM, Redux */
 const { Input, Button, Dropdown } = require('semantic-ui-react')
 const { Provider } = require('react-redux')
+const { Router, Route, hashHistory } = require('react-router')
 
 const initialState = {
   org: ''
@@ -37,7 +38,9 @@ function sendData(data, path, route) {
   return result
 }
 
-const Signup = ({ state, dispatch }) => {
+const Signup = () => {
+  const state = store.getState()
+  const { dispatch } = store
 
   const handlePress = event => {
     const value = event.target.value.replace(/\s/g, "")
@@ -119,8 +122,10 @@ const redraw = () => {
   const state = store.getState()
   const { dispatch } = store
    ReactDOM.render(
-     <Provider store={store} dispatch={dispatch}>
-      <Signup state={state} dispatch={dispatch} />
+    <Provider store={store} dispatch={dispatch}>
+      <Router history={hashHistory} store={store} dispatch={dispatch}>
+        <Route path='/' component={Signup} />
+      </Router>
     </Provider>,
      document.querySelector('.start')
    )
@@ -129,3 +134,5 @@ const redraw = () => {
 store.subscribe(redraw)
 
 redraw()
+
+module.exports = Signup
