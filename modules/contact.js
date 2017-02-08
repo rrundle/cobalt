@@ -61,10 +61,12 @@ const Next = () => (
 const Back = () => (
   <div>
     <Button animated>
-      <Button.Content visible>Back</Button.Content>
+      <IndexLink to='/' activeClassName="active">
+        <Button.Content visible>Back</Button.Content>
         <Button.Content hidden>
           <Icon name='left arrow' />
         </Button.Content>
+      </IndexLink>
     </Button>
   </div>
 )
