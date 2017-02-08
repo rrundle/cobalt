@@ -1,10 +1,12 @@
 /* global React, ReactDOM, Redux */
 const { Input, Button, Dropdown, Icon } = require('semantic-ui-react')
 const { Provider } = require('react-redux')
-const { Router, Route, hashHistory } = require('react-router')
+const { Router, Route, hashHistory, IndexLink, browserHistory, applyRouterMiddleware } = require('react-router')
 const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
+const {useTransitions, withTransition} = require('react-router-transitions')
 
 const initialState = {
   org: ''
@@ -71,9 +73,11 @@ const Signup = () => {
 
   const handleClick = event => {
     const tagline = document.getElementById('tagline-container')
-    tagline.parentNode.removeChild(tagline)
+    if (tagline) {tagline.parentNode.removeChild(tagline)}
+    
     const nameValue = document.querySelector('.name').firstChild.value
     const urlValue = `http://www.${state.org}.cobalt.com`
+
     const data = {
       nameValue: nameValue,
       urlValue: urlValue
@@ -115,10 +119,12 @@ const Signup = () => {
         </div>
       </div>
       <Button animated id="go" onClick={handleClick}>
-        <Button.Content visible>{'Let\'s go!'}</Button.Content>
+        <IndexLink to='/contact' activeClassName="active">
+          <Button.Content visible>{'Let\'s go!'}</Button.Content>
           <Button.Content hidden>
             <Icon name='thumbs up' />
           </Button.Content>
+        </IndexLink>
       </Button>
     </div>
   )
@@ -133,11 +139,20 @@ const redraw = () => {
   const { dispatch } = store
    ReactDOM.render(
     <Provider store={store} dispatch={dispatch}>
-      <Router history={hashHistory} store={store} dispatch={dispatch}>
+      <Router history={browserHistory} store={store} dispatch={dispatch}
+        render={applyRouterMiddleware(useTransitions({
+          TransitionGroup: ReactCSSTransitionGroup,
+          defaultTransition: {
+            transitionName: 'fade',
+            transitionEnterTimeout: 500,
+            transitionLeaveTimeout: 300
+          }
+        }))}
+      >
         <Route path='/' component={Signup} />
-        <Route path='/contact' component={StepTwo} />
-        <Route path='/colors' component={StepThree} />
-        <Route path='/photos' component={StepFour} />
+        <Route path='/contact' component={withTransition(StepTwo)} />
+        <Route path='/colors' component={withTransition(StepThree)} />
+        <Route path='/photos' component={withTransition(StepFour)} />
       </Router>
     </Provider>,
      document.querySelector('.start')
