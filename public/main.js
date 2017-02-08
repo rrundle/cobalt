@@ -48,13 +48,17 @@ const Signup = ({ state, dispatch }) => {
     const route = 'POST'
     const path = '/org'
     const matches = document.getElementById('matches')
+    const button = document.getElementById('go')
     sendData(data, path, route)
       .then(result => {
         if (result.length === 0) {
           matches.textContent = 'available'
+          matches.style.color = '#009f5a'
         }
         else {
           matches.textContent = 'unavailable'
+          matches.style.color = '#e26454'
+
         }
       })
   }
@@ -82,24 +86,27 @@ const Signup = ({ state, dispatch }) => {
 
   return (
     <div className="start">
-      <div>{'Select existing site'}
+      <div id="select">{'Select existing site'}
         <Dropdown fluid selection />
       </div>
       <div id="action-container">
         <p id="call-action">{'Get started'}</p>
       </div>
-      <div className="name-title">{'Your name'}
-        <Input className="name" required={required}></Input>
+      <div>
+        <Input className="name" id="name" required={required}></Input>
+        <div className="title">{'Your name'}</div>
       </div>
-      <div className="org-title">{'Organization name'}
-        <Input keyboardType='numeric' className="org" required={required} keydown={disableSpace} onChange={handlePress}/>
+      <div>
+        <Input keyboardType='numeric' className="org" id="org" required={required} keydown={disableSpace} onChange={handlePress}/>
+        <div className="title">{'Organization name'}</div>
       </div>
       <div className="org-display">
         <div>{`http://www.${state.org}.cobalt.com`}
-        </div>
+        <div id="website" >{'Your website url'}</div>
         <span id="matches"></span>
+        </div>
       </div>
-      <Button className="go" onClick={handleClick}>{'Let\'s go!'}</Button>
+      <Button id="go" onClick={handleClick}>{'Let\'s go!'}</Button>
     </div>
   )
 }
