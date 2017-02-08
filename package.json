@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
+    "tdd": "mocha -w -R nyan",
     "transform": "babel public/main.js --watch --out-file public/bundle.js",
     "bundle": "browserify -t babelify public/main.js -o public/bundle.js",
     "bundle:watch": "watchify -v -t babelify public/main.js -o public/bundle.js",
