@@ -26,7 +26,7 @@ app.post('/org', (req, res) => {
     .returning()
   query
     .then(match => res.json(match))
-    .catch(error => res.send('Sorry, couldn\'t check that', error))
+    .catch(error => res.status(404).send(error))
 })
 
 app.post('/site', (req, res) => {
@@ -37,7 +37,7 @@ app.post('/site', (req, res) => {
     })
   query
     .then(result => res.send(result))
-    .catch(err => res.send("Sorry we couldn't insert that", err))
+    .catch(error => res.status(404).send(error))
 })
 
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}`) })
