@@ -4,7 +4,7 @@ const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 const { CirclePicker, clientWidth } = require('react-color')
 
-const StepThree = () => {
+const StepThree = ({ site_color_primary, site_color_secondary, addPrimary, addSecondary }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -27,19 +27,26 @@ const StepThree = () => {
         <Step title='Photos' description='Enter profile & background photos' />
       </Step.Group>
 
-      <ColorSetup />
+      <ColorSetup
+        site_color_primary={site_color_primary}
+        site_color_secondary={site_color_secondary}
+        addPrimary={addPrimary}
+        addSecondary={addSecondary}
+      />
     </div>
   )
 }
 
-const ColorSetup = () => {
+const ColorSetup = ({ site_color_primary, site_color_secondary, addPrimary, addSecondary }) => {
 
-  const handlePrimary = (color) => {
-    site_color_primary: color.hex
+  const handlePrimary = (color, event) => {
+    const value = event.target.title
+    addPrimary(value)
   }
 
-  const handleSecondary = (color) => {
-    site_color_secondary: color.hex
+  const handleSecondary = (color, event) => {
+    const value = event.target.title
+    addSecondary(value)
   }
 
   return (
