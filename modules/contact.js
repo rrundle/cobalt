@@ -105,18 +105,20 @@ const Next = () => {
   )
 }
 
-const Back = () => (
-  <div id="back">
-    <Button animated>
-      <IndexLink to='/' activeClassName="active">
-        <Button.Content visible>Back</Button.Content>
-        <Button.Content hidden>
-          <Icon name='left arrow' />
-        </Button.Content>
-      </IndexLink>
-    </Button>
-  </div>
-)
+const Back = () => {
+  return (
+    <div id="back">
+      <Button animated>
+        <IndexLink to='/' activeClassName="active">
+          <Button.Content visible>Back</Button.Content>
+          <Button.Content hidden>
+            <Icon name='left arrow' />
+          </Button.Content>
+        </IndexLink>
+      </Button>
+    </div>
+  )
+}
 
 const mapStateToProps = state => {
   return {

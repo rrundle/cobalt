@@ -2,12 +2,10 @@
 const { Form, Input, Button, Dropdown, Icon } = require('semantic-ui-react')
 const { Provider } = require('react-redux')
 const { combineReducers } = require('redux')
-const { Router, Route, hashHistory, IndexLink, browserHistory, applyRouterMiddleware } = require('react-router')
+const { Router, Route, hashHistory, IndexLink, browserHistory } = require('react-router')
 const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
-const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
-const { useTransitions, withTransition } = require('react-router-transitions')
 
 const initialState = {
   name: '',
@@ -198,10 +196,10 @@ store.subscribe(draw)
 
 const routes = (
   <Route>
-    <Route path='/' component={withTransition(Signup)} />
-    <Route path='/contact' component={withTransition(StepTwo)} />
-    <Route path='/colors' component={withTransition(StepThree)} />
-    <Route path='/photos' component={withTransition(StepFour)} />
+    <Route path='/' component={Signup} />
+    <Route path='/contact' component={StepTwo} />
+    <Route path='/colors' component={StepThree} />
+    <Route path='/photos' component={StepFour} />
   </Route>
 )
 
@@ -209,16 +207,7 @@ const redraw = () => {
   const { dispatch } = store
    ReactDOM.render(
     <Provider store={store} dispatch={dispatch}>
-      <Router routes={routes} history={browserHistory} store={store} dispatch={dispatch}
-        render={applyRouterMiddleware(useTransitions({
-          TransitionGroup: ReactCSSTransitionGroup,
-          defaultTransition: {
-            transitionName: 'fade',
-            transitionEnterTimeout: 500,
-            transitionLeaveTimeout: 300
-          }
-        }))}
-      />
+      <Router routes={routes} history={browserHistory} store={store} dispatch={dispatch} />
     </Provider>,
      document.querySelector('.start')
    )
