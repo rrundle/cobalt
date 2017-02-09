@@ -68,29 +68,32 @@ const Contact = ({ reducer, org_address, org_city, org_state, org_zipcode, org_p
   }
   return (
     <div>
-      <div>{'Enter the contact info for your organization'}</div>
+      <div id="org-enter">{'Enter the contact info for your organization'}</div>
       <Popup
-        trigger={<Button icon='question' />}
+        trigger={<Button id="popup-button" icon='info circle' />}
         content="This displays live on your website."
+        id="popop"
         basic
       />
-      <div>{'Your organization\'s address'}</div>
-      <Input placeholder="address" value={org_address} onChange={handleAddress} id="org-address" />
-      <Input placeholder="city" value={org_city} onChange={handleCity} id="org-city" />
-      <Input placeholder="state" value={org_state} onChange={handleState} id="org-state" />
-      <Input placeholder="zipcode" value={org_zipcode} onChange={handleZipcode} id="org-zipcode" />
-      <div>{'Your organization\'s phone number'}</div>
-      <Input keyboardType='numeric' value={org_phone} onChange={handlePhone} id="org-phone" />
-      <Back></Back>
-      <Next></Next>
+      <div className="org-title">{'Your organization\'s address'}</div>
+      <Input className="contact" placeholder="address" value={org_address} onChange={handleAddress} id="org-address" />
+      <Input className="contact" placeholder="city" value={org_city} onChange={handleCity} id="org-city" />
+      <Input className="contact" placeholder="state" value={org_state} onChange={handleState} id="org-state" />
+      <Input className="contact" placeholder="zipcode" value={org_zipcode} onChange={handleZipcode} id="org-zipcode" />
+      <div className="org-title">{'Your organization\'s phone number'}</div>
+      <Input keyboardType='numeric' placeholder="(555) 555-555" value={org_phone} onChange={handlePhone} id="org-phone" />
+      <div id="butons">
+        <Back></Back>
+        <Next></Next>
+      </div>
     </div>
   )
 }
 
 const Next = () => {
   return (
-  <div>
-    <Button animated id="contact-next">
+  <div id="next">
+    <Button animated>
       <IndexLink to='/colors' activeClassName="active">
         <Button.Content visible>Next</Button.Content>
         <Button.Content hidden>
@@ -103,7 +106,7 @@ const Next = () => {
 }
 
 const Back = () => (
-  <div>
+  <div id="back">
     <Button animated>
       <IndexLink to='/' activeClassName="active">
         <Button.Content visible>Back</Button.Content>

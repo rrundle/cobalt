@@ -118,9 +118,64 @@ button:focus {
 #go {
   width: 25%;
   margin-top: 20px;
+  background-color: #0b68ee;
 }
 
 #go:hover {
   background-color: #0b68ee;
   color: #fff;
+}
+
+.contact {
+  margin: 30px 15px;
+  width: 20%;
+}
+
+#popup-button {
+  background-color: #fff;
+  font-size: 20px;
+  color: #094aa9;
+}
+
+#popop {
+  display: inline-block;
+}
+
+#org-enter {
+  display: inline-block;
+  margin: 20px auto;
+  font-size: 1.5em;
+  font-weight: bold;
+  font-variant-caps: all-petite-caps;
+}
+
+.org-title {
+  margin-bottom: 20px;
+  font-weight: 200;
+}
+
+#buttons {
+  display: inline-block;
+}
+
+#next {
+  width: 150px;
+  margin: 30px 75px;
+  position: absolute;
+  right: 100px;
+}
+
+#back {
+  width: 150px;
+  margin: 30px 75px;
+  position: absolute;
+  left: 100px;
+}
+
+#next > button > a > div {
+  color: #094aa9;
+}
+
+#back > button > a > div {
+  color: #094aa9;
 }

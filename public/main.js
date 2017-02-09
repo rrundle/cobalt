@@ -147,7 +147,6 @@ const Signup = () => {
         else {
           matches.textContent = 'unavailable'
           matches.style.color = '#e26454'
-
         }
       })
   }
