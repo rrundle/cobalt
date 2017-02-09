@@ -1,0 +1,39 @@
+{
+  "name": "cobalt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transform": "babel public/main.js --watch --out-file public/bundle.js",
+    "bundle": "browserify -t babelify public/main.js -o public/bundle.js",
+    "bundle:watch": "watchify -v -t babelify public/main.js -o public/bundle.js",
+    "watch": "nodemon index.js",
+    "migrate:make": "knex migrate:make",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-plugin-transform-react-jsx": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.0.0",
+    "nodemon": "^1.11.0",
+    "watchify": "^3.9.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "knex": "^0.12.6",
+    "pg": "^6.1.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "semantic-ui-react": "^0.64.7"
+  }
+}

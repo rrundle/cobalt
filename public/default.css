@@ -1,0 +1,126 @@
+body {
+  font-family: Work Sans;
+  color: #31373d;
+}
+
+#company {
+  width: 101px;
+  margin: 20px auto;
+}
+
+#logo {
+  font-family: Russo One;
+  color: #094aa9;
+  font-size: 2em;
+  text-align: center;
+}
+
+#select {
+  position: absolute;
+  float: right;
+  right: 10px;
+  top: 10px;
+  width: 15%;
+}
+
+ h1 {
+   text-align: center;
+   margin: 30px auto 5px;;
+ }
+
+ p {
+   text-align: center;
+   margin: 0px auto 30px;;
+ }
+
+.start {
+  width: 80%;
+  margin: auto;
+}
+
+.start > div {
+  text-align: center;
+}
+
+#call-action {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+#name {
+  width: 70%;
+  font-weight: 100;
+  font-family: Work Sans;
+}
+
+#org {
+  width: 70%;
+  font-weight: 100;
+  font-family: Work Sans;
+}
+#name > input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 25px auto 3px;
+  height: 40px;
+  font-size: 2em;
+  text-align: center;
+  border-bottom: 1px solid #094aa9;
+  border-radius: 0;
+}
+
+#org > input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 25px auto 3px;
+  height: 40px;
+  font-size: 2em;
+  text-align: center;
+  border-bottom: 1px solid #094aa9;
+  border-radius: 0;
+}
+
+.title {
+  margin-top: 5px;
+  margin-bottom: 25px;
+  font-size: 1.5em
+}
+
+.org-display {
+  color: #094aa9;
+  font-size: 2em;
+  margin: 60px auto;
+}
+
+#website {
+  font-size: .5em;
+  color: #31373d;
+  margin-top: 5px;
+  font-weight: 100;
+}
+
+#matches {
+  font-size: .75em;
+  font-weight: 100;
+}
+
+#go {
+  width: 25%;
+  margin-top: 20px;
+}
+
+#go:hover {
+  background-color: #0b68ee;
+  color: #fff;
+}
