@@ -1,8 +1,10 @@
 /* global React, ReactDOM, Redux */
-const { Step, Button, Icon, Input, Popup, Grid } = require('semantic-ui-react')
+const { Form, Step, Button, Icon, Input, Popup, Grid } = require('semantic-ui-react')
 const { IndexLink } = require('react-router')
+const { connect } = require('react-redux')
 
-const StepTwo = () => {
+const StepTwo = ({ reducer, org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
+
   return (
     <div>
       <Step.Group ordered>
@@ -20,13 +22,50 @@ const StepTwo = () => {
         <Step title='Photos' description='Enter profile & background photos' />
       </Step.Group>
 
-      <Form></Form>
+      <Contact
+        org_address={org_address}
+        org_city={org_city}
+        org_state={org_state}
+        org_zipcode={org_zipcode}
+        org_phone={org_phone}
+        addAddress={addAddress}
+        addCity={addCity}
+        addState={addState}
+        addZipcode={addZipcode}
+        addPhone={addPhone}
+      >
+      </Contact>
 
     </div>
   )
 }
 
-const Form = () => {
+const Contact = ({ reducer, org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
+
+  const handleAddress = event => {
+    const value = event.target.value
+    addAddress(value)
+  }
+
+  const handleCity = event => {
+    const value = event.target.value
+    addCity(value)
+  }
+
+  const handleState = event => {
+    const value = event.target.value
+    addState(value)
+  }
+
+  const handleZipcode = event => {
+    const value = event.target.value
+    addZipcode(value)
+  }
+
+  const handlePhone = event => {
+    const value = event.target.value
+    addPhone(value)
+  }
   return (
     <div>
       <div>{'Enter the contact info for your organization'}</div>
@@ -36,18 +75,22 @@ const Form = () => {
         basic
       />
       <div>{'Your organization\'s address'}</div>
-      <Input defaultText="Optional" id="org-address" />
+      <Input placeholder="address" value={org_address} onChange={handleAddress} id="org-address" />
+      <Input placeholder="city" value={org_city} onChange={handleCity} id="org-city" />
+      <Input placeholder="state" value={org_state} onChange={handleState} id="org-state" />
+      <Input placeholder="zipcode" value={org_zipcode} onChange={handleZipcode} id="org-zipcode" />
       <div>{'Your organization\'s phone number'}</div>
-      <Input defaultText="Optional" keyboardType='numeric' id="org-phone" />
+      <Input keyboardType='numeric' value={org_phone} onChange={handlePhone} id="org-phone" />
       <Back></Back>
       <Next></Next>
     </div>
   )
 }
 
-const Next = () => (
+const Next = () => {
+  return (
   <div>
-    <Button animated>
+    <Button animated id="contact-next">
       <IndexLink to='/colors' activeClassName="active">
         <Button.Content visible>Next</Button.Content>
         <Button.Content hidden>
@@ -56,7 +99,8 @@ const Next = () => (
       </IndexLink>
     </Button>
   </div>
-)
+  )
+}
 
 const Back = () => (
   <div>
@@ -71,5 +115,24 @@ const Back = () => (
   </div>
 )
 
+const mapStateToProps = state => {
+  return {
+    org_address: state.org_address,
+    org_city: state.org_city,
+    org_state: state.org_state,
+    org_zipcode: state.org_zipcode,
+    org_phone: state.org_phone
+  }
+}
 
-module.exports = StepTwo
+const mapDispatchToProps = dispatch => {
+  return {
+    addAddress: (value) => dispatch({type:'ADDRESS', value}),
+    addCity: (value) => dispatch({type: 'CITY', value}),
+    addState: (value) => dispatch({type: 'STATE', value}),
+    addZipcode: (value) => dispatch({type: 'ZIPCODE', value}),
+    addPhone: (value) => dispatch({type: 'PHONE', value})
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(StepTwo)
