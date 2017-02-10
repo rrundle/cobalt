@@ -32,8 +32,15 @@ app.post('/org', (req, res) => {
 app.post('/site', (req, res) => {
   const query = knex('sites')
     .insert({
-      name: req.body.nameValue,
-      site_url: req.body.urlValue
+      site_url: req.body.site_url,
+      name: req.body.name,
+      org_name: req.body.org_name,
+      org_address: req.body.org_address,
+      org_phone: req.body.org_phone,
+      site_color_primary: req.body.site_color_primary,
+      site_color_secondary: req.body.site_color_secondary,
+      site_photo: req.body.site_photo,
+      site_background_photo: req.body.site_background_photo
     })
   query
     .then(result => res.send(result))

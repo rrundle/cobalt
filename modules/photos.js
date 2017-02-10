@@ -5,7 +5,7 @@ const { connect } = require('react-redux')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 
-const StepFour = ({ reducer, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const StepFour = ({ reducer, site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -34,6 +34,16 @@ const StepFour = ({ reducer, site_photo, site_background_photo, addPhoto, addBac
       </Step.Group>
 
       <Uploader
+        site_url={site_url}
+        name={name}
+        org_name={org_name}
+        org_address={org_address}
+        org_city={org_city}
+        org_state={org_state}
+        org_zipcode={org_zipcode}
+        org_phone={org_phone}
+        site_color_primary={site_color_primary}
+        site_color_secondary={site_color_secondary}
         site_photo={site_photo}
         site_background_photo={site_background_photo}
         addPhoto={addPhoto}
@@ -41,12 +51,27 @@ const StepFour = ({ reducer, site_photo, site_background_photo, addPhoto, addBac
       />
 
       <Back />
-      <Finish />
+      <Finish
+        site_url={site_url}
+        name={name}
+        org_name={org_name}
+        org_address={org_address}
+        org_city={org_city}
+        org_state={org_state}
+        org_zipcode={org_zipcode}
+        org_phone={org_phone}
+        site_color_primary={site_color_primary}
+        site_color_secondary={site_color_secondary}
+        site_photo={site_photo}
+        site_background_photo={site_background_photo}
+        addPhoto={addPhoto}
+        addBackground={addBackground}
+      />
     </div>
   )
 }
 
-const Uploader = ({ reducer, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const Uploader = ({ reducer, site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
 
   const CLOUDINARY_UPLOAD_PRESET = 'l25kfhpr'
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ryanrundle/upload'
@@ -116,11 +141,44 @@ const Uploader = ({ reducer, site_photo, site_background_photo, addPhoto, addBac
   )
 }
 
-const Finish = () => {
+const Finish = ({ reducer, site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
+  console.log(site_url)
+  const completeSignup = () => {
+    const data = {
+      site_url: site_url,
+      name: name,
+      org_name: org_name,
+      org_address: org_address,
+      org_city={org_city},
+      org_state={org_state},
+      org_zipcode={org_zipcode},
+      org_phone: org_phone,
+      site_color_primary: site_color_primary,
+      site_color_secondary: site_color_secondary,
+      site_photo: site_photo,
+      site_background_photo: site_background_photo
+    }
+    const route = 'POST'
+    const path = '/site'
+    sendData(data, path, route)
+      .then(result => console.log(result))
+    }
+
+  function sendData(data, path, route) {
+    const options = {
+      method: route,
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }
+    const result = fetch(path, options)
+      .then(res => res.json())
+    return result
+  }
+
   return (
   <div id="finish">
     <IndexLink activeClassName="active">
-      <Button animated>
+      <Button onClick={completeSignup} animated>
         <Button.Content visible>Finish</Button.Content>
         <Button.Content hidden>
           <Icon name='right arrow' />
@@ -148,6 +206,13 @@ const Back = () => {
 
 const mapStateToProps = state => {
   return {
+    site_url: state.site_url,
+    name: state.name,
+    org_name: state.org_name,
+    org_address: state.org_address,
+    org_phone: state.org_phone,
+    site_color_primary: state.site_color_primary,
+    site_color_secondary: state.site_color_secondary,
     site_photo: state.site_photo,
     site_background_photo: state.site_background_photo
   }
