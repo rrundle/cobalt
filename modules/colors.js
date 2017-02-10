@@ -56,15 +56,15 @@ const ColorSetup = ({ reducer, addPrimary, addSecondary }) => {
 
   return (
     <div>
-      <div>{'Choose your site\'s color scheme.'}</div>
-      <div>{'Primary site color'}</div>
+      <div id="color-title">{'Choose your site\'s color scheme'}</div>
+      <div id="primary-title">{'Primary site color'}</div>
       <div>
-        <CirclePicker onChange={handlePrimary}/>
+        <CirclePicker id="circle-group-1" onChange={handlePrimary}/>
         <div className="circle" id="circle-1"></div>
       </div>
-      <div>{'Secondary site color'}</div>
+      <div id="secondary-title">{'Secondary site color'}</div>
       <div>
-        <CirclePicker onChange={handleSecondary}/>
+        <CirclePicker id="circle-group-2" onChange={handleSecondary}/>
         <div className="circle" id="circle-2"></div>
       </div>
       <Back />

@@ -75,40 +75,6 @@ const reducer = (state, action) => {
   }
 }
 
-/*
-const contact = (state, action) => {
-  switch(action.type) {
-    case 'ADDRESS':
-      return Object.assign({}, state, {
-        org_address: action.value
-      })
-
-    case 'CITY':
-      return Object.assign({}, state, {
-        org_city: action.value
-      })
-
-    case 'STATE':
-	    return Object.assign({}, state, {
-		    org_state: action.value
-	    })
-
-    case "ZIPCODE":
-      return Object.assign({}, state, {
-        org_zipcode: action.value
-      })
-
-    case "PHONE":
-      return Object.assign({}, state, {
-        org_phone: action.value
-      })
-
-    default:
-      return state
-  }
-}
-*/
-
 function sendData(data, path, route) {
   const options = {
     method: route,

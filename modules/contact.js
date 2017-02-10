@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Form, Step, Button, Icon, Input, Popup, Grid } = require('semantic-ui-react')
+const { Form, Step, Button, Icon, Input, Popup, Grid, Segment } = require('semantic-ui-react')
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 
@@ -80,7 +80,7 @@ const Contact = ({ reducer, org_address, org_city, org_state, org_zipcode, org_p
       <Input className="contact" placeholder="city" value={org_city} onChange={handleCity} id="org-city" />
       <Input className="contact" placeholder="state" value={org_state} onChange={handleState} id="org-state" />
       <Input className="contact" placeholder="zipcode" value={org_zipcode} onChange={handleZipcode} id="org-zipcode" />
-      <div className="org-title">{'Your organization\'s phone number'}</div>
+      <div raised className="org-title">{'Your organization\'s phone number'}</div>
       <Input keyboardType='numeric' placeholder="(555) 555-555" value={org_phone} onChange={handlePhone} id="org-phone" />
       <div id="butons">
         <Back></Back>
