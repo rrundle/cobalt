@@ -4,7 +4,7 @@ const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 const { CirclePicker, clientWidth } = require('react-color')
 
-const StepThree = ({ reducer, addPrimary, addSecondary }) => {
+const StepThree = ({ addPrimary, addSecondary }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -36,7 +36,7 @@ const StepThree = ({ reducer, addPrimary, addSecondary }) => {
   )
 }
 
-const ColorSetup = ({ reducer, addPrimary, addSecondary }) => {
+const ColorSetup = ({ addPrimary, addSecondary }) => {
 
   const handlePrimary = (color, event) => {
     const value = event.target.title
