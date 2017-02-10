@@ -32,15 +32,4 @@ const StepFour = () => {
   )
 }
 
-/*
-const data = {
-  nameValue: nameValue,
-  urlValue: urlValue
-}
-const route = 'POST'
-const path = '/site'
-sendData(data, path, route)
-  .then(result => console.log(result))
-*/
-
 module.exports = StepFour
