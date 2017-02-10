@@ -40,6 +40,8 @@ const StepFour = ({ reducer, site_photo, site_background_photo, addPhoto, addBac
         addBackground={addBackground}
       />
 
+      <Back />
+      <Finish />
     </div>
   )
 }
@@ -110,6 +112,36 @@ const Uploader = ({ reducer, site_photo, site_background_photo, addPhoto, addBac
         onDrop={onBackground}>
         <p>Drop an image or click to select a file to upload.</p>
       </Dropzone>
+    </div>
+  )
+}
+
+const Finish = () => {
+  return (
+  <div id="finish">
+    <IndexLink activeClassName="active">
+      <Button animated>
+        <Button.Content visible>Finish</Button.Content>
+        <Button.Content hidden>
+          <Icon name='right arrow' />
+        </Button.Content>
+      </Button>
+    </IndexLink>
+  </div>
+  )
+}
+
+const Back = () => {
+  return (
+    <div id="back">
+      <IndexLink to='/colors' activeClassName="active">
+        <Button animated>
+          <Button.Content visible>Back</Button.Content>
+          <Button.Content hidden>
+            <Icon name='left arrow' />
+          </Button.Content>
+        </Button>
+      </IndexLink>
     </div>
   )
 }
