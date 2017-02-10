@@ -95,7 +95,7 @@ const Uploader = ({ reducer, site_photo, site_background_photo, addPhoto, addBac
     <div>
       <div>{'Add a profile photo for the organization'}</div>
       <div>{'i.e. a logo'}</div>
-      <Image /*src={site_photo}*/ size='medium' shape='circular' />
+      <Image src={site_photo} size='medium' shape='circular' />
       <Dropzone
         multiple={false}
         accept="image/*"
@@ -103,7 +103,7 @@ const Uploader = ({ reducer, site_photo, site_background_photo, addPhoto, addBac
         <p>Drop an image or click to select a file to upload.</p>
       </Dropzone>
       <div>{'Add a background photo for the organization'}</div>
-      <Image /*src={site_background_photo}*/ size='large' />
+      <Image src={site_background_photo} size='large' />
       <Dropzone
         multiple={false}
         accept="image/*"
