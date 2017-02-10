@@ -93,14 +93,14 @@ const Contact = ({ reducer, org_address, org_city, org_state, org_zipcode, org_p
 const Next = () => {
   return (
   <div id="next">
-    <Button animated>
-      <IndexLink to='/colors' activeClassName="active">
+    <IndexLink to='/colors' activeClassName="active">
+      <Button animated>
         <Button.Content visible>Next</Button.Content>
         <Button.Content hidden>
           <Icon name='right arrow' />
         </Button.Content>
-      </IndexLink>
-    </Button>
+      </Button>
+    </IndexLink>
   </div>
   )
 }
@@ -108,14 +108,14 @@ const Next = () => {
 const Back = () => {
   return (
     <div id="back">
-      <Button animated>
-        <IndexLink to='/' activeClassName="active">
+      <IndexLink to='/' activeClassName="active">
+        <Button animated>
           <Button.Content visible>Back</Button.Content>
           <Button.Content hidden>
             <Icon name='left arrow' />
           </Button.Content>
-        </IndexLink>
-      </Button>
+        </Button>
+      </IndexLink>
     </div>
   )
 }
