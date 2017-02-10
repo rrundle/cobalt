@@ -69,7 +69,7 @@ const Uploader = () => {
     <div>
       <div>{'Add a profile photo for the organization'}</div>
       <div>{'i.e. a logo'}</div>
-      <Image size='medium' shape='circular' />
+      <Image src="uploadedFileCloudinaryUrl" size='medium' shape='circular' />
       <Dropzone
         multiple={false}
         accept="image/*"
@@ -77,7 +77,7 @@ const Uploader = () => {
         <p>Drop an image or click to select a file to upload.</p>
       </Dropzone>
       <div>{'Add a background photo for the organization'}</div>
-      <Image size='large' />
+      <Image src="uploadedFileCloudinaryUrl" size='large' />
       <Dropzone
         multiple={false}
         accept="image/*"
