@@ -4,7 +4,7 @@ const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 const { CirclePicker, clientWidth } = require('react-color')
 
-const StepThree = ({ site_color_primary, site_color_secondary, addPrimary, addSecondary }) => {
+const StepThree = ({ reducer, addPrimary, addSecondary }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -28,25 +28,30 @@ const StepThree = ({ site_color_primary, site_color_secondary, addPrimary, addSe
       </Step.Group>
 
       <ColorSetup
-        site_color_primary={site_color_primary}
-        site_color_secondary={site_color_secondary}
         addPrimary={addPrimary}
         addSecondary={addSecondary}
-      />
+      >
+      </ColorSetup>
     </div>
   )
 }
 
-const ColorSetup = ({ site_color_primary, site_color_secondary, addPrimary, addSecondary }) => {
+const ColorSetup = ({ reducer, addPrimary, addSecondary }) => {
 
   const handlePrimary = (color, event) => {
     const value = event.target.title
     addPrimary(value)
+
+    const circleOne = document.getElementById('circle-1')
+    circleOne.style.background = event.target.title
   }
 
   const handleSecondary = (color, event) => {
     const value = event.target.title
     addSecondary(value)
+
+    const circleTwo = document.getElementById('circle-2')
+    circleTwo.style.background = event.target.title
   }
 
   return (
@@ -55,10 +60,12 @@ const ColorSetup = ({ site_color_primary, site_color_secondary, addPrimary, addS
       <div>{'Primary site color'}</div>
       <div>
         <CirclePicker onChange={handlePrimary}/>
+        <div className="circle" id="circle-1"></div>
       </div>
       <div>{'Secondary site color'}</div>
       <div>
         <CirclePicker onChange={handleSecondary}/>
+        <div className="circle" id="circle-2"></div>
       </div>
     </div>
   )
@@ -78,4 +85,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = connect()(StepThree)
+module.exports = connect(mapStateToProps, mapDispatchToProps)(StepThree)

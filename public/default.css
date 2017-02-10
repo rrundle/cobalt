@@ -179,3 +179,10 @@ button:focus {
 #back > button > a > div {
   color: #094aa9;
 }
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #dededf;
+}

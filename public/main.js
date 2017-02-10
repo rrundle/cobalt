@@ -2,7 +2,7 @@
 const { Form, Input, Button, Dropdown, Icon } = require('semantic-ui-react')
 const { Provider } = require('react-redux')
 const { combineReducers } = require('redux')
-const { Router, Route, hashHistory, IndexLink, browserHistory } = require('react-router')
+const { Router, Route, hashHistory, IndexLink, browserHistory, applyRouterMiddleware } = require('react-router')
 const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
@@ -60,6 +60,15 @@ const reducer = (state, action) => {
         org_phone: action.value
       })
 
+    case "PRIMARY":
+      return Object.assign({}, state, {
+        site_color_primary: action.value
+      })
+
+    case "SECONDARY":
+      return Object.assign({}, state, {
+        site_color_secondary: action.value
+      })
 
     default:
       return state
