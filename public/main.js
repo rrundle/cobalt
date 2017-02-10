@@ -18,8 +18,8 @@ const initialState = {
   org_phone: '',
   site_color_primary: '',
   site_color_secondary: '',
-  site_photo: {},
-  site_background_photo: {}
+  site_photo: '',
+  site_background_photo: ''
 }
 
 const reducer = (state, action) => {
@@ -68,6 +68,16 @@ const reducer = (state, action) => {
     case "SECONDARY":
       return Object.assign({}, state, {
         site_color_secondary: action.value
+      })
+
+    case "PHOTO":
+      return Object.assign({}, state, {
+        site_photo: action.value
+      })
+
+    case "BACKGROUND":
+      return Object.assign({}, state, {
+        site_background_photo: action.value
       })
 
     default:
