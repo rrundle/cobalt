@@ -5,7 +5,7 @@ const { connect } = require('react-redux')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 
-const StepFour = ({ reducer, site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const StepFour = ({ site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -71,7 +71,7 @@ const StepFour = ({ reducer, site_url, name, org_name, org_address, org_city, or
   )
 }
 
-const Uploader = ({ reducer, site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const Uploader = ({ site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
 
   const CLOUDINARY_UPLOAD_PRESET = 'l25kfhpr'
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ryanrundle/upload'
@@ -145,7 +145,7 @@ const Uploader = ({ reducer, site_url, name, org_name, org_address, org_city, or
   )
 }
 
-const Finish = ({ reducer, site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const Finish = ({ site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
 
   const completeSignup = () => {
     const data = {

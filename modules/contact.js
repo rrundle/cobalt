@@ -3,7 +3,7 @@ const { Form, Step, Button, Icon, Input, Popup, Grid, Segment } = require('seman
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 
-const StepTwo = ({ reducer, org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
+const StepTwo = ({ org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
   return (
     <div>
@@ -40,7 +40,7 @@ const StepTwo = ({ reducer, org_address, org_city, org_state, org_zipcode, org_p
   )
 }
 
-const Contact = ({ reducer, org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
+const Contact = ({ org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
   const handleAddress = event => {
     const value = event.target.value
