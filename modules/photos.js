@@ -120,38 +120,42 @@ const Uploader = ({ reducer, site_url, name, org_name, org_address, org_city, or
 
   return (
     <div>
-      <div>{'Add a profile photo for the organization'}</div>
-      <div>{'i.e. a logo'}</div>
-      <Image src={site_photo} size='medium' shape='circular' />
+      <div className="photos-title">{'Add a profile photo for the organization'}</div>
+      <div>{'Please upload a square image - i.e. a logo'}</div>
       <Dropzone
+        className="dropzone"
         multiple={false}
         accept="image/*"
         onDrop={onPhoto}>
-        <p>Drop an image or click to select a file to upload.</p>
+        <p className="dropzone-description">Drop an image or click to select a file to upload.</p>
+        <img className="drop" src={'http://i.imgur.com/jQM2WCi.png'} />
+        <Image className="display" src={site_photo} size='small' shape='circular' />
       </Dropzone>
-      <div>{'Add a background photo for the organization'}</div>
-      <Image src={site_background_photo} size='large' />
+      <div className="photos-title">{'Add a background photo for the organization'}</div>
       <Dropzone
+        className="dropzone"
         multiple={false}
         accept="image/*"
         onDrop={onBackground}>
-        <p>Drop an image or click to select a file to upload.</p>
+        <p className="dropzone-description">Drop an image or click to select a file to upload.</p>
+        <img className="drop" src={'http://i.imgur.com/jQM2WCi.png'} />
+        <Image className="display" src={site_background_photo} size='large' />
       </Dropzone>
     </div>
   )
 }
 
 const Finish = ({ reducer, site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
-  console.log(site_url)
+
   const completeSignup = () => {
     const data = {
       site_url: site_url,
       name: name,
       org_name: org_name,
       org_address: org_address,
-      org_city={org_city},
-      org_state={org_state},
-      org_zipcode={org_zipcode},
+      org_city: {org_city},
+      org_state: {org_state},
+      org_zipcode: {org_zipcode},
       org_phone: org_phone,
       site_color_primary: site_color_primary,
       site_color_secondary: site_color_secondary,
