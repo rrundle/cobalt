@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Form, Step, Button, Icon, Input, Popup, Grid } = require('semantic-ui-react')
+const { Form, Step, Button, Icon, Input, Popup, Grid, Segment } = require('semantic-ui-react')
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 
@@ -80,7 +80,7 @@ const Contact = ({ reducer, org_address, org_city, org_state, org_zipcode, org_p
       <Input className="contact" placeholder="city" value={org_city} onChange={handleCity} id="org-city" />
       <Input className="contact" placeholder="state" value={org_state} onChange={handleState} id="org-state" />
       <Input className="contact" placeholder="zipcode" value={org_zipcode} onChange={handleZipcode} id="org-zipcode" />
-      <div className="org-title">{'Your organization\'s phone number'}</div>
+      <div raised className="org-title">{'Your organization\'s phone number'}</div>
       <Input keyboardType='numeric' placeholder="(555) 555-555" value={org_phone} onChange={handlePhone} id="org-phone" />
       <div id="butons">
         <Back></Back>
@@ -93,30 +93,32 @@ const Contact = ({ reducer, org_address, org_city, org_state, org_zipcode, org_p
 const Next = () => {
   return (
   <div id="next">
-    <Button animated>
-      <IndexLink to='/colors' activeClassName="active">
+    <IndexLink to='/colors' activeClassName="active">
+      <Button animated>
         <Button.Content visible>Next</Button.Content>
         <Button.Content hidden>
           <Icon name='right arrow' />
         </Button.Content>
-      </IndexLink>
-    </Button>
+      </Button>
+    </IndexLink>
   </div>
   )
 }
 
-const Back = () => (
-  <div id="back">
-    <Button animated>
+const Back = () => {
+  return (
+    <div id="back">
       <IndexLink to='/' activeClassName="active">
-        <Button.Content visible>Back</Button.Content>
-        <Button.Content hidden>
-          <Icon name='left arrow' />
-        </Button.Content>
+        <Button animated>
+          <Button.Content visible>Back</Button.Content>
+          <Button.Content hidden>
+            <Icon name='left arrow' />
+          </Button.Content>
+        </Button>
       </IndexLink>
-    </Button>
-  </div>
-)
+    </div>
+  )
+}
 
 const mapStateToProps = state => {
   return {

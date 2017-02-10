@@ -179,3 +179,41 @@ button:focus {
 #back > button > a > div {
   color: #094aa9;
 }
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #dededf;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  position: absolute;
+  top: 255px;
+  left: 57%;
+}
+
+#circle-2 {
+  left: 57%;
+  top: 435px;
+}
+
+#color-title {
+  font-variant-caps: all-petite-caps;-caps;
+  margin: 20px auto;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.circle-picker {
+  z-index: 1;
+  margin-left: 30%;
+  display: inline-block;
+}
+
+#primary-title {
+  margin: 25px auto;
+}
+
+#secondary-title {
+  margin: 25px auto;
+}
