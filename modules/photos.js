@@ -4,8 +4,9 @@ const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
+const { Back, Next } = require('./buttons.js')
 
-const StepFour = ({ site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const StepFour = ({ stateProps, addPhoto, addBackground }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -34,36 +35,14 @@ const StepFour = ({ site_url, name, org_name, org_address, org_city, org_state, 
       </Step.Group>
 
       <Uploader
-        site_url={site_url}
-        name={name}
-        org_name={org_name}
-        org_address={org_address}
-        org_city={org_city}
-        org_state={org_state}
-        org_zipcode={org_zipcode}
-        org_phone={org_phone}
-        site_color_primary={site_color_primary}
-        site_color_secondary={site_color_secondary}
-        site_photo={site_photo}
-        site_background_photo={site_background_photo}
+        stateProps={stateProps}
         addPhoto={addPhoto}
         addBackground={addBackground}
       />
 
-      <Back />
+      <Back link={'/colors'}/>
       <Finish
-        site_url={site_url}
-        name={name}
-        org_name={org_name}
-        org_address={org_address}
-        org_city={org_city}
-        org_state={org_state}
-        org_zipcode={org_zipcode}
-        org_phone={org_phone}
-        site_color_primary={site_color_primary}
-        site_color_secondary={site_color_secondary}
-        site_photo={site_photo}
-        site_background_photo={site_background_photo}
+        stateProps={stateProps}
         addPhoto={addPhoto}
         addBackground={addBackground}
       />
@@ -71,7 +50,7 @@ const StepFour = ({ site_url, name, org_name, org_address, org_city, org_state, 
   )
 }
 
-const Uploader = ({ site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const Uploader = ({ stateProps, addPhoto, addBackground }) => {
 
   const CLOUDINARY_UPLOAD_PRESET = 'l25kfhpr'
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ryanrundle/upload'
@@ -129,7 +108,7 @@ const Uploader = ({ site_url, name, org_name, org_address, org_city, org_state, 
         onDrop={onPhoto}>
         <p className="dropzone-description">Drop an image or click to select a file to upload.</p>
         <img className="drop" src={'http://i.imgur.com/jQM2WCi.png'} />
-        <Image className="display" src={site_photo} size='small' shape='circular' />
+        <Image className="display" src={stateProps.ite_photo} size='small' shape='circular' />
       </Dropzone>
       <div className="photos-title">{'Add a background photo for the organization'}</div>
       <Dropzone
@@ -139,28 +118,28 @@ const Uploader = ({ site_url, name, org_name, org_address, org_city, org_state, 
         onDrop={onBackground}>
         <p className="dropzone-description">Drop an image or click to select a file to upload.</p>
         <img className="drop" src={'http://i.imgur.com/jQM2WCi.png'} />
-        <Image className="display" src={site_background_photo} size='large' />
+        <Image className="display" src={stateProps.site_background_photo} size='large' />
       </Dropzone>
     </div>
   )
 }
 
-const Finish = ({ site_url, name, org_name, org_address, org_city, org_state, org_zipcode, org_phone, site_color_primary, site_color_secondary, site_photo, site_background_photo, addPhoto, addBackground }) => {
+const Finish = ({ stateProps, addPhoto, addBackground }) => {
 
   const completeSignup = () => {
     const data = {
-      site_url: site_url,
-      name: name,
-      org_name: org_name,
-      org_address: org_address,
-      org_city: {org_city},
-      org_state: {org_state},
-      org_zipcode: {org_zipcode},
-      org_phone: org_phone,
-      site_color_primary: site_color_primary,
-      site_color_secondary: site_color_secondary,
-      site_photo: site_photo,
-      site_background_photo: site_background_photo
+      site_url: stateProps.site_url,
+      name: stateProps.name,
+      org_name: stateProps.org_name,
+      org_address: stateProps.org_address,
+      org_city: stateProps.org_city,
+      org_state: stateProps.org_state,
+      org_zipcode: stateProps.org_zipcode,
+      org_phone: stateProps.org_phone,
+      site_color_primary: stateProps.site_color_primary,
+      site_color_secondary: stateProps.site_color_secondary,
+      site_photo: stateProps.site_photo,
+      site_background_photo: stateProps.site_background_photo
     }
     const route = 'POST'
     const path = '/site'
@@ -193,32 +172,19 @@ const Finish = ({ site_url, name, org_name, org_address, org_city, org_state, or
   )
 }
 
-const Back = () => {
-  return (
-    <div id="back">
-      <IndexLink to='/colors' activeClassName="active">
-        <Button animated>
-          <Button.Content visible>Back</Button.Content>
-          <Button.Content hidden>
-            <Icon name='left arrow' />
-          </Button.Content>
-        </Button>
-      </IndexLink>
-    </div>
-  )
-}
-
 const mapStateToProps = state => {
   return {
-    site_url: state.site_url,
-    name: state.name,
-    org_name: state.org_name,
-    org_address: state.org_address,
-    org_phone: state.org_phone,
-    site_color_primary: state.site_color_primary,
-    site_color_secondary: state.site_color_secondary,
-    site_photo: state.site_photo,
-    site_background_photo: state.site_background_photo
+    stateProps: {
+      site_url: state.site_url,
+      name: state.name,
+      org_name: state.org_name,
+      org_address: state.org_address,
+      org_phone: state.org_phone,
+      site_color_primary: state.site_color_primary,
+      site_color_secondary: state.site_color_secondary,
+      site_photo: state.site_photo,
+      site_background_photo: state.site_background_photo
+    }
   }
 }
 

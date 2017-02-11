@@ -1,9 +1,9 @@
 /* global React, ReactDOM, Redux */
 const { Form, Step, Button, Icon, Input, Popup, Grid, Segment } = require('semantic-ui-react')
-const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
+const { Back, Next } = require('./buttons.js')
 
-const StepTwo = ({ org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
+const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
   return (
     <div>
@@ -23,11 +23,7 @@ const StepTwo = ({ org_address, org_city, org_state, org_zipcode, org_phone, add
       </Step.Group>
 
       <Contact
-        org_address={org_address}
-        org_city={org_city}
-        org_state={org_state}
-        org_zipcode={org_zipcode}
-        org_phone={org_phone}
+        stateProps={stateProps}
         addAddress={addAddress}
         addCity={addCity}
         addState={addState}
@@ -40,7 +36,7 @@ const StepTwo = ({ org_address, org_city, org_state, org_zipcode, org_phone, add
   )
 }
 
-const Contact = ({ org_address, org_city, org_state, org_zipcode, org_phone, addAddress, addCity, addState, addZipcode, addPhone }) => {
+const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
   const handleAddress = event => {
     const value = event.target.value
@@ -76,57 +72,29 @@ const Contact = ({ org_address, org_city, org_state, org_zipcode, org_phone, add
         basic
       />
       <div className="org-title">{'Your organization\'s address'}</div>
-      <Input className="contact" placeholder="address" value={org_address} onChange={handleAddress} id="org-address" />
-      <Input className="contact" placeholder="city" value={org_city} onChange={handleCity} id="org-city" />
-      <Input className="contact" placeholder="state" value={org_state} onChange={handleState} id="org-state" />
-      <Input className="contact" placeholder="zipcode" value={org_zipcode} onChange={handleZipcode} id="org-zipcode" />
+      <Input className="contact" placeholder="address" value={stateProps.org_address} onChange={handleAddress} id="org-address" />
+      <Input className="contact" placeholder="city" value={stateProps.org_city} onChange={handleCity} id="org-city" />
+      <Input className="contact" placeholder="state" value={stateProps.org_state} onChange={handleState} id="org-state" />
+      <Input className="contact" placeholder="zipcode" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" />
       <div raised className="org-title">{'Your organization\'s phone number'}</div>
-      <Input keyboardType='numeric' placeholder="(555) 555-555" value={org_phone} onChange={handlePhone} id="org-phone" />
+      <Input keyboardType='numeric' placeholder="(555) 555-555" value={stateProps.org_phone} onChange={handlePhone} id="org-phone" />
       <div id="butons">
-        <Back></Back>
-        <Next></Next>
+        <Back link={'/'}></Back>
+        <Next link={'/colors'}></Next>
       </div>
-    </div>
-  )
-}
-
-const Next = () => {
-  return (
-  <div id="next">
-    <IndexLink to='/colors' activeClassName="active">
-      <Button animated>
-        <Button.Content visible>Next</Button.Content>
-        <Button.Content hidden>
-          <Icon name='right arrow' />
-        </Button.Content>
-      </Button>
-    </IndexLink>
-  </div>
-  )
-}
-
-const Back = () => {
-  return (
-    <div id="back">
-      <IndexLink to='/' activeClassName="active">
-        <Button animated>
-          <Button.Content visible>Back</Button.Content>
-          <Button.Content hidden>
-            <Icon name='left arrow' />
-          </Button.Content>
-        </Button>
-      </IndexLink>
     </div>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    org_address: state.org_address,
-    org_city: state.org_city,
-    org_state: state.org_state,
-    org_zipcode: state.org_zipcode,
-    org_phone: state.org_phone
+    stateProps: {
+      org_address: state.org_address,
+      org_city: state.org_city,
+      org_state: state.org_state,
+      org_zipcode: state.org_zipcode,
+      org_phone: state.org_phone
+    }
   }
 }
 

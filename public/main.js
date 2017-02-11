@@ -24,10 +24,17 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch(action.type) {
+    /*
+    case 'CONTACT_FORM_CHANGED':
+      return Object.assign({}, state, {
+        [action.field]: action.value
+      })
+    */
+
     case 'ORG':
       return Object.assign({}, state, {
         org_name: action.value,
-        site_url: `http://www.${state.org_name.toLowerCase()}.cobalt.com`
+        site_url: `http://www.${state.org_name.toLowerCase()}.cobaltcms.com`
       })
 
     case 'NAME':
@@ -156,7 +163,7 @@ const Signup = () => {
         <Form.Input label="" name="org" value={state.org_name} placeholder="Organization" className="org" id="org" required={required} keydown={disableSpace} onChange={handleOrg} />
         <div className="title">{'Organization name'}</div>
         <div className="org-display">
-          <div>{`http://www.${state.org_name.toLowerCase()}.cobalt.com`}
+          <div>{`http://www.${state.org_name.toLowerCase()}.cobaltcms.com`}
             <div id="website" >{'Your website url'}</div>
             <span id="matches"></span>
           </div>
