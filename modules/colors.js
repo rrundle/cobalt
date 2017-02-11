@@ -3,8 +3,9 @@ const { Step, Button, Icon, Checkbox, Segment } = require('semantic-ui-react')
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 const { CirclePicker, clientWidth } = require('react-color')
+const { Back, Next } = require('./buttons.js')
 
-const StepThree = ({ reducer, addPrimary, addSecondary }) => {
+const StepThree = ({ addPrimary, addSecondary }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -36,7 +37,7 @@ const StepThree = ({ reducer, addPrimary, addSecondary }) => {
   )
 }
 
-const ColorSetup = ({ reducer, addPrimary, addSecondary }) => {
+const ColorSetup = ({ addPrimary, addSecondary }) => {
 
   const handlePrimary = (color, event) => {
     const value = event.target.title
@@ -67,38 +68,8 @@ const ColorSetup = ({ reducer, addPrimary, addSecondary }) => {
         <CirclePicker id="circle-group-2" onChange={handleSecondary}/>
         <div className="circle" id="circle-2"></div>
       </div>
-      <Back />
-      <Next />
-    </div>
-  )
-}
-
-const Next = () => {
-  return (
-  <div id="next">
-    <IndexLink to='/photos' activeClassName="active">
-      <Button animated>
-        <Button.Content visible>Next</Button.Content>
-        <Button.Content hidden>
-          <Icon name='right arrow' />
-        </Button.Content>
-      </Button>
-    </IndexLink>
-  </div>
-  )
-}
-
-const Back = () => {
-  return (
-    <div id="back">
-      <IndexLink to='/contact' activeClassName="active">
-        <Button animated>
-          <Button.Content visible>Back</Button.Content>
-          <Button.Content hidden>
-            <Icon name='left arrow' />
-          </Button.Content>
-        </Button>
-      </IndexLink>
+      <Back link={'/contact'}/>
+      <Next link={'/photos'}/>
     </div>
   )
 }

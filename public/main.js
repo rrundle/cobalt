@@ -18,16 +18,23 @@ const initialState = {
   org_phone: '',
   site_color_primary: '',
   site_color_secondary: '',
-  site_photo: {},
-  site_background_photo: {}
+  site_photo: '',
+  site_background_photo: ''
 }
 
 const reducer = (state, action) => {
   switch(action.type) {
+    /*
+    case 'CONTACT_FORM_CHANGED':
+      return Object.assign({}, state, {
+        [action.field]: action.value
+      })
+    */
+
     case 'ORG':
       return Object.assign({}, state, {
         org_name: action.value,
-        site_url: `http://www.${state.org_name.toLowerCase()}.cobalt.com`
+        site_url: `http://www.${state.org_name.toLowerCase()}.cobaltcms.com`
       })
 
     case 'NAME':
@@ -68,6 +75,16 @@ const reducer = (state, action) => {
     case "SECONDARY":
       return Object.assign({}, state, {
         site_color_secondary: action.value
+      })
+
+    case "PHOTO":
+      return Object.assign({}, state, {
+        site_photo: action.value
+      })
+
+    case "BACKGROUND":
+      return Object.assign({}, state, {
+        site_background_photo: action.value
       })
 
     default:
@@ -146,7 +163,7 @@ const Signup = () => {
         <Form.Input label="" name="org" value={state.org_name} placeholder="Organization" className="org" id="org" required={required} keydown={disableSpace} onChange={handleOrg} />
         <div className="title">{'Organization name'}</div>
         <div className="org-display">
-          <div>{`http://www.${state.org_name.toLowerCase()}.cobalt.com`}
+          <div>{`http://www.${state.org_name.toLowerCase()}.cobaltcms.com`}
             <div id="website" >{'Your website url'}</div>
             <span id="matches"></span>
           </div>

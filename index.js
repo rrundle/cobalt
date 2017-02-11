@@ -31,10 +31,7 @@ app.post('/org', (req, res) => {
 
 app.post('/site', (req, res) => {
   const query = knex('sites')
-    .insert({
-      name: req.body.nameValue,
-      site_url: req.body.urlValue
-    })
+    .insert(req.body)
   query
     .then(result => res.send(result))
     .catch(error => res.status(404).send(error))
