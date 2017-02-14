@@ -1,6 +1,7 @@
 /* global React, ReactDOM, Redux */
 const { connect } = require('react-redux')
-const { Sidebar, Segment, Button, Menu, Image, Icon, Header } = require('semantic-ui-react')
+const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio } = require('semantic-ui-react')
+const { TwitterPicker, clientWidth } = require('react-color')
 
 const Dashboard = ({stateProps, toggleVisibility}) => {
   return (
@@ -14,12 +15,7 @@ const Dashboard = ({stateProps, toggleVisibility}) => {
 const Sidemenu = ({stateProps, toggleVisibility}) => {
 
   const handleClick = () => {
-    if (stateProps.view === true) {
-      stateProps.view = false
-    }
-    else {
-      stateProps.view = true
-    }
+    stateProps.view = false ? stateProps.view === true : true
   }
 
   return (
@@ -27,20 +23,12 @@ const Sidemenu = ({stateProps, toggleVisibility}) => {
        <Button onClick={handleClick}>Toggle Visibility</Button>
        <Sidebar.Pushable id="dashboard" as={Segment}>
          <Sidebar id="sidebar" as={Menu} animation='scale down' width='thin' visible={stateProps.view} icon='labeled' vertical inverted>
-           <Menu.Item name='home'>
-             <Icon name='home' />
-             Home
-           </Menu.Item>
-           <Menu.Item name='gamepad'>
-            <Icon name='gamepad' />
-             Games
-           </Menu.Item>
-           <Menu.Item name='camera'>
-             <Icon name='camera' />
-             Channels
-           </Menu.Item>
+           <Info
+             stateProps={stateProps}
+             toggleVisibility={toggleVisibility}
+           />
          </Sidebar>
-         <Sidebar.Pusher>
+         <Sidebar.Pusher id="content">
            <Segment basic>
              <Header as='h3'>Application Content</Header>
              <Image src='http://semantic-ui.com/images/wireframe/paragraph.png' />
@@ -48,6 +36,71 @@ const Sidemenu = ({stateProps, toggleVisibility}) => {
          </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>
+  )
+}
+
+const Info = ({stateProps, toggleVisibility}) => {
+
+  return (
+    <div>
+      <div id="dash-title">Cobalt</div>
+      <Menu.Item name='name'>
+        <div>Name</div>
+        <Input id="dash-name" icon='write' defaultValue={stateProps.name} />
+      </Menu.Item>
+      <Menu.Item name='org'>
+        <div>Organization</div>
+        <Input id="dash-org" icon='write' defaultValue={stateProps.org_name} />
+        <Input id="dash-address" icon='write' defaultValue={stateProps.org_address} />
+      </Menu.Item>
+      <Menu.Item name='color'>
+        <div>Primary Site Color</div>
+        <Popup
+          id="dash-color-1"
+          trigger={<div id="dash-circle-1"></div>}
+          flowing
+          hoverable
+        >
+          <TwitterPicker />
+        </Popup>
+      </Menu.Item>
+      <Menu.Item>
+        <div>Secondary Site Color</div>
+        <Popup
+          id="dash-color-2"
+          trigger={<div id="dash-circle-2"></div>}
+          flowing
+          hoverable
+        >
+          <TwitterPicker />
+        </Popup>
+      </Menu.Item>
+      <Menu.Item>
+        <div>Display Preferences</div>
+        <div>Address</div>
+        <Segment compact>
+          <Radio slider />
+        </Segment>
+      </Menu.Item>
+      <Menu.Item>
+        <div>Phone</div>
+        <Segment compact>
+          <Radio slider />
+        </Segment>
+      </Menu.Item>
+      <Menu.Item>
+        <div>News</div>
+        <Segment compact>
+          <Radio slider />
+        </Segment>
+      </Menu.Item>
+      <Menu.Item>
+        <div>Events</div>
+        <Segment compact>
+          <Radio slider />
+        </Segment>
+      </Menu.Item>
+    </div>
   )
 }
 
