@@ -22,7 +22,7 @@ const initialState = {
   site_color_secondary: '',
   site_photo: '',
   site_background_photo: '',
-  visible: true
+  view: true
 }
 
 const reducer = (state, action) => {
@@ -91,6 +91,7 @@ const reducer = (state, action) => {
       })
 
     case "SIDEBAR":
+      console.log('running!')
       if (action.value === true) {
         console.log(action.value)
         return Object.assign({}, state, {
@@ -205,11 +206,11 @@ store.subscribe(draw)
 
 const routes = (
   <Route>
-    <Route path='/#/' component={Signup} />
-    <Route path='/#/contact' component={StepTwo} />
-    <Route path='/#/colors' component={StepThree} />
-    <Route path='/#/photos' component={StepFour} />
-    <Route path='/#/dashboard' component={Dashboard} />
+    <Route path='/' component={Signup} />
+    <Route path='/contact' component={StepTwo} />
+    <Route path='/colors' component={StepThree} />
+    <Route path='/photos' component={StepFour} />
+    <Route path='/dashboard' component={Dashboard} />
   </Route>
 )
 

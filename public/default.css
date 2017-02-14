@@ -264,3 +264,17 @@ button:focus {
   margin: 0 auto;
   max-height: 200px;
 }
+
+#sidebar {
+  width: 300px;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+#dashboard {
+  position: absolute;
+  width: 99%;
+  height: 100vh;
+  left: 0;
+}

@@ -160,7 +160,7 @@ const Finish = ({ stateProps, addPhoto, addBackground }) => {
 
   return (
   <div id="finish">
-    <IndexLink activeClassName="active">
+    <IndexLink to={'/dashboard'} activeClassName="active">
       <Button onClick={completeSignup} animated>
         <Button.Content visible>Finish</Button.Content>
         <Button.Content hidden>
