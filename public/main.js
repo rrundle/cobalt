@@ -27,7 +27,7 @@ const reducer = (state, action) => {
     case 'ORG':
       return Object.assign({}, state, {
         org_name: action.value,
-        site_url: `http://www.${state.org_name.toLowerCase()}.cobalt.com`
+        site_url: `${action.value.toLowerCase()}.cobalt.herokuapp.com`
       })
 
     case 'NAME':

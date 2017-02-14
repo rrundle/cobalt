@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT
+const Heroku = require('heroku-client')
+const heroku = new Heroku({ token: process.env.HEROKU_API_TOKEN })
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -44,6 +46,12 @@ app.post('/site', (req, res) => {
     })
   query
     .then(result => res.send(result))
+    .then(data => {
+      heroku.post('https://api.heroku.com/apps/cobaltcms/domains/', {body: {hostname: data.req.body.site_url}})
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
+
+    })
     .catch(error => res.status(404).send(error))
 })
 
