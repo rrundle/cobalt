@@ -6,6 +6,8 @@ const { Router, Route, hashHistory, IndexLink, browserHistory, applyRouterMiddle
 const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
+const Dashboard = require('../modules/dashboard.js')
+
 
 const initialState = {
   name: '',
@@ -19,7 +21,8 @@ const initialState = {
   site_color_primary: '',
   site_color_secondary: '',
   site_photo: '',
-  site_background_photo: ''
+  site_background_photo: '',
+  visible: true
 }
 
 const reducer = (state, action) => {
@@ -86,6 +89,20 @@ const reducer = (state, action) => {
       return Object.assign({}, state, {
         site_background_photo: action.value
       })
+
+    case "SIDEBAR":
+      if (action.value === true) {
+        console.log(action.value)
+        return Object.assign({}, state, {
+          visible: false
+        })
+      }
+      else {
+        console.log(action.value)
+        return Object.assign({}, state, {
+          visible: true
+        })
+      }
 
     default:
       return state
@@ -188,10 +205,11 @@ store.subscribe(draw)
 
 const routes = (
   <Route>
-    <Route path='/' component={Signup} />
-    <Route path='/contact' component={StepTwo} />
-    <Route path='/colors' component={StepThree} />
-    <Route path='/photos' component={StepFour} />
+    <Route path='/#/' component={Signup} />
+    <Route path='/#/contact' component={StepTwo} />
+    <Route path='/#/colors' component={StepThree} />
+    <Route path='/#/photos' component={StepFour} />
+    <Route path='/#/dashboard' component={Dashboard} />
   </Route>
 )
 
