@@ -29,12 +29,12 @@ const Sidemenu = ({stateProps, toggleVisibility, addPhoto, addBackground }) => {
           />
       </Sidebar>
         <Sidebar.Pusher id="dash-body">
-          <Photos
+          <Body
           stateProps={stateProps}
           addPhoto={addPhoto}
           addBackground={addBackground}
           >
-          </Photos>
+          </Body>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     </div>
@@ -111,7 +111,7 @@ const Info = ({ stateProps, toggleVisibility }) => {
   )
 }
 
-const Photos = ({ stateProps, addPhoto, addBackground }) => {
+const Body = ({ stateProps, addPhoto, addBackground }) => {
 
   const CLOUDINARY_UPLOAD_PRESET = 'l25kfhpr'
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ryanrundle/upload'
@@ -159,39 +159,43 @@ const Photos = ({ stateProps, addPhoto, addBackground }) => {
   }
 
   return (
-    <div>
-      <Dropzone
-        id="dash-drop-background"
-        multiple={false}
-        accept="image/*"
-        onDrop={onBackground}
-        background-photo={stateProps.site_background_photo}
-      >
-        <Button content="View site" icon="computer" labelPosition="right" />
-        <Icon name="photo" />
-        <p className="dropzone-description">Edit background photo</p>
+    <Segment.Group>
+      <Segment>Background Photo
         <Dropzone
-          id="dash-drop-photo"
+          id="dash-drop-background"
           multiple={false}
           accept="image/*"
-          onDrop={onPhoto}>
-          <p className="dropzone-description">Drop an image or click to select a file to upload.</p>
+          onDrop={onBackground}
+          background-photo={stateProps.site_background_photo}
+        >
+          <Button content="View site" icon="computer" labelPosition="right" />
           <Icon name="photo" />
-          <Image className="display" src={stateProps.ite_photo} size='small' shape='circular' />
+          <p className="dropzone-description">Edit background photo</p>
         </Dropzone>
-        <div className="photos-title">{'Add a background photo for the organization'}</div>
-      </Dropzone>
-    </div>
+      </Segment>
+      <Segment.Group>
+        <Segment>Profile Photo
+          <Dropzone
+            id="dash-drop-photo"
+            multiple={false}
+            accept="image/*"
+            onDrop={onPhoto}>
+            <Icon name="photo" />
+            <Image className="display" src={stateProps.site_photo} size='small' shape='circular' />
+          </Dropzone>
+        </Segment>
+      </Segment.Group>
+      <Segment>
+        <div>{stateProps.org_name}</div>
+        <div>{stateProps.org_address}</div>
+      </Segment>
+      <Segment.Group horizontal>
+        <Segment>News</Segment>
+        <Segment>Events</Segment>
+      </Segment.Group>
+    </Segment.Group>
   )
 }
-
-const Body = () => {
-  return (
-    <div>
-    </div>
-  )
-}
-
 
 const mapStateToProps = state => {
   return {
