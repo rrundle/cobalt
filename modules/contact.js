@@ -1,7 +1,8 @@
 /* global React, ReactDOM, Redux */
-const { Form, Step, Button, Icon, Input, Popup, Grid, Segment } = require('semantic-ui-react')
+const { Form, Step, Button, Icon, Input, Popup, Grid, Segment, Dropdown } = require('semantic-ui-react')
 const { connect } = require('react-redux')
 const { Back, Next } = require('./buttons.js')
+const { stateOptions } = require('./states')
 
 const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
@@ -74,7 +75,7 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
       <div className="org-title">{'Your organization\'s address'}</div>
       <Input className="contact" placeholder="address" value={stateProps.org_address} onChange={handleAddress} id="org-address" />
       <Input className="contact" placeholder="city" value={stateProps.org_city} onChange={handleCity} id="org-city" />
-      <Input className="contact" placeholder="state" value={stateProps.org_state} onChange={handleState} id="org-state" />
+      <Dropdown search selection options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} onChange={handleState} id="org-state" />
       <Input className="contact" placeholder="zipcode" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" />
       <div raised className="org-title">{'Your organization\'s phone number'}</div>
       <Input keyboardType='numeric' placeholder="(555) 555-555" value={stateProps.org_phone} onChange={handlePhone} id="org-phone" />

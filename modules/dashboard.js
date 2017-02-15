@@ -1,23 +1,32 @@
 /* global React, ReactDOM, Redux */
 const { connect } = require('react-redux')
-const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio } = require('semantic-ui-react')
+const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio, Dropdown } = require('semantic-ui-react')
 const { TwitterPicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { Photo } = require('./photo-drop.js')
+const { stateOptions } = require('./states')
 
-const Dashboard = ({stateProps, toggleVisibility, addPhoto, addBackground }) => {
+
+const Dashboard = ({stateProps, toggleVisibility, addPhoto, addBackground, editName, editOrg, editAddress, editCity, editState, editZip, editPhone }) => {
   return (
     <Sidemenu
       stateProps={stateProps}
       toggleVisibility={toggleVisibility}
       addPhoto={addPhoto}
       addBackground={addBackground}
+      editName={editName}
+      editOrg={editOrg}
+      editAddress={editAddress}
+      editCity={editCity}
+      editState={editState}
+      editZip={editZip}
+      editPhone={editPhone}
     />
   )
 }
 
-const Sidemenu = ({stateProps, toggleVisibility, addPhoto, addBackground }) => {
+const Sidemenu = ({stateProps, toggleVisibility, addPhoto, addBackground, editName, editOrg, editAddress, editCity, editState, editZip, editPhone }) => {
 
   return (
     <div>
@@ -26,6 +35,13 @@ const Sidemenu = ({stateProps, toggleVisibility, addPhoto, addBackground }) => {
           <Info
            stateProps={stateProps}
            toggleVisibility={toggleVisibility}
+           editName={editName}
+           editOrg={editOrg}
+           editAddress={editAddress}
+           editCity={editCity}
+           editState={editState}
+           editZip={editZip}
+           editPhone={editPhone}
           />
       </Sidebar>
         <Sidebar.Pusher id="dash-body">
@@ -41,10 +57,45 @@ const Sidemenu = ({stateProps, toggleVisibility, addPhoto, addBackground }) => {
   )
 }
 
-const Info = ({ stateProps, toggleVisibility }) => {
+const Info = ({ stateProps, toggleVisibility, editName, editOrg, editAddress, editCity, editState, editZip, editPhone }) => {
 
   const handleClick = () => {
     stateProps.view = false ? stateProps.view === true : true
+  }
+
+  const handleName = event => {
+    const value = event.target.value
+    editName(value)
+  }
+
+  const handleOrg = event => {
+    const value = event.target.value
+    editOrg(value)
+  }
+
+  const handleAddress = event => {
+    const value = event.target.value
+    editAddress(value)
+  }
+
+  const handleCity = event => {
+    const value = event.target.value
+    editCity(value)
+  }
+
+  const handleState = event => {
+    const value = event.target.value
+    editState(value)
+  }
+
+  const handleZip = event => {
+    const value = event.target.value
+    editZip(value)
+  }
+
+  const handlePhone = event => {
+    const value = event.target.value
+    editPhone(value)
   }
 
   return (
@@ -53,12 +104,16 @@ const Info = ({ stateProps, toggleVisibility }) => {
       <Button content="Hide" icon="left arrow" labelPosition="left" onClick={handleClick}></Button>
       <Menu.Item name='name'>
         <div>Name</div>
-        <Input id="dash-name" icon='write' defaultValue={stateProps.name} />
+        <Input id="dash-name" icon='write' defaultValue={stateProps.name} onChange={handleName} />
       </Menu.Item>
       <Menu.Item name='org'>
         <div>Organization</div>
-        <Input id="dash-org" icon='write' defaultValue={stateProps.org_name} />
-        <Input id="dash-address" icon='write' defaultValue={stateProps.org_address} />
+        <Input id="dash-org" icon='write' labelPosition="left" defaultValue={stateProps.org_name} onChange={handleOrg}/>
+        <Input id="dash-address" icon='write' defaultValue={stateProps.org_address} onChange={handleAddress}/>
+        <Input id="dash-city" icon='write' defaultValue={stateProps.org_city} onChange={handleCity} />
+        <Dropdown id="dash-state" search selection options={stateOptions} placeholder="CA" defaultValue={stateProps.org_state} onChange={handleState} />
+        <Input id="dash-address" icon='write' defaultValue={stateProps.org_zipcode} onChange={handleZip}/>
+        <Input id="dash-phone" icon='write' defaultValue={stateProps.org_phone} onChange={handlePhone}/>
       </Menu.Item>
       <Menu.Item name='color'>
         <div>Primary Site Color</div>
@@ -187,7 +242,8 @@ const Body = ({ stateProps, addPhoto, addBackground }) => {
       </Segment.Group>
       <Segment>
         <div>{stateProps.org_name}</div>
-        <div>{stateProps.org_address}</div>
+        <div>{`${stateProps.org_address}, ${stateProps.org_city}, ${stateProps.org_state} ${stateProps.org_zipcode}`}</div>
+        <div>{stateProps.org_phone}</div>
       </Segment>
       <Segment.Group horizontal>
         <Segment>News</Segment>
@@ -204,6 +260,10 @@ const mapStateToProps = state => {
       name: state.name,
       org_name: state.org_name,
       org_address: state.org_address,
+      org_city: state.org_city,
+      org_state: state.org_state,
+      org_zipcode: state.org_zipcode,
+      org_phone: state.org_phone,
       org_phone: state.org_phone,
       site_color_primary: state.site_color_primary,
       site_color_secondary: state.site_color_secondary,
@@ -217,7 +277,14 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addPhoto: (value) => dispatch({type:'PHOTO', value}),
-    addBackground: (value) => dispatch({type: 'BACKGROUND', value})
+    addBackground: (value) => dispatch({type: 'BACKGROUND', value}),
+    editName: (value) => dispatch({type: "NAME", value}),
+    editOrg: (value) => dispatch({type: "ORG", value}),
+    editAddress: (value) => dispatch({type: "ADDRESS", value}),
+    editCity: (value) => dispatch({type: "CITY", value}),
+    editState: (value) => dispatch({type: "STATE", value}),
+    editZip: (value) => dispatch({type: "ZIPCODE", value}),
+    editPhone: (value) => dispatch({type: "PHONE", value}),
   }
 }
 
