@@ -6,7 +6,7 @@ const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { Back, Next } = require('./buttons.js')
 
-const StepFour = ({ stateProps, addPhoto, addBackground }) => {
+const StepFour = ({ stateProps, addPhoto, addBackground, addId }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -45,12 +45,13 @@ const StepFour = ({ stateProps, addPhoto, addBackground }) => {
         stateProps={stateProps}
         addPhoto={addPhoto}
         addBackground={addBackground}
+        addId={addId}
       />
     </div>
   )
 }
 
-const Uploader = ({ stateProps, addPhoto, addBackground }) => {
+const Uploader = ({ stateProps, addPhoto, addBackground, addId }) => {
 
   const CLOUDINARY_UPLOAD_PRESET = 'l25kfhpr'
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ryanrundle/upload'
@@ -124,7 +125,7 @@ const Uploader = ({ stateProps, addPhoto, addBackground }) => {
   )
 }
 
-const Finish = ({ stateProps, addPhoto, addBackground }) => {
+const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
 
   const completeSignup = () => {
     const data = {
@@ -144,7 +145,7 @@ const Finish = ({ stateProps, addPhoto, addBackground }) => {
     const route = 'POST'
     const path = '/site'
     sendData(data, path, route)
-      .then(result => console.log(result))
+      .then(result => addId(result[0]))
     }
 
   function sendData(data, path, route) {
@@ -175,6 +176,7 @@ const Finish = ({ stateProps, addPhoto, addBackground }) => {
 const mapStateToProps = state => {
   return {
     stateProps: {
+      site_id: state.site_id,
       site_url: state.site_url,
       name: state.name,
       org_name: state.org_name,
@@ -191,7 +193,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addPhoto: (value) => dispatch({type:'PHOTO', value}),
-    addBackground: (value) => dispatch({type: 'BACKGROUND', value})
+    addBackground: (value) => dispatch({type: 'BACKGROUND', value}),
+    addId: (value) => dispatch({type: 'ID', value})
   }
 }
 

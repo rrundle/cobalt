@@ -115,6 +115,16 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     return result
   }
 
+  let primaryColor = {
+    backgroundColor: `${stateProps.site_color_primary}`
+  }
+
+  let secondaryColor = {
+    backgroundColor: `${stateProps.site_color_secondary}`
+  }
+
+
+
   return (
     <div>
       <div id="dash-title">Cobalt</div>
@@ -136,7 +146,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         <div>Primary Site Color</div>
         <Popup
           id="dash-color-1"
-          trigger={<div id="dash-circle-1"></div>}
+          trigger={<div id="dash-circle-1" style={primaryColor}></div>}
           flowing
           hoverable
         >
@@ -147,7 +157,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         <div>Secondary Site Color</div>
         <Popup
           id="dash-color-2"
-          trigger={<div id="dash-circle-2"></div>}
+          trigger={<div id="dash-circle-2" style={secondaryColor}></div>}
           flowing
           hoverable
         >
