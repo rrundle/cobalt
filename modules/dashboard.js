@@ -84,31 +84,49 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
   }
 
   const handlePrimary = (color, event) => {
-    console.log(color.hex)
     const value = color.hex
     dispatchProps.editPrimary(value)
+    const route = 'POST'
+    const path = '/dashboard'
+    const data = {
+      site_color_primary: value,
+    }
+    sendData(data, path, route)
+      .then(result => console.log(result))
   }
 
   const handleSecondary = (color, event) => {
     const value = color.hex
     dispatchProps.editSecondary(value)
+    const route = 'POST'
+    const path = '/dashboard'
+    const data = {
+      site_color_secondary: value,
+    }
+    sendData(data, path, route)
+      .then(result => console.log(result))
   }
 
-  const updateProfile = () => {
-    const data = {
-      site_id: stateProps.site_id,
-      name: stateProps.name,
-      org_name: stateProps.org_name,
-      org_address: stateProps.org_address,
-      org_city: stateProps.org_city,
-      org_state: stateProps.org_state,
-      org_zipcode: stateProps.org_zipcode,
-      org_phone: stateProps.org_phone,
-      site_color_primary: stateProps.site_color_primary,
-      site_color_secondary: stateProps.site_color_secondary,
-      site_photo: stateProps.site_photo,
-      site_background_photo: stateProps.site_background_photo
+  const updateProfile = (event) => {
+    const ids = [
+      {id: 'dash-name', property: 'name'},
+      {id: 'dash-org', property: 'org_name'},
+      {id: 'dash-address', property: 'org_address'},
+      {id: 'dash-city', property: 'org_city'},
+      {id: 'dash-state', property: 'org_state'},
+      {id: 'dash-zipcode', property: 'org_zipcode'},
+      {id: 'dash-phone', property: 'org_phone'}
+    ]
+    const uniqueId = ids.filter(function(target) {
+      return target.id === event.target.parentNode.id
+    })
+    console.log(uniqueId)
+    const data =
+    {
+      [uniqueId[0].property]: document.getElementById(`${uniqueId[0].id}`).childNodes[0].value,
+      ['site_id']: stateProps.site_id
     }
+    console.log(data)
     const route = 'POST'
     const path = '/dashboard'
     sendData(data, path, route)
@@ -148,7 +166,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         <Input id="dash-address" icon='write' defaultValue={stateProps.org_address} onBlur={updateProfile} onChange={handleAddress}/>
         <Input id="dash-city" icon='write' defaultValue={stateProps.org_city} onBlur={updateProfile} onChange={handleCity} />
         <Dropdown id="dash-state" search selection options={stateOptions} placeholder="CA" defaultValue={stateProps.org_state} onBlur={updateProfile} onChange={handleState} />
-        <Input id="dash-address" icon='write' defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
+        <Input id="dash-zipcode" icon='write' defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
         <Input id="dash-phone" icon='write' defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone}/>
       </Menu.Item>
       <Menu.Item name='color'>

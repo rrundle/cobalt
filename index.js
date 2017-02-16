@@ -39,8 +39,9 @@ app.post('/site', (req, res) => {
 })
 
 app.post('/dashboard', (req, res) => {
+  console.log(req.body.site_id)
   const query = knex('sites')
-    .where('site_id', req.body.site_id)
+    .where('site_id', `${req.body.site_id}`)
     .update(req.body)
   query
     .then(result => res.send(result))
