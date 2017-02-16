@@ -43,7 +43,7 @@ app.post('/dashboard', (req, res) => {
     .where('site_id', req.body.site_id)
     .update(req.body)
   query
-    .then(result => console.log(result)/*res.send(result)*/)
+    .then(result => res.send(result))
     .catch(error => res.status(404).send(error))
 })
 

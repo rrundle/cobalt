@@ -76,6 +76,7 @@ const reducer = (state, action) => {
       })
 
     case "PRIMARY":
+      console.log(action.value)
       return Object.assign({}, state, {
         site_color_primary: action.value
       })
@@ -96,7 +97,6 @@ const reducer = (state, action) => {
       })
 
     case "SIDEBAR":
-      console.log('running!')
       if (action.value === true) {
         console.log(action.value)
         return Object.assign({}, state, {
@@ -104,7 +104,6 @@ const reducer = (state, action) => {
         })
       }
       else {
-        console.log(action.value)
         return Object.assign({}, state, {
           visible: true
         })

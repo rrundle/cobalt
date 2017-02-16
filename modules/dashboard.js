@@ -1,7 +1,7 @@
 /* global React, ReactDOM, Redux */
 const { connect } = require('react-redux')
 const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio, Dropdown } = require('semantic-ui-react')
-const { TwitterPicker, clientWidth } = require('react-color')
+const { CirclePicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { Photo } = require('./photo-drop.js')
@@ -83,6 +83,17 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     dispatchProps.editPhone(value)
   }
 
+  const handlePrimary = (color, event) => {
+    console.log(color.hex)
+    const value = color.hex
+    dispatchProps.editPrimary(value)
+  }
+
+  const handleSecondary = (color, event) => {
+    const value = color.hex
+    dispatchProps.editSecondary(value)
+  }
+
   const updateProfile = () => {
     const data = {
       site_id: stateProps.site_id,
@@ -123,15 +134,13 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     backgroundColor: `${stateProps.site_color_secondary}`
   }
 
-
-
   return (
     <div>
       <div id="dash-title">Cobalt</div>
       <Button content="Hide" icon="left arrow" labelPosition="left" onClick={dispatchProps.handleClick}></Button>
       <Menu.Item name='name'>
         <div>Name</div>
-        <Input id="dash-name" icon='write' defaultValue={stateProps.name} onChange={dispatchProps.handleName} onBlur={updateProfile}/>
+        <Input id="dash-name" icon='write' defaultValue={stateProps.name} onChange={handleName} onBlur={updateProfile}/>
       </Menu.Item>
       <Menu.Item name='org'>
         <div>Organization</div>
@@ -146,22 +155,22 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         <div>Primary Site Color</div>
         <Popup
           id="dash-color-1"
-          trigger={<div id="dash-circle-1" style={primaryColor}></div>}
+          trigger={<div id="dash-circle-1" style={primaryColor} onClick={handlePrimary}></div>}
           flowing
           hoverable
         >
-          <TwitterPicker />
+          <CirclePicker onChangeComplete={handlePrimary} />
         </Popup>
       </Menu.Item>
       <Menu.Item>
         <div>Secondary Site Color</div>
         <Popup
           id="dash-color-2"
-          trigger={<div id="dash-circle-2" style={secondaryColor}></div>}
+          trigger={<div id="dash-circle-2" style={secondaryColor} onClick={handleSecondary}></div>}
           flowing
           hoverable
         >
-          <TwitterPicker />
+          <CirclePicker onChangeComplete={handleSecondary} />
         </Popup>
       </Menu.Item>
       <Menu.Item>
@@ -314,6 +323,8 @@ const mapDispatchToProps = dispatch => {
       editState: (value) => dispatch({type: "STATE", value}),
       editZip: (value) => dispatch({type: "ZIPCODE", value}),
       editPhone: (value) => dispatch({type: "PHONE", value}),
+      editPrimary: (value) => dispatch({type: "PRIMARY", value}),
+      editSecondary: (value) => dispatch({type: "SECONDARY", value})
     }
   }
 }
