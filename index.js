@@ -32,8 +32,18 @@ app.post('/org', (req, res) => {
 app.post('/site', (req, res) => {
   const query = knex('sites')
     .insert(req.body)
+    .returning('site_id')
   query
     .then(result => res.send(result))
+    .catch(error => res.status(404).send(error))
+})
+
+app.post('/dashboard', (req, res) => {
+  const query = knex('sites')
+    .where('site_id', req.body.site_id)
+    .update(req.body)
+  query
+    .then(result => console.log(result)/*res.send(result)*/)
     .catch(error => res.status(404).send(error))
 })
 

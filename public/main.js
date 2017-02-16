@@ -10,6 +10,7 @@ const Dashboard = require('../modules/dashboard.js')
 
 
 const initialState = {
+  site_id: '',
   name: '',
   org_name: '',
   site_url: '',
@@ -33,6 +34,10 @@ const reducer = (state, action) => {
         [action.field]: action.value
       })
     */
+    case 'ID':
+      return Object.assign({}, state, {
+        site_id: action.value
+      })
 
     case 'ORG':
       return Object.assign({}, state, {
@@ -200,7 +205,7 @@ const Signup = () => {
 }
 
 //const reducer = combineReducers({info, contact})
-const store = Redux.createStore(reducer, initialState)
+const store = Redux.createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 const draw = () => console.log(store.getState())
 store.subscribe(draw)
 
