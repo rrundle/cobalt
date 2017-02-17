@@ -329,6 +329,11 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
           onDrop={dispatchProps.onBackground}
           background-photo={stateProps.site_background_photo}
         >
+          {
+            stateProps.site_background_photo === ''
+            ? <div>{stateProps.org_name}</div>
+            : null
+          }
           <Icon name="photo" />
           <p className="dropzone-description">Edit background photo</p>
         </Dropzone>
@@ -340,6 +345,11 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
             multiple={false}
             accept="image/*"
             onDrop={dispatchProps.onPhoto}>
+            {
+              stateProps.site_photo === ''
+              ? <i id="default-photo" class="fa fa-user" aria-hidden="true"></i>
+              : null
+            }
             <Icon name="photo" />
             <Image className="display" src={stateProps.site_photo} size='small' shape='circular' />
           </Dropzone>
