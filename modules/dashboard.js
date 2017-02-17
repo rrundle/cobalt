@@ -284,6 +284,14 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     handleBackgroundUpload(acceptedFiles[0])
   }
 
+  const backgroundPhoto = {
+    backgroundImage: `url(${stateProps.site_background_photo})`
+  }
+
+  const profilePhoto = {
+    backgroundImage: `url(${stateProps.site_photo}) no-repeat`
+  }
+
   function handlePhotoUpload(file) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                         .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -297,6 +305,15 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
       if (response.body.secure_url !== '') {
         const value = response.body.secure_url
         dispatchProps.addPhoto(value)
+
+        const route = 'POST'
+        const path = '/dashboard'
+        const data = {
+          site_photo: value,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
       }
     })
   }
@@ -314,16 +331,17 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
       if (response.body.secure_url !== '') {
         const value = response.body.secure_url
         dispatchProps.addBackground(value)
+
+        const route = 'POST'
+        const path = '/dashboard'
+        const data = {
+          site_background_photo: value,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
       }
     })
-  }
-
-  const backgroundPhoto = {
-    backgroundImage: `url(${stateProps.site_background_photo})`
-  }
-
-  const profilePhoto = {
-    backgroundImage: `url(${stateProps.site_photo}) no-repeat`
   }
 
   return (
@@ -339,7 +357,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
           id="dash-drop-background"
           multiple={false}
           accept="image/*"
-          onDrop={dispatchProps.onBackground}
+          onDrop={onBackground}
           background-photo={stateProps.site_background_photo}
         >
           <Icon name="photo" />
@@ -352,7 +370,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
             id="dash-drop-photo"
             multiple={false}
             accept="image/*"
-            onDrop={dispatchProps.onPhoto}>
+            onDrop={onPhoto}>
             {
               stateProps.site_photo === ''
               ? <i id="default-photo" class="fa fa-user" aria-hidden="true"></i>
