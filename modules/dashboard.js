@@ -127,7 +127,6 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
       [uniqueId[0].property]: document.getElementById(`${uniqueId[0].id}`).childNodes[0].value,
       site_id: stateProps.site_id
     }
-    console.log(data)
     const route = 'POST'
     const path = '/dashboard'
     sendData(data, path, route)
@@ -154,17 +153,52 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
   }
 
   const handleRadio = (event) => {
+    const route = 'POST'
+    const path = '/dashboard'
+
     const field = event.target.parentNode.getAttribute('id')
     if (field === 'display_address') {
+      const data =
+      {
+        org_address: !stateProps.display_address,
+        site_id: stateProps.site_id
+      }
+      sendData(data, path, route)
+        .then(result => console.log(result))
+
       dispatchProps.editRadio(stateProps.display_address, field)
     }
     else if (field === 'display_phone') {
+      const data =
+      {
+        org_phone: !stateProps.display_phone,
+        site_id: stateProps.site_id
+      }
+      sendData(data, path, route)
+        .then(result => console.log(result))
+
       dispatchProps.editRadio(stateProps.display_phone, field)
     }
     else if (field === 'display_news') {
+      const data =
+      {
+        news: !stateProps.display_news,
+        site_id: stateProps.site_id
+      }
+      sendData(data, path, route)
+        .then(result => console.log(result))
+
       dispatchProps.editRadio(stateProps.display_news, field)
     }
     else if (field === 'display_events') {
+      const data =
+      {
+        events: !stateProps.display_events,
+        site_id: stateProps.site_id
+      }
+      sendData(data, path, route)
+        .then(result => console.log(result))
+
       dispatchProps.editRadio(stateProps.display_events, field)
     }
   }
