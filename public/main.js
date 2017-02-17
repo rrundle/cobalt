@@ -23,7 +23,11 @@ const initialState = {
   site_color_secondary: '',
   site_photo: '',
   site_background_photo: '',
-  view: true
+  view: true,
+  display_address: true,
+  display_phone: true,
+  display_news: true,
+  display_events: true,
 }
 
 const reducer = (state, action) => {
@@ -108,6 +112,18 @@ const reducer = (state, action) => {
           visible: true
         })
       }
+
+    case "RADIO":
+    if (action.value === true) {
+      return Object.assign({}, state, {
+        [action.field]: false
+      })
+    }
+    else {
+      return Object.assign({}, state, {
+        [action.field]: true
+      })
+    }
 
     default:
       return state

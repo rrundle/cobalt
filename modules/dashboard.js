@@ -7,7 +7,6 @@ const request = require('superagent')
 const { Photo } = require('./photo-drop.js')
 const { stateOptions } = require('./states')
 
-
 const Dashboard = ({stateProps, toggleVisibility, dispatchProps }) => {
   return (
     <Sidemenu
@@ -90,6 +89,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     const path = '/dashboard'
     const data = {
       site_color_primary: value,
+      site_id: stateProps.site_id
     }
     sendData(data, path, route)
       .then(result => console.log(result))
@@ -102,6 +102,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     const path = '/dashboard'
     const data = {
       site_color_secondary: value,
+      site_id: stateProps.site_id
     }
     sendData(data, path, route)
       .then(result => console.log(result))
@@ -124,7 +125,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     const data =
     {
       [uniqueId[0].property]: document.getElementById(`${uniqueId[0].id}`).childNodes[0].value,
-      ['site_id']: stateProps.site_id
+      site_id: stateProps.site_id
     }
     console.log(data)
     const route = 'POST'
@@ -150,6 +151,22 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
 
   let secondaryColor = {
     backgroundColor: `${stateProps.site_color_secondary}`
+  }
+
+  const handleRadio = (event) => {
+    const field = event.target.parentNode.getAttribute('id')
+    if (field === 'display_address') {
+      dispatchProps.editRadio(stateProps.display_address, field)
+    }
+    else if (field === 'display_phone') {
+      dispatchProps.editRadio(stateProps.display_phone, field)
+    }
+    else if (field === 'display_news') {
+      dispatchProps.editRadio(stateProps.display_news, field)
+    }
+    else if (field === 'display_events') {
+      dispatchProps.editRadio(stateProps.display_events, field)
+    }
   }
 
   return (
@@ -195,25 +212,25 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         <div>Display Preferences</div>
         <div>Address</div>
         <Segment compact>
-          <Radio slider />
+          <Radio id="display_address" onChange={handleRadio} checked={stateProps.display_address} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>Phone</div>
         <Segment compact>
-          <Radio slider />
+          <Radio id="display_phone" onChange={handleRadio} checked={stateProps.display_phone} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>News</div>
         <Segment compact>
-          <Radio slider />
+          <Radio id="display_news" onChange={handleRadio} checked={stateProps.display_news} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>Events</div>
         <Segment compact>
-          <Radio slider />
+          <Radio id="display_events" onChange={handleRadio} checked={stateProps.display_events} slider />
         </Segment>
       </Menu.Item>
     </div>
@@ -270,6 +287,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
   return (
     <Segment.Group>
       <Segment>Background Photo
+        <Button content="View site" icon="computer" labelPosition="right" />
         <Dropzone
           id="dash-drop-background"
           multiple={false}
@@ -277,7 +295,6 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
           onDrop={dispatchProps.onBackground}
           background-photo={stateProps.site_background_photo}
         >
-          <Button content="View site" icon="computer" labelPosition="right" />
           <Icon name="photo" />
           <p className="dropzone-description">Edit background photo</p>
         </Dropzone>
@@ -324,7 +341,11 @@ const mapStateToProps = state => {
       site_color_secondary: state.site_color_secondary,
       site_photo: state.site_photo,
       site_background_photo: state.site_background_photo,
-      view: state.view
+      view: state.view,
+      display_address: state.display_address,
+      display_phone: state.display_phone,
+      display_news: state.display_news,
+      display_events: state.display_events
     }
   }
 }
@@ -342,7 +363,8 @@ const mapDispatchToProps = dispatch => {
       editZip: (value) => dispatch({type: "ZIPCODE", value}),
       editPhone: (value) => dispatch({type: "PHONE", value}),
       editPrimary: (value) => dispatch({type: "PRIMARY", value}),
-      editSecondary: (value) => dispatch({type: "SECONDARY", value})
+      editSecondary: (value) => dispatch({type: "SECONDARY", value}),
+      editRadio: (value, field) => dispatch({type: "RADIO", value, field})
     }
   }
 }
