@@ -38,6 +38,15 @@ app.post('/site', (req, res) => {
     .catch(error => res.status(404).send(error))
 })
 
+app.post('/display', (req, res) => {
+  const query = knex('sites')
+    .insert(req.body)
+    .returning('site_id')
+  query
+    .then(result => res.send(result))
+    .catch(error => res.status(404).send(error))
+})
+
 app.post('/dashboard', (req, res) => {
   console.log(req.body.site_id)
   const query = knex('sites')

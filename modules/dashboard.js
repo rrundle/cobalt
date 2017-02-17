@@ -7,6 +7,17 @@ const request = require('superagent')
 const { Photo } = require('./photo-drop.js')
 const { stateOptions } = require('./states')
 
+function sendData(data, path, route) {
+  const options = {
+    method: route,
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }
+  const result = fetch(path, options)
+    .then(res => res.json())
+  return result
+}
+
 const Dashboard = ({stateProps, toggleVisibility, dispatchProps }) => {
   return (
     <Sidemenu
@@ -131,17 +142,6 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     const path = '/dashboard'
     sendData(data, path, route)
       .then(result => console.log(result))
-  }
-
-  function sendData(data, path, route) {
-    const options = {
-      method: route,
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    }
-    const result = fetch(path, options)
-      .then(res => res.json())
-    return result
   }
 
   let primaryColor = {
