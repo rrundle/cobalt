@@ -347,12 +347,32 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
       </Segment.Group>
       <Segment>
         <div>{stateProps.org_name}</div>
-        <div>{`${stateProps.org_address}, ${stateProps.org_city}, ${stateProps.org_state} ${stateProps.org_zipcode}`}</div>
-        <div>{stateProps.org_phone}</div>
+        <div>
+        {
+          stateProps.display_address
+          ? `${stateProps.org_address}, ${stateProps.org_city}, ${stateProps.org_state} ${stateProps.org_zipcode}`
+          : null
+        }
+        </div>
+        <div>
+        {
+          stateProps.display_phone
+          ? stateProps.org_phone
+          : null
+        }
+        </div>
       </Segment>
       <Segment.Group horizontal>
-        <Segment>News</Segment>
-        <Segment>Events</Segment>
+        {
+          stateProps.display_news
+          ? <Segment>News</Segment>
+          : null
+        }
+        {
+          stateProps.display_events
+          ? <Segment>Events</Segment>
+          : null
+        }
       </Segment.Group>
     </Segment.Group>
   )

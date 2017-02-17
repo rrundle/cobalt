@@ -147,25 +147,25 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
     sendData(data, path, route)
       .then(result => {
 
+        addId(result[0])
+
         const displayData = {
-          site_id: result[0]
-          org_address: true
-          org_phone: true
-          site_color_primary: true
-          site_color_secondary: true
-          site_photo: true
-          site_background_photo: true
-          news: true
+          site_id: result[0],
+          org_address: true,
+          org_phone: true,
+          site_color_primary: true,
+          site_color_secondary: true,
+          site_photo: true,
+          site_background_photo: true,
+          news: true,
           events: true
         }
         const displayPath = '/display'
 
-        addId(result[0]))
-
         sendData(displayData, displayPath, route)
           .then(result => console.log(result))
-      }
-    }
+      })
+  }
 
   function sendData(data, path, route) {
     const options = {
@@ -180,16 +180,16 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
 
 
   return (
-  <div id="finish">
-    <IndexLink to={'/dashboard'} activeClassName="active">
-      <Button onClick={completeSignup} animated>
-        <Button.Content visible>Finish</Button.Content>
-        <Button.Content hidden>
-          <Icon name='right arrow' />
-        </Button.Content>
-      </Button>
-    </IndexLink>
-  </div>
+    <div id="finish">
+      <IndexLink to={'/dashboard'} activeClassName="active">
+        <Button onClick={completeSignup} animated>
+          <Button.Content visible>Finish</Button.Content>
+          <Button.Content hidden>
+            <Icon name='right arrow' />
+          </Button.Content>
+        </Button>
+      </IndexLink>
+    </div>
   )
 }
 
