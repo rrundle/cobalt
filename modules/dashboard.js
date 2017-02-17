@@ -318,10 +318,23 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     })
   }
 
+  const backgroundPhoto = {
+    backgroundImage: `url(${stateProps.site_background_photo})`
+  }
+
+  const profilePhoto = {
+    backgroundImage: `url(${stateProps.site_photo}) no-repeat`
+  }
+
   return (
     <Segment.Group>
-      <Segment>Background Photo
+      <Segment id="background-photo" style={backgroundPhoto} >Background Photo
         <Button content="View site" icon="computer" labelPosition="right" />
+        {
+          stateProps.site_background_photo === ''
+          ? <div>{stateProps.org_name}</div>
+          : null
+        }
         <Dropzone
           id="dash-drop-background"
           multiple={false}
@@ -329,17 +342,12 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
           onDrop={dispatchProps.onBackground}
           background-photo={stateProps.site_background_photo}
         >
-          {
-            stateProps.site_background_photo === ''
-            ? <div>{stateProps.org_name}</div>
-            : null
-          }
           <Icon name="photo" />
           <p className="dropzone-description">Edit background photo</p>
         </Dropzone>
       </Segment>
       <Segment.Group>
-        <Segment>Profile Photo
+        <Segment id="profile-photo" style={profilePhoto}>Profile Photo
           <Dropzone
             id="dash-drop-photo"
             multiple={false}
