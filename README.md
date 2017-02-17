@@ -14,4 +14,4 @@ PostgreSQL<br>
 Mocha<br>
 Chai<br>
 Heroku<br>
-Travis CI deployment
+Travis CI
