@@ -5,7 +5,7 @@ const { CirclePicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { Photo } = require('./photo-drop.js')
-const { stateOptions } = require('./states')
+const stateOptions = require('./states')
 
 function sendData(data, path, route) {
   const options = {
@@ -78,8 +78,8 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     dispatchProps.editCity(value)
   }
 
-  const handleState = event => {
-    const value = event.target.value
+  const handleState = (event, result) => {
+    const { value } = result
     dispatchProps.editState(value)
   }
 

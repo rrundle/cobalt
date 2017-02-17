@@ -2,7 +2,7 @@
 const { Form, Step, Button, Icon, Input, Popup, Grid, Segment, Dropdown } = require('semantic-ui-react')
 const { connect } = require('react-redux')
 const { Back, Next } = require('./buttons.js')
-const { stateOptions } = require('./states')
+const stateOptions = require('./states')
 
 const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
@@ -49,8 +49,8 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
     addCity(value)
   }
 
-  const handleState = event => {
-    const value = event.target.value
+  const handleState = (event, result) => {
+    const { value } = result
     addState(value)
   }
 
