@@ -31,24 +31,22 @@ const Dashboard = ({stateProps, toggleVisibility, dispatchProps }) => {
 const Sidemenu = ({stateProps, toggleVisibility, dispatchProps}) => {
 
   return (
-    <div>
-      <Sidebar.Pushable id="dashboard" as={Segment}>
-        <Sidebar id="sidebar" as={Menu} animation='scale down' width='thin' visible={stateProps.view} icon='labeled' vertical inverted>
-          <Info
-           stateProps={stateProps}
-           toggleVisibility={toggleVisibility}
-           dispatchProps={dispatchProps}
-          />
+    <Sidebar.Pushable id="dashboard" as={Segment}>
+      <Sidebar id="sidebar" as={Menu} animation='scale down' width='thin' visible={stateProps.view} icon='labeled' vertical inverted>
+        <Info
+         stateProps={stateProps}
+         toggleVisibility={toggleVisibility}
+         dispatchProps={dispatchProps}
+        />
       </Sidebar>
-        <Sidebar.Pusher id="dash-body">
-          <Body
-          stateProps={stateProps}
-          dispatchProps={dispatchProps}
-          >
-          </Body>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-    </div>
+      <Sidebar.Pusher id="dash-body">
+        <Body
+        stateProps={stateProps}
+        dispatchProps={dispatchProps}
+        >
+        </Body>
+      </Sidebar.Pusher>
+    </Sidebar.Pushable>
   )
 }
 
@@ -206,22 +204,21 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
   return (
     <div>
       <div id="dash-title">Cobalt</div>
-      <Button content="Hide" icon="left arrow" labelPosition="left" onClick={dispatchProps.handleClick}></Button>
-      <Menu.Item name='name'>
-        <div>Name</div>
-        <Input id="dash-name" icon='write' defaultValue={stateProps.name} onChange={handleName} onBlur={updateProfile}/>
+      <Menu.Item id="dash-name-box" name='name'>
+        <div className="category" >Name</div>
+        <Input className="edit" id="dash-name" placeholder={'Name'} defaultValue={stateProps.name} onChange={handleName} onBlur={updateProfile}/>
       </Menu.Item>
-      <Menu.Item name='org'>
-        <div>Organization</div>
-        <Input id="dash-org" icon='write' labelPosition="left" defaultValue={stateProps.org_name} onBlur={updateProfile} onChange={handleOrg}/>
-        <Input id="dash-address" icon='write' defaultValue={stateProps.org_address} onBlur={updateProfile} onChange={handleAddress}/>
-        <Input id="dash-city" icon='write' defaultValue={stateProps.org_city} onBlur={updateProfile} onChange={handleCity} />
-        <Dropdown id="dash-state" search selection options={stateOptions} placeholder="CA" defaultValue={stateProps.org_state} onBlur={updateProfile} onChange={handleState} />
-        <Input id="dash-zipcode" icon='write' defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
-        <Input id="dash-phone" icon='write' defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone}/>
+      <Menu.Item id="org-menu" name='org'>
+        <div className="category">Organization</div>
+        <Input className="edit" id="dash-org" placeholder={'Organization'} defaultValue={stateProps.org_name} onBlur={updateProfile} onChange={handleOrg}/>
+        <Input className="edit" id="dash-address" placeholder={'Address'} defaultValue={stateProps.org_address} onBlur={updateProfile} onChange={handleAddress}/>
+        <Input className="edit" id="dash-city" placeholder={'City'} defaultValue={stateProps.org_city} onBlur={updateProfile} onChange={handleCity} />
+        <Dropdown id="dash-state" search selection options={stateOptions} placeholder={'ST'} defaultValue={stateProps.org_state} onBlur={updateProfile} onChange={handleState} />
+        <Input className="edit" id="dash-zipcode" type="number" maxlength="5" placeholder={'Zipcode'} defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
+        <Input className="edit" id="dash-phone" type="number" maxlength="13" placeholder={'Phone'} defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone}/>
       </Menu.Item>
       <Menu.Item name='color'>
-        <div>Primary Site Color</div>
+        <div className="category">Primary Site Color</div>
         <Popup
           id="dash-color-1"
           trigger={<div id="dash-circle-1" style={primaryColor} onClick={handlePrimary}></div>}
@@ -232,7 +229,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         </Popup>
       </Menu.Item>
       <Menu.Item>
-        <div>Secondary Site Color</div>
+        <div className="category">Secondary Site Color</div>
         <Popup
           id="dash-color-2"
           trigger={<div id="dash-circle-2" style={secondaryColor} onClick={handleSecondary}></div>}
@@ -243,28 +240,28 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         </Popup>
       </Menu.Item>
       <Menu.Item>
-        <div>Display Preferences</div>
-        <div>Address</div>
-        <Segment compact>
-          <Radio id="display_address" onChange={handleRadio} checked={stateProps.display_address} slider />
+        <div className="category">Display Preferences</div>
+        <div className="display-category">Address</div>
+        <Segment id="display_address"compact>
+          <Radio id="radio-address" onChange={handleRadio} checked={stateProps.display_address} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>Phone</div>
-        <Segment compact>
-          <Radio id="display_phone" onChange={handleRadio} checked={stateProps.display_phone} slider />
+        <Segment id="display_phone"compact>
+          <Radio onChange={handleRadio} checked={stateProps.display_phone} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>News</div>
-        <Segment compact>
-          <Radio id="display_news" onChange={handleRadio} checked={stateProps.display_news} slider />
+        <Segment id="display_news" compact>
+          <Radio onChange={handleRadio} checked={stateProps.display_news} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>Events</div>
-        <Segment compact>
-          <Radio id="display_events" onChange={handleRadio} checked={stateProps.display_events} slider />
+        <Segment id="display_events" compact>
+          <Radio onChange={handleRadio} checked={stateProps.display_events} slider />
         </Segment>
       </Menu.Item>
     </div>
@@ -344,13 +341,33 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     })
   }
 
+  const backgroundStyle = {
+    width: '100%',
+    border: 'none',
+    height: '300px',
+    backgroundImage: 'url(' + stateProps.site_background_photo + ')'
+  }
+
+  const profileStyle = {
+    width: '200px',
+    height: '200px',
+    borderRadius: '50%',
+    border: 'none',
+    backgroundImage: 'url(' + stateProps.site_photo + ')'
+  }
+
+  const dropStyle = {
+    border: 'none',
+    borderRadius: '50%'
+  }
+
   return (
-    <Segment.Group>
-      <Segment id="background-photo" style={backgroundPhoto} >Background Photo
-        <Button content="View site" icon="computer" labelPosition="right" />
+    <Segment.Group id="dash-segments">
+      <Segment id="background-photo" style={backgroundPhoto}>
+        <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
         {
           stateProps.site_background_photo === ''
-          ? <div>{stateProps.org_name}</div>
+          ? <div id="default-org-name">{stateProps.org_name}</div>
           : null
         }
         <Dropzone
@@ -358,39 +375,46 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
           multiple={false}
           accept="image/*"
           onDrop={onBackground}
-          background-photo={stateProps.site_background_photo}
+          style={backgroundStyle}
         >
-          <Icon name="photo" />
-          <p className="dropzone-description">Edit background photo</p>
-        </Dropzone>
-      </Segment>
-      <Segment.Group>
-        <Segment id="profile-photo" style={profilePhoto}>Profile Photo
-          <Dropzone
-            id="dash-drop-photo"
-            multiple={false}
-            accept="image/*"
-            onDrop={onPhoto}>
-            {
-              stateProps.site_photo === ''
-              ? <i id="default-photo" class="fa fa-user" aria-hidden="true"></i>
-              : null
-            }
+          <div id="background-camera">
             <Icon name="photo" />
-            <Image className="display" src={stateProps.site_photo} size='small' shape='circular' />
-          </Dropzone>
-        </Segment>
-      </Segment.Group>
-      <Segment>
-        <div>{stateProps.org_name}</div>
+          </div>
+          <p className="dropzone-description"></p>
+        </Dropzone>
         <div>
+          <Segment
+            id="profile-photo"
+            style={profileStyle}
+          >
+            <Dropzone
+              id="dash-drop-photo"
+              multiple={false}
+              accept="image/*"
+              onDrop={onPhoto}
+              style={dropStyle}
+              >
+              {
+                stateProps.site_photo === ''
+                ? <i id="default-photo" class="fa fa-user" aria-hidden="true"></i>
+                : null
+              }
+              <Icon id="profile-camera" name="photo" />
+              <Image className="display" size='small' shape='circular' />
+            </Dropzone>
+          </Segment>
+        </div>
+      </Segment>
+      <Segment>
+        <div className="body-info" id="dash-org-title">{stateProps.org_name}</div>
+        <div className="body-info">
         {
-          stateProps.display_address
-          ? `${stateProps.org_address}, ${stateProps.org_city}, ${stateProps.org_state} ${stateProps.org_zipcode}`
-          : null
+          stateProps.org_address === ''
+          ? ''
+          : `${stateProps.org_address}, ${stateProps.org_city}, ${stateProps.org_state} ${stateProps.org_zipcode}`
         }
         </div>
-        <div>
+        <div className="body-info">
         {
           stateProps.display_phone
           ? stateProps.org_phone
@@ -401,12 +425,12 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
       <Segment.Group horizontal>
         {
           stateProps.display_news
-          ? <Segment>News</Segment>
+          ? <Segment id="news-segment">News</Segment>
           : null
         }
         {
           stateProps.display_events
-          ? <Segment>Events</Segment>
+          ? <Segment id="events-segment">Events</Segment>
           : null
         }
       </Segment.Group>

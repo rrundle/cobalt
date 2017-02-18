@@ -238,7 +238,7 @@ const redraw = () => {
   const { dispatch } = store
    ReactDOM.render(
     <Provider store={store} dispatch={dispatch}>
-      <Router routes={routes} history={browserHistory} store={store} dispatch={dispatch} />
+      <Router routes={routes} history={hashHistory} store={store} dispatch={dispatch} />
     </Provider>,
      document.querySelector('.start')
    )
