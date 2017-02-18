@@ -449,36 +449,48 @@ i {
   font-size: .5em;
 }
 
-#display_address {
+#radio-address {
   background-color: #363636;
   border: none;
   margin: 5px auto;
   box-shadow: none;
 }
 
-#display_address > div > label {
-  background-color: #009f5a;
+#display_address > input:checked~label:before {
+  background-color: #21ba45!important;
 }
 
-#display_phone {
+#radio-phone {
   background-color: #363636;
   border: none;
   margin: 5px auto;
   box-shadow: none;
 }
 
-#display_news {
+#display_phone > input:checked~label:before {
+  background-color: #21ba45!important;
+}
+
+#radio-news {
   background-color: #363636;
   border: none;
   margin: 5px auto;
   box-shadow: none;
 }
 
-#display_events {
+#display_news > input:checked~label:before {
+  background-color: #21ba45!important;
+}
+
+#radio-events {
   background-color: #363636;
   border: none;
   margin: 5px auto;
   box-shadow: none;
+}
+
+#display_events > input:checked~label:before {
+  background-color: #21ba45!important;
 }
 
 #dash-segments {

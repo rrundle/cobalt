@@ -4,7 +4,6 @@ const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio
 const { CirclePicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
-const { Photo } = require('./photo-drop.js')
 const stateOptions = require('./states')
 
 function sendData(data, path, route) {
@@ -155,6 +154,7 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
     const path = '/dashboard'
 
     const field = event.target.parentNode.getAttribute('id')
+    console.log(field)
     if (field === 'display_address') {
       const data =
       {
@@ -214,8 +214,8 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
         <Input className="edit" id="dash-address" placeholder={'Address'} defaultValue={stateProps.org_address} onBlur={updateProfile} onChange={handleAddress}/>
         <Input className="edit" id="dash-city" placeholder={'City'} defaultValue={stateProps.org_city} onBlur={updateProfile} onChange={handleCity} />
         <Dropdown id="dash-state" search selection options={stateOptions} placeholder={'ST'} defaultValue={stateProps.org_state} onBlur={updateProfile} onChange={handleState} />
-        <Input className="edit" id="dash-zipcode" type="number" maxlength="5" placeholder={'Zipcode'} defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
-        <Input className="edit" id="dash-phone" type="number" maxlength="13" placeholder={'Phone'} defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone}/>
+        <Input className="edit" id="dash-zipcode" type="number" placeholder={'Zipcode'} defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
+        <Input className="edit" id="dash-phone" type="number" placeholder={'Phone'} defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone}/>
       </Menu.Item>
       <Menu.Item name='color'>
         <div className="category">Primary Site Color</div>
@@ -242,26 +242,26 @@ const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
       <Menu.Item>
         <div className="category">Display Preferences</div>
         <div className="display-category">Address</div>
-        <Segment id="display_address"compact>
-          <Radio id="radio-address" onChange={handleRadio} checked={stateProps.display_address} slider />
+        <Segment id="radio-address"compact>
+          <Radio id="display_address" onChange={handleRadio} checked={stateProps.display_address} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>Phone</div>
-        <Segment id="display_phone"compact>
-          <Radio onChange={handleRadio} checked={stateProps.display_phone} slider />
+        <Segment id="radio-phone"compact>
+          <Radio id="display_phone" onChange={handleRadio} checked={stateProps.display_phone} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>News</div>
-        <Segment id="display_news" compact>
-          <Radio onChange={handleRadio} checked={stateProps.display_news} slider />
+        <Segment id="radio-news" compact>
+          <Radio id="display_news" onChange={handleRadio} checked={stateProps.display_news} slider />
         </Segment>
       </Menu.Item>
       <Menu.Item>
         <div>Events</div>
-        <Segment id="display_events" compact>
-          <Radio onChange={handleRadio} checked={stateProps.display_events} slider />
+        <Segment id="radio-events" compact>
+          <Radio id="display_events" onChange={handleRadio} checked={stateProps.display_events} slider />
         </Segment>
       </Menu.Item>
     </div>
@@ -409,9 +409,9 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         <div className="body-info" id="dash-org-title">{stateProps.org_name}</div>
         <div className="body-info">
         {
-          stateProps.org_address === ''
-          ? ''
-          : `${stateProps.org_address}, ${stateProps.org_city}, ${stateProps.org_state} ${stateProps.org_zipcode}`
+          stateProps.display_address
+          ? `${stateProps.org_address}   ${stateProps.org_city}   ${stateProps.org_state} ${stateProps.org_zipcode}`
+          : ''
         }
         </div>
         <div className="body-info">

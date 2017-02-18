@@ -77,9 +77,9 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
       <Input className="contact" placeholder="address" value={stateProps.org_address} onChange={handleAddress} id="org-address" />
       <Input className="contact" placeholder="city" value={stateProps.org_city} onChange={handleCity} id="org-city" />
       <Dropdown search selection options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} onChange={handleState} id="org-state" />
-      <Input className="contact" placeholder="zipcode" type="number" maxlength="5" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" />
+      <Input className="contact" placeholder="zipcode" type="number" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" />
       <div raised className="org-title">{'Your organization\'s phone number'}</div>
-      <Input keyboardType='numeric' placeholder="(555) 555-555" type="number" maxlength="13" value={stateProps.org_phone} onChange={handlePhone} id="org-phone" />
+      <Input keyboardType='numeric' placeholder="(555) 555-555" type="number" value={stateProps.org_phone} onChange={handlePhone} id="org-phone" />
       <div id="butons">
         <Back link={'/'}></Back>
         <Next link={'/colors'}></Next>
