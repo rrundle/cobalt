@@ -6,7 +6,7 @@ const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { Back, Next } = require('./buttons.js')
 
-const StepFour = ({ stateProps, addPhoto, addBackground }) => {
+const StepFour = ({ stateProps, addPhoto, addBackground, addId }) => {
   return (
     <div>
       <Step.Group ordered>
@@ -45,12 +45,13 @@ const StepFour = ({ stateProps, addPhoto, addBackground }) => {
         stateProps={stateProps}
         addPhoto={addPhoto}
         addBackground={addBackground}
+        addId={addId}
       />
     </div>
   )
 }
 
-const Uploader = ({ stateProps, addPhoto, addBackground }) => {
+const Uploader = ({ stateProps, addPhoto, addBackground, addId }) => {
 
   const CLOUDINARY_UPLOAD_PRESET = 'l25kfhpr'
   const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ryanrundle/upload'
@@ -124,7 +125,7 @@ const Uploader = ({ stateProps, addPhoto, addBackground }) => {
   )
 }
 
-const Finish = ({ stateProps, addPhoto, addBackground }) => {
+const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
 
   const completeSignup = () => {
     const data = {
@@ -144,8 +145,27 @@ const Finish = ({ stateProps, addPhoto, addBackground }) => {
     const route = 'POST'
     const path = '/site'
     sendData(data, path, route)
-      .then(result => console.log(result))
-    }
+      .then(result => {
+
+        addId(result[0])
+
+        const displayData = {
+          site_id: result[0],
+          org_address: true,
+          org_phone: true,
+          site_color_primary: true,
+          site_color_secondary: true,
+          site_photo: true,
+          site_background_photo: true,
+          news: true,
+          events: true
+        }
+        const displayPath = '/display'
+
+        sendData(displayData, displayPath, route)
+          .then(result => console.log(result))
+      })
+  }
 
   function sendData(data, path, route) {
     const options = {
@@ -158,23 +178,25 @@ const Finish = ({ stateProps, addPhoto, addBackground }) => {
     return result
   }
 
+
   return (
-  <div id="finish">
-    <IndexLink activeClassName="active">
-      <Button onClick={completeSignup} animated>
-        <Button.Content visible>Finish</Button.Content>
-        <Button.Content hidden>
-          <Icon name='right arrow' />
-        </Button.Content>
-      </Button>
-    </IndexLink>
-  </div>
+    <div id="finish">
+      <IndexLink to={'/dashboard'} activeClassName="active">
+        <Button onClick={completeSignup} animated>
+          <Button.Content visible>Finish</Button.Content>
+          <Button.Content hidden>
+            <Icon name='right arrow' />
+          </Button.Content>
+        </Button>
+      </IndexLink>
+    </div>
   )
 }
 
 const mapStateToProps = state => {
   return {
     stateProps: {
+      site_id: state.site_id,
       site_url: state.site_url,
       name: state.name,
       org_name: state.org_name,
@@ -191,7 +213,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addPhoto: (value) => dispatch({type:'PHOTO', value}),
-    addBackground: (value) => dispatch({type: 'BACKGROUND', value})
+    addBackground: (value) => dispatch({type: 'BACKGROUND', value}),
+    addId: (value) => dispatch({type: 'ID', value})
   }
 }
 
