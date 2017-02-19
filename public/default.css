@@ -1,4 +1,4 @@
-body {
+#body {
   font-family: Work Sans;
   color: #31373d;
 }
@@ -13,6 +13,19 @@ body {
   color: #094aa9;
   font-size: 2em;
   text-align: center;
+}
+
+#dash-title {
+  animation: fade 7s;
+}
+
+@keyframes fade {
+  0% {
+    color: #363636;
+  }
+  100% {
+    color: #fff;
+  }
 }
 
 #select {
@@ -67,6 +80,7 @@ button:focus {
   font-weight: 100;
   font-family: Work Sans;
 }
+
 #name > input {
   border-top: none;
   border-left: none;
@@ -126,6 +140,46 @@ button:focus {
   color: #fff;
 }
 
+#org-address > input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 1px solid #094aa9;
+}
+
+#org-city > input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 1px solid #094aa9;
+}
+
+#org-state > input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 1px solid #094aa9;
+}
+
+#org-zipcode > input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 1px solid #094aa9;
+}
+
+#org-phone > input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom: 1px solid #094aa9;
+}
+
 .contact {
   margin: 30px 15px;
   width: 20%;
@@ -137,7 +191,7 @@ button:focus {
   color: #094aa9;
 }
 
-#popop {
+#popup {
   display: inline-block;
 }
 
@@ -263,4 +317,281 @@ button:focus {
 .display {
   margin: 0 auto;
   max-height: 200px;
+}
+
+#sidebar {
+  width: 22%;
+  min-width: 200px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #363636;
+}
+
+#dashboard {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+#dash-body {
+  position: absolute;
+  top: -155px;
+  left: 73px;
+  height: 1250px;
+}
+
+#dash-circle-1 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #dededf;
+  margin: 5px auto;
+}
+
+#dash-circle-2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #dededf;
+  margin: 5px auto;
+}
+
+#dash-title {
+  color: #fff;
+  font-size: 1.7em;
+  font-family: Russo One;
+  margin: 15px auto;
+}
+
+.edit {
+  color: #fff;
+}
+
+#hide {
+  float: right;
+  right: 7px;
+}
+
+.category {
+  margin: 15px auto;
+}
+
+.display-category {
+  margin: 10px auto;
+}
+
+#dash-name {
+  margin: 10px auto;
+}
+
+#dash-name > input {
+  font-size: 1em;
+}
+
+#dash-org {
+  margin: 8px auto 15px;
+}
+
+#dash-org > input {
+  font-size: 1em;
+}
+
+#dash-address {
+  margin: 8px auto;
+}
+
+#dash-address > input {
+  font-size: 1em;
+}
+
+#dash-city {
+  margin: 8px auto;
+}
+
+#dash-city > input {
+  font-size: 1em;
+}
+
+#dash-state {
+  margin: 8px auto;
+  width: 100px;
+  min-width: 100px;
+  display: inline-block;
+}
+
+#dash-state > input {
+  font-size: 1em;
+}
+
+#dash-zipcode {
+  margin: 8px 15px 8px 15px;;
+  display: inline-block;
+  width: 150px;
+  min-width: 150px;
+}
+
+#dash-zipcode > input {
+  font-size: 1em;
+}
+
+#dash-phone {
+  margin: 8px auto 15px;
+}
+
+#dash-phone > input {
+  font-size: 1em;
+}
+
+i {
+  font-size: .5em;
+}
+
+#radio-address {
+  background-color: #363636;
+  border: none;
+  margin: 5px auto;
+  box-shadow: none;
+}
+
+#display_address > input:checked~label:before {
+  background-color: #21ba45!important;
+}
+
+#radio-phone {
+  background-color: #363636;
+  border: none;
+  margin: 5px auto;
+  box-shadow: none;
+}
+
+#display_phone > input:checked~label:before {
+  background-color: #21ba45!important;
+}
+
+#radio-news {
+  background-color: #363636;
+  border: none;
+  margin: 5px auto;
+  box-shadow: none;
+}
+
+#display_news > input:checked~label:before {
+  background-color: #21ba45!important;
+}
+
+#radio-events {
+  background-color: #363636;
+  border: none;
+  margin: 5px auto;
+  box-shadow: none;
+}
+
+#display_events > input:checked~label:before {
+  background-color: #21ba45!important;
+}
+
+#dash-segments {
+  height: 100%;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+}
+
+#background-photo {
+  height: 450px;
+  background-size: contain;
+}
+
+#background-photo:hover {
+  background-color: #bcbcbc;
+  cursor: pointer;
+}
+
+#profile-photo {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  background-color: #dededf;
+  position: fixed;
+  z-index: 2;
+  margin: 0 auto;
+  background-size: contain;
+  padding: 0;
+}
+
+#default-org-name {
+  font-size: 4em;
+  z-index: 1;
+  margin: 150px auto 0;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+#dash-drop-photo {
+  border: none;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+#background-camera > i {
+  font-size: 4em;
+}
+
+#background-camera {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 60%;
+  margin: auto;
+  left: 49%;
+}
+
+#background-camera:hover {
+  color: #094aa9;
+}
+
+#profile-camera {
+  position: absolute;
+  top: 45%;
+  font-size: 2em;
+  left: 41.5%;
+}
+
+#profile-camera:hover {
+  cursor: pointer;
+  color: #094aa9;
+}
+
+#view-site {
+  float: right;
+  right: 10px;
+  top: 10px;
+}
+
+.body-info {
+  font-size: 2em;
+  height: 30px;
+  margin: 10px auto;
+}
+
+#news-segment {
+  font-size: 2em;
+  font-weight: bold;
+  height: 100%;
+}
+
+#events-segment {
+  font-size: 2em;
+  font-weight: bold;
+  height: 100%;
+}
+
+#dash-org-title {
+  font-size: 1.5em;
+  font-weight: bold;
 }

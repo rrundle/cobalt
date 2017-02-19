@@ -6,8 +6,11 @@ const { Router, Route, hashHistory, IndexLink, browserHistory, applyRouterMiddle
 const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
+const Dashboard = require('../modules/dashboard.js')
+
 
 const initialState = {
+  site_id: '',
   name: '',
   org_name: '',
   site_url: '',
@@ -19,7 +22,12 @@ const initialState = {
   site_color_primary: '',
   site_color_secondary: '',
   site_photo: '',
-  site_background_photo: ''
+  site_background_photo: '',
+  view: true,
+  display_address: true,
+  display_phone: true,
+  display_news: true,
+  display_events: true,
 }
 
 const reducer = (state, action) => {
@@ -30,6 +38,10 @@ const reducer = (state, action) => {
         [action.field]: action.value
       })
     */
+    case 'ID':
+      return Object.assign({}, state, {
+        site_id: action.value
+      })
 
     case 'ORG':
       return Object.assign({}, state, {
@@ -68,6 +80,7 @@ const reducer = (state, action) => {
       })
 
     case "PRIMARY":
+      console.log(action.value)
       return Object.assign({}, state, {
         site_color_primary: action.value
       })
@@ -86,6 +99,31 @@ const reducer = (state, action) => {
       return Object.assign({}, state, {
         site_background_photo: action.value
       })
+
+    case "SIDEBAR":
+      if (action.value === true) {
+        console.log(action.value)
+        return Object.assign({}, state, {
+          visible: false
+        })
+      }
+      else {
+        return Object.assign({}, state, {
+          visible: true
+        })
+      }
+
+    case "RADIO":
+    if (action.value === true) {
+      return Object.assign({}, state, {
+        [action.field]: false
+      })
+    }
+    else {
+      return Object.assign({}, state, {
+        [action.field]: true
+      })
+    }
 
     default:
       return state
@@ -182,7 +220,7 @@ const Signup = () => {
 }
 
 //const reducer = combineReducers({info, contact})
-const store = Redux.createStore(reducer, initialState)
+const store = Redux.createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 const draw = () => console.log(store.getState())
 store.subscribe(draw)
 
@@ -192,6 +230,7 @@ const routes = (
     <Route path='/contact' component={StepTwo} />
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
+    <Route path='/dashboard' component={Dashboard} />
   </Route>
 )
 
@@ -199,7 +238,7 @@ const redraw = () => {
   const { dispatch } = store
    ReactDOM.render(
     <Provider store={store} dispatch={dispatch}>
-      <Router routes={routes} history={browserHistory} store={store} dispatch={dispatch} />
+      <Router routes={routes} history={hashHistory} store={store} dispatch={dispatch} />
     </Provider>,
      document.querySelector('.start')
    )
