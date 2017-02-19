@@ -7,6 +7,7 @@ const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
 const Dashboard = require('../modules/dashboard.js')
+const Website = require('../modules/website.js')
 
 
 const initialState = {
@@ -188,7 +189,14 @@ const Signup = () => {
   const required = true
 
   return (
-    <div className="start">
+    <div>
+      <div id="company">
+        <span id="logo">cobalt</span>
+      </div>
+      <div id="tagline-container">
+        <h1 id="tagline">Dead simple content management.</h1>
+        <p>Create content and share with your followers or members.</p>
+      </div>
       <div id="select">{'Select existing site'}
         <Dropdown fluid selection />
       </div>
@@ -231,7 +239,7 @@ const routes = (
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
     <Route path='/dashboard' component={Dashboard} />
-    <Route path=`/website/${state.site_url}` />
+    <Route path={`/website/:orgName`} component={Website}/>
   </Route>
 )
 
@@ -241,7 +249,7 @@ const redraw = () => {
     <Provider store={store} dispatch={dispatch}>
       <Router routes={routes} history={hashHistory} store={store} dispatch={dispatch} />
     </Provider>,
-     document.querySelector('.start')
+     document.querySelector('.content')
    )
 }
 

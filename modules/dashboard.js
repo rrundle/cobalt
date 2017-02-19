@@ -4,6 +4,7 @@ const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio
 const { CirclePicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
+const { IndexLink, browserHistory } = require('react-router')
 const stateOptions = require('./states')
 
 function sendData(data, path, route) {
@@ -361,10 +362,15 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     borderRadius: '50%'
   }
 
+  const linkSite = () => {
+    const path = `/website/:${stateProps.org_name}`
+    browserHistory.push(path)
+  }
+
   return (
     <Segment.Group id="dash-segments">
       <Segment id="background-photo" style={backgroundPhoto}>
-        <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
+        <Button onClick={linkSite} id="view-site" content="View site" icon="computer" labelPosition="right" />
         {
           stateProps.site_background_photo === ''
           ? <div id="default-org-name">{stateProps.org_name}</div>
