@@ -231,6 +231,7 @@ const routes = (
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
     <Route path='/dashboard' component={Dashboard} />
+    <Route path=`/website/${state.site_url}` />
   </Route>
 )
 
