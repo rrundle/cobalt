@@ -47,7 +47,7 @@ const reducer = (state, action) => {
     case 'ORG':
       return Object.assign({}, state, {
         org_name: action.value,
-        site_url: `http://www.${state.org_name.toLowerCase()}.cobaltcms.com`
+        site_url: `http://www.${action.value.toLowerCase()}.cobaltcms.com`
       })
 
     case 'NAME':
@@ -180,9 +180,12 @@ const Signup = () => {
       })
   }
 
-  const disableSpace = event => {
-    if (event.which === 32) {
-      return false
+  const handleBlur = event => {
+    if (state.org_name !== '') {
+      const go = document.getElementById('go')
+      const linkGo = document.getElementById('link-go')
+      go.disbaled = false
+      linkGo.disabled = false
     }
   }
 
@@ -206,7 +209,7 @@ const Signup = () => {
       <Form>
         <Form.Input label="" name="name" value={state.name} placeholder="Name" className="name" id="name" required={required} onChange={handleName} />
         <div className="title">{'Your name'}</div>
-        <Form.Input label="" name="org" value={state.org_name} placeholder="Organization" className="org" id="org" required={required} keydown={disableSpace} onChange={handleOrg} />
+        <Form.Input label="" name="org" value={state.org_name} placeholder="Organization" className="org" id="org" required={required} onChange={handleOrg} />
         <div className="title">{'Organization name'}</div>
         <div className="org-display">
           <div>{`http://www.${state.org_name.toLowerCase()}.cobaltcms.com`}
@@ -214,14 +217,23 @@ const Signup = () => {
             <span id="matches"></span>
           </div>
         </div>
-        <IndexLink to='/contact' activeClassName="active" onClick={handleGo}>
-          <Button animated primary type="submit" id="go">
-            <Button.Content visible>{'Let\'s go!'}</Button.Content>
-            <Button.Content hidden>
-              <Icon name='thumbs up' />
-            </Button.Content>
-          </Button>
-        </IndexLink>
+        {
+          (state.org_name !== '')
+          ? <IndexLink to='/contact' activeClassName="active" id="link-go" onClick={handleGo}>
+              <Button animated primary type="submit" id="go" onBlur={handleBlur}>
+                <Button.Content visible>{'Let\'s go!'}</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='thumbs up' />
+                </Button.Content>
+              </Button>
+            </IndexLink>
+          : <Button animated disabled primary type="submit" id="go" onBlur={handleBlur}>
+              <Button.Content visible>{'Let\'s go!'}</Button.Content>
+              <Button.Content hidden>
+                <Icon name='thumbs up' />
+              </Button.Content>
+            </Button>
+        }
       </Form>
     </div>
   )
