@@ -3,6 +3,17 @@ const { Segment, Button, Menu, Image, Icon, Header } = require('semantic-ui-reac
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 
+function sendData(data, path, route) {
+  const options = {
+    method: route,
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }
+  const result = fetch(path, options)
+    .then(res => res.json())
+  return result
+}
+
 const Website = ({ stateProps, dispatchProps }) => {
 
   const backgroundPhoto = {
@@ -28,6 +39,15 @@ const Website = ({ stateProps, dispatchProps }) => {
     border: 'none',
     backgroundImage: 'url(' + stateProps.site_photo + ')'
   }
+
+  const route = 'POST'
+  const path = '/posts'
+  const data = {
+    site_id: stateProps.site_id,
+  }
+
+  sendData(data, path, route)
+    .then(result => console.log(result))
 
   return (
     <Segment.Group id="dash-segments">
@@ -85,7 +105,9 @@ const Website = ({ stateProps, dispatchProps }) => {
       <Segment.Group horizontal>
         {
           stateProps.display_news
-          ? <Segment id="news-segment">News</Segment>
+          ? <Segment id="website-news">News
+
+            </Segment>
           : null
         }
         {
@@ -124,23 +146,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    dispatchProps: {
-      addPhoto: (value) => dispatch({type:'PHOTO', value}),
-      addBackground: (value) => dispatch({type: 'BACKGROUND', value}),
-      editName: (value) => dispatch({type: "NAME", value}),
-      editOrg: (value) => dispatch({type: "ORG", value}),
-      editAddress: (value) => dispatch({type: "ADDRESS", value}),
-      editCity: (value) => dispatch({type: "CITY", value}),
-      editState: (value) => dispatch({type: "STATE", value}),
-      editZip: (value) => dispatch({type: "ZIPCODE", value}),
-      editPhone: (value) => dispatch({type: "PHONE", value}),
-      editPrimary: (value) => dispatch({type: "PRIMARY", value}),
-      editSecondary: (value) => dispatch({type: "SECONDARY", value}),
-      editRadio: (value, field) => dispatch({type: "RADIO", value, field})
-    }
-  }
-}
-
-module.exports = connect(mapStateToProps, mapDispatchToProps)(Website)
+module.exports = connect(mapStateToProps)(Website)

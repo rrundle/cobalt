@@ -16,6 +16,7 @@ const knex = connex({
 
 app.use(jsonParser)
 app.use(express.static('public'))
+app.use(express.static('modules'))
 
 app.post('/org', (req, res) => {
   const query = knex('sites')
@@ -50,11 +51,28 @@ app.post('/display', (req, res) => {
 app.post('/dashboard', (req, res) => {
   console.log(req.body.site_id)
   const query = knex('sites')
-    .where('site_id', `${req.body.site_id}`)
+    .where('site_id', req.body.site_id)
     .update(req.body)
   query
     .then(result => res.send(result))
     .catch(error => res.status(404).send(error))
+})
+
+app.post('/news', (req,res) => {
+  const query = knex('news')
+    .insert(req.body)
+    .returning('content')
+  query
+    .then(result => res.send(result))
+    .catch(error => res.status(404).send(error))
+})
+
+app.post('/posts', (req, res) => {
+  const query = knex('news')
+    .where('site_id', req.body.site_id)
+    .select('content', 'timestamp')
+  query
+    .then(result => res.send(result))
 })
 
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}`) })
