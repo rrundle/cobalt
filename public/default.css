@@ -626,3 +626,7 @@ i {
 .status {
   margin-top: 15px;
 }
+
+#news-form {
+  margin: 20px auto;
+}

@@ -5,7 +5,8 @@ const { CirclePicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { IndexLink, browserHistory } = require('react-router')
-const stateOptions = require('./states')
+const stateOptions = require('./states.js')
+const News = require('./news.js')
 
 function sendData(data, path, route) {
   const options = {
@@ -425,7 +426,9 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
       <Segment.Group horizontal>
         {
           stateProps.display_news
-          ? <Segment id="news-segment">News</Segment>
+          ? <Segment id="news-segment">News
+              <News />
+            </Segment>
           : null
         }
         {
