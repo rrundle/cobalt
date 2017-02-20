@@ -57,4 +57,14 @@ app.post('/dashboard', (req, res) => {
     .catch(error => res.status(404).send(error))
 })
 
+app.post('/news', (req,res) => {
+  console.log(req.body)
+  const query = knex('news')
+    .insert(req.body)
+    .returning('content')
+  query
+    .then(result => res.send(result))
+    .catch(error => res.status(404).send(error))
+})
+
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}`) })
