@@ -121,7 +121,7 @@ const Uploader = ({ stateProps, addPhoto, addBackground, addId }) => {
       >
         <p className="dropzone-description">Drop an image or click to select a file to upload.</p>
         <img className="drop" src={'http://i.imgur.com/jQM2WCi.png'} />
-        <Image className="display" src={stateProps.ite_photo} size='small' shape='circular' />
+        <Image className="display" src={stateProps.site_photo} size='small' shape='circular' />
       </Dropzone>
       <div className="photos-title">{'Add a background photo for the organization'}</div>
       <Dropzone

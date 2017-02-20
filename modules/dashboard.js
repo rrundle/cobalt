@@ -18,24 +18,22 @@ function sendData(data, path, route) {
   return result
 }
 
-const Dashboard = ({stateProps, toggleVisibility, dispatchProps }) => {
+const Dashboard = ({ stateProps, dispatchProps }) => {
   return (
     <Sidemenu
       stateProps={stateProps}
-      toggleVisibility={toggleVisibility}
       dispatchProps={dispatchProps}
     />
   )
 }
 
-const Sidemenu = ({stateProps, toggleVisibility, dispatchProps}) => {
+const Sidemenu = ({stateProps, dispatchProps}) => {
 
   return (
     <Sidebar.Pushable id="dashboard" as={Segment}>
       <Sidebar id="sidebar" as={Menu} animation='scale down' width='thin' visible={stateProps.view} icon='labeled' vertical inverted>
         <Info
          stateProps={stateProps}
-         toggleVisibility={toggleVisibility}
          dispatchProps={dispatchProps}
         />
       </Sidebar>
@@ -50,7 +48,7 @@ const Sidemenu = ({stateProps, toggleVisibility, dispatchProps}) => {
   )
 }
 
-const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
+const Info = ({ stateProps, dispatchProps }) => {
 
   const handleClick = () => {
     stateProps.view = false ? stateProps.view === true : true
@@ -362,15 +360,12 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     borderRadius: '50%'
   }
 
-  const linkSite = () => {
-    const path = `/website/:${stateProps.org_name}`
-    browserHistory.push(path)
-  }
-
   return (
     <Segment.Group id="dash-segments">
       <Segment id="background-photo" style={backgroundPhoto}>
-        <Button onClick={linkSite} id="view-site" content="View site" icon="computer" labelPosition="right" />
+        <IndexLink to={`/dashboard/${stateProps.org_name}`} activeClassName="active" >
+          <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
+        </IndexLink>
         {
           stateProps.site_background_photo === ''
           ? <div id="default-org-name">{stateProps.org_name}</div>

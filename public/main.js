@@ -147,11 +147,6 @@ const Signup = () => {
   const state = store.getState()
   const { dispatch } = store
 
-  const handleGo = (event) => {
-    const tagline = document.getElementById('tagline-container')
-    if (tagline) {tagline.parentNode.removeChild(tagline)}
-  }
-
   const handleName = event => {
     const value = event.target.value
     dispatch({ type: 'NAME', value})
@@ -219,7 +214,7 @@ const Signup = () => {
         </div>
         {
           (state.org_name !== '')
-          ? <IndexLink to='/contact' activeClassName="active" id="link-go" onClick={handleGo}>
+          ? <IndexLink to='/contact' activeClassName="active" id="link-go">
               <Button animated primary type="submit" id="go" onBlur={handleBlur}>
                 <Button.Content visible>{'Let\'s go!'}</Button.Content>
                 <Button.Content hidden>
@@ -251,7 +246,7 @@ const routes = (
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
     <Route path='/dashboard' component={Dashboard} />
-    <Route path={`/website/:orgName`} component={Website}/>
+    <Route path='/dashboard/:orgName' component={Website} />
   </Route>
 )
 

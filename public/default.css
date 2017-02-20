@@ -315,6 +315,7 @@ button:focus {
 .display {
   margin: 0 auto;
   max-height: 200px;
+  background-size: contain;
 }
 
 #sidebar {
@@ -503,6 +504,25 @@ i {
   background-size: contain;
 }
 
+#website-background-photo {
+  height: 250px;
+  background-size: contain;
+}
+
+#website-profile-photo {
+  width: 225px;
+  height: 225px;
+  border: solid 15px #fff !important;
+  border-radius: 50%;
+  background-color: #dededf;
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  background-size: contain;
+  padding: 0;
+  top: 150px;
+}
+
 #background-photo:hover {
   background-color: #bcbcbc;
   cursor: pointer;
@@ -511,7 +531,7 @@ i {
 #profile-photo {
   width: 225px;
   height: 225px;
-  border: solid 15px #fff;
+  border: solid 15px #fff !important;
   border-radius: 50%;
   background-color: #dededf;
   position: fixed;
@@ -550,7 +570,7 @@ i {
 }
 
 #background-camera:hover {
-  color: #094aa9;
+  color: #000;
 }
 
 #profile-camera {
@@ -562,7 +582,7 @@ i {
 
 #profile-camera:hover {
   cursor: pointer;
-  color: #094aa9;
+  color: #000;
 }
 
 #view-site {
