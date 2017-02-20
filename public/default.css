@@ -630,3 +630,35 @@ i {
 #news-form {
   margin: 20px auto;
 }
+
+ul {
+  list-style-type: none;
+}
+
+#news-form {
+  font-size: 1em;
+  padding: 5px auto;
+  width: fill;
+  margin-bottom: 30px;
+}
+
+#news-posts {
+  text-align: left;
+}
+
+#new-post {
+  border: solid 1px #dededf;
+  border-radius: 3px;
+  padding:  30px 15px;
+  margin: 25px 0;
+  left: 0;
+}
+
+#news-submit {
+  float: right;
+}
+
+#timestamp {
+  float: right;
+  font-size: .7em;
+}
