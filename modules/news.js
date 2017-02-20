@@ -54,7 +54,6 @@ const News = ({ stateProps, dispatchProps }) => {
       content: value.formData.details,
       timestamp: time
     }
-
     sendData(data, path, route)
       .then(result => {
         contents.push(result)
