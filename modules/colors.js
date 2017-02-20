@@ -7,7 +7,7 @@ const { Back, Next } = require('./buttons.js')
 
 const StepThree = ({ addPrimary, addSecondary }) => {
   return (
-    <div>
+    <div className="status">
       <Step.Group ordered>
         <Step completed>
         <Step.Content>

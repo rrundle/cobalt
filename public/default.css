@@ -46,12 +46,12 @@
    margin: 0px auto 30px;;
  }
 
-.start {
+.content {
   width: 80%;
   margin: auto;
 }
 
-.start > div {
+.content > div {
   text-align: center;
 }
 
@@ -70,13 +70,13 @@ button:focus {
 }
 
 #name {
-  width: 70%;
+  width: 55%;
   font-weight: 100;
   font-family: Work Sans;
 }
 
 #org {
-  width: 70%;
+  width: 55%;
   font-weight: 100;
   font-family: Work Sans;
 }
@@ -126,13 +126,15 @@ button:focus {
 
 #matches {
   font-size: .75em;
-  font-weight: 100;
+  font-weight: bold;
 }
 
 #go {
-  width: 25%;
+  width: 20%;
   margin-top: 20px;
+  margin-bottom: 30px;
   background-color: #0b68ee;
+  text-align: center;
 }
 
 #go:hover {
@@ -156,7 +158,7 @@ button:focus {
   border-bottom: 1px solid #094aa9;
 }
 
-#org-state > input {
+#org-state {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -189,10 +191,6 @@ button:focus {
   background-color: #fff;
   font-size: 20px;
   color: #094aa9;
-}
-
-#popup {
-  display: inline-block;
 }
 
 #org-enter {
@@ -317,6 +315,7 @@ button:focus {
 .display {
   margin: 0 auto;
   max-height: 200px;
+  background-size: contain;
 }
 
 #sidebar {
@@ -502,7 +501,10 @@ i {
 
 #background-photo {
   height: 450px;
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0;
+  border-bottom: solid 10px #dededf;
 }
 
 #background-photo:hover {
@@ -510,9 +512,18 @@ i {
   cursor: pointer;
 }
 
+#website-background-photo {
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: solid 10px #dededf;
+  padding: 0;
+}
+
 #profile-photo {
   width: 225px;
   height: 225px;
+  border: solid 15px #fff !important;
   border-radius: 50%;
   background-color: #dededf;
   position: fixed;
@@ -520,6 +531,22 @@ i {
   margin: 0 auto;
   background-size: contain;
   padding: 0;
+  left: -5px;
+}
+
+#website-profile-photo {
+  width: 225px;
+  height: 225px;
+  border: solid 15px #fff !important;
+  border-radius: 50%;
+  background-color: #dededf;
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  background-size: contain;
+  padding: 0;
+  top: 150px;
+  left: -25px;
 }
 
 #default-org-name {
@@ -532,10 +559,9 @@ i {
 }
 
 #dash-drop-photo {
-  border: none;
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 225px;
+  height: 225px;
 }
 
 #background-camera > i {
@@ -552,7 +578,7 @@ i {
 }
 
 #background-camera:hover {
-  color: #094aa9;
+  color: #000;
 }
 
 #profile-camera {
@@ -564,7 +590,7 @@ i {
 
 #profile-camera:hover {
   cursor: pointer;
-  color: #094aa9;
+  color: #000;
 }
 
 #view-site {
@@ -592,6 +618,11 @@ i {
 }
 
 #dash-org-title {
-  font-size: 1.5em;
+  font-size: 3em;
   font-weight: bold;
+  margin: 7px auto;
+}
+
+.status {
+  margin-top: 15px;
 }

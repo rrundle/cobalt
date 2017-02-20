@@ -8,7 +8,7 @@ const { Back, Next } = require('./buttons.js')
 
 const StepFour = ({ stateProps, addPhoto, addBackground, addId }) => {
   return (
-    <div>
+    <div className="status">
       <Step.Group ordered>
         <Step completed>
         <Step.Content>
@@ -98,6 +98,17 @@ const Uploader = ({ stateProps, addPhoto, addBackground, addId }) => {
     })
   }
 
+  const handleLoad = () => {
+    return (
+      <Segment>
+        <Dimmer active>
+          <Loader indeterminate>Preparing Files</Loader>
+        </Dimmer>
+        <Image src='http://semantic-ui.com/images/wireframe/short-paragraph.png' />
+      </Segment>
+    )
+  }
+
   return (
     <div>
       <div className="photos-title">{'Add a profile photo for the organization'}</div>
@@ -106,10 +117,11 @@ const Uploader = ({ stateProps, addPhoto, addBackground, addId }) => {
         className="dropzone"
         multiple={false}
         accept="image/*"
-        onDrop={onPhoto}>
+        onDrop={onPhoto}
+      >
         <p className="dropzone-description">Drop an image or click to select a file to upload.</p>
         <img className="drop" src={'http://i.imgur.com/jQM2WCi.png'} />
-        <Image className="display" src={stateProps.ite_photo} size='small' shape='circular' />
+        <Image className="display" src={stateProps.site_photo} size='small' shape='circular' />
       </Dropzone>
       <div className="photos-title">{'Add a background photo for the organization'}</div>
       <Dropzone

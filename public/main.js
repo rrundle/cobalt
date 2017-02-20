@@ -7,6 +7,7 @@ const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
 const Dashboard = require('../modules/dashboard.js')
+const Website = require('../modules/website.js')
 
 
 const initialState = {
@@ -46,7 +47,7 @@ const reducer = (state, action) => {
     case 'ORG':
       return Object.assign({}, state, {
         org_name: action.value,
-        site_url: `http://www.${state.org_name.toLowerCase()}.cobaltcms.com`
+        site_url: `http://www.${action.value.toLowerCase()}.cobaltcms.com`
       })
 
     case 'NAME':
@@ -146,11 +147,6 @@ const Signup = () => {
   const state = store.getState()
   const { dispatch } = store
 
-  const handleGo = (event) => {
-    const tagline = document.getElementById('tagline-container')
-    if (tagline) {tagline.parentNode.removeChild(tagline)}
-  }
-
   const handleName = event => {
     const value = event.target.value
     dispatch({ type: 'NAME', value})
@@ -179,16 +175,26 @@ const Signup = () => {
       })
   }
 
-  const disableSpace = event => {
-    if (event.which === 32) {
-      return false
+  const handleBlur = event => {
+    if (state.org_name !== '') {
+      const go = document.getElementById('go')
+      const linkGo = document.getElementById('link-go')
+      go.disbaled = false
+      linkGo.disabled = false
     }
   }
 
   const required = true
 
   return (
-    <div className="start">
+    <div>
+      <div id="company">
+        <span id="logo">cobalt</span>
+      </div>
+      <div id="tagline-container">
+        <h1 id="tagline">Dead simple content management.</h1>
+        <p>Create content and share with your followers or members.</p>
+      </div>
       <div id="select">{'Select existing site'}
         <Dropdown fluid selection />
       </div>
@@ -198,7 +204,7 @@ const Signup = () => {
       <Form>
         <Form.Input label="" name="name" value={state.name} placeholder="Name" className="name" id="name" required={required} onChange={handleName} />
         <div className="title">{'Your name'}</div>
-        <Form.Input label="" name="org" value={state.org_name} placeholder="Organization" className="org" id="org" required={required} keydown={disableSpace} onChange={handleOrg} />
+        <Form.Input label="" name="org" value={state.org_name} placeholder="Organization" className="org" id="org" required={required} onChange={handleOrg} />
         <div className="title">{'Organization name'}</div>
         <div className="org-display">
           <div>{`http://www.${state.org_name.toLowerCase()}.cobaltcms.com`}
@@ -206,14 +212,23 @@ const Signup = () => {
             <span id="matches"></span>
           </div>
         </div>
-        <IndexLink to='/contact' activeClassName="active" onClick={handleGo}>
-          <Button animated primary type="submit" id="go">
-            <Button.Content visible>{'Let\'s go!'}</Button.Content>
-            <Button.Content hidden>
-              <Icon name='thumbs up' />
-            </Button.Content>
-          </Button>
-        </IndexLink>
+        {
+          (state.org_name !== '')
+          ? <IndexLink to='/contact' activeClassName="active" id="link-go">
+              <Button animated primary type="submit" id="go" onBlur={handleBlur}>
+                <Button.Content visible>{'Let\'s go!'}</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='thumbs up' />
+                </Button.Content>
+              </Button>
+            </IndexLink>
+          : <Button animated disabled primary type="submit" id="go" onBlur={handleBlur}>
+              <Button.Content visible>{'Let\'s go!'}</Button.Content>
+              <Button.Content hidden>
+                <Icon name='thumbs up' />
+              </Button.Content>
+            </Button>
+        }
       </Form>
     </div>
   )
@@ -231,6 +246,7 @@ const routes = (
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
     <Route path='/dashboard' component={Dashboard} />
+    <Route path='/dashboard/:orgName' component={Website} />
   </Route>
 )
 
@@ -240,7 +256,7 @@ const redraw = () => {
     <Provider store={store} dispatch={dispatch}>
       <Router routes={routes} history={hashHistory} store={store} dispatch={dispatch} />
     </Provider>,
-     document.querySelector('.start')
+     document.querySelector('.content')
    )
 }
 

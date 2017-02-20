@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Form, Step, Button, Icon, Input, Popup, Grid, Segment, Dropdown } = require('semantic-ui-react')
+const { Form, Step, Button, Icon, Input, Grid, Segment, Dropdown } = require('semantic-ui-react')
 const { connect } = require('react-redux')
 const { Back, Next } = require('./buttons.js')
 const stateOptions = require('./states')
@@ -7,7 +7,7 @@ const stateOptions = require('./states')
 const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
   return (
-    <div>
+    <div className="status">
       <Step.Group ordered>
         <Step completed>
         <Step.Content>
@@ -67,12 +67,6 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
   return (
     <div>
       <div id="org-enter">{'Enter the contact info for your organization'}</div>
-      <Popup
-        trigger={<Button id="popup-button" icon='info circle' />}
-        content="This displays live on your website."
-        id="popup"
-        basic
-      />
       <div className="org-title">{'Your organization\'s address'}</div>
       <Input className="contact" placeholder="address" value={stateProps.org_address} onChange={handleAddress} id="org-address" />
       <Input className="contact" placeholder="city" value={stateProps.org_city} onChange={handleCity} id="org-city" />

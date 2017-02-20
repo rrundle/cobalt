@@ -4,6 +4,7 @@ const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio
 const { CirclePicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
+const { IndexLink, browserHistory } = require('react-router')
 const stateOptions = require('./states')
 
 function sendData(data, path, route) {
@@ -17,24 +18,22 @@ function sendData(data, path, route) {
   return result
 }
 
-const Dashboard = ({stateProps, toggleVisibility, dispatchProps }) => {
+const Dashboard = ({ stateProps, dispatchProps }) => {
   return (
     <Sidemenu
       stateProps={stateProps}
-      toggleVisibility={toggleVisibility}
       dispatchProps={dispatchProps}
     />
   )
 }
 
-const Sidemenu = ({stateProps, toggleVisibility, dispatchProps}) => {
+const Sidemenu = ({stateProps, dispatchProps}) => {
 
   return (
     <Sidebar.Pushable id="dashboard" as={Segment}>
       <Sidebar id="sidebar" as={Menu} animation='scale down' width='thin' visible={stateProps.view} icon='labeled' vertical inverted>
         <Info
          stateProps={stateProps}
-         toggleVisibility={toggleVisibility}
          dispatchProps={dispatchProps}
         />
       </Sidebar>
@@ -49,7 +48,7 @@ const Sidemenu = ({stateProps, toggleVisibility, dispatchProps}) => {
   )
 }
 
-const Info = ({ stateProps, toggleVisibility, dispatchProps }) => {
+const Info = ({ stateProps, dispatchProps }) => {
 
   const handleClick = () => {
     stateProps.view = false ? stateProps.view === true : true
@@ -282,11 +281,13 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
   }
 
   const backgroundPhoto = {
-    backgroundImage: `url(${stateProps.site_background_photo})`
+    backgroundImage: `url(${stateProps.site_background_photo})`,
+    backgroundRepeat: 'no-repeat'
   }
 
   const profilePhoto = {
-    backgroundImage: `url(${stateProps.site_photo}) no-repeat`
+    backgroundImage: `url(${stateProps.site_photo})`,
+    backgroundRepeat: 'no-repeat'
   }
 
   function handlePhotoUpload(file) {
@@ -345,12 +346,9 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     width: '100%',
     border: 'none',
     height: '300px',
-    backgroundImage: 'url(' + stateProps.site_background_photo + ')'
   }
 
   const profileStyle = {
-    width: '200px',
-    height: '200px',
     borderRadius: '50%',
     border: 'none',
     backgroundImage: 'url(' + stateProps.site_photo + ')'
@@ -364,7 +362,9 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
   return (
     <Segment.Group id="dash-segments">
       <Segment id="background-photo" style={backgroundPhoto}>
-        <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
+        <IndexLink to={`/dashboard/${stateProps.org_name}`} activeClassName="active" >
+          <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
+        </IndexLink>
         {
           stateProps.site_background_photo === ''
           ? <div id="default-org-name">{stateProps.org_name}</div>
