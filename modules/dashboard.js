@@ -281,11 +281,13 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
   }
 
   const backgroundPhoto = {
-    backgroundImage: `url(${stateProps.site_background_photo})`
+    backgroundImage: `url(${stateProps.site_background_photo})`,
+    backgroundRepeat: 'no-repeat'
   }
 
   const profilePhoto = {
-    backgroundImage: `url(${stateProps.site_photo}) no-repeat`
+    backgroundImage: `url(${stateProps.site_photo})`,
+    backgroundRepeat: 'no-repeat'
   }
 
   function handlePhotoUpload(file) {
@@ -344,12 +346,9 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     width: '100%',
     border: 'none',
     height: '300px',
-    backgroundImage: 'url(' + stateProps.site_background_photo + ')'
   }
 
   const profileStyle = {
-    width: '200px',
-    height: '200px',
     borderRadius: '50%',
     border: 'none',
     backgroundImage: 'url(' + stateProps.site_photo + ')'

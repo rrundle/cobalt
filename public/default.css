@@ -501,12 +501,37 @@ i {
 
 #background-photo {
   height: 450px;
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0;
+  border-bottom: solid 10px #dededf;
+}
+
+#background-photo:hover {
+  background-color: #bcbcbc;
+  cursor: pointer;
 }
 
 #website-background-photo {
-  height: 250px;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: solid 10px #dededf;
+  padding: 0;
+}
+
+#profile-photo {
+  width: 225px;
+  height: 225px;
+  border: solid 15px #fff !important;
+  border-radius: 50%;
+  background-color: #dededf;
+  position: fixed;
+  z-index: 2;
+  margin: 0 auto;
   background-size: contain;
+  padding: 0;
+  left: -5px;
 }
 
 #website-profile-photo {
@@ -521,24 +546,7 @@ i {
   background-size: contain;
   padding: 0;
   top: 150px;
-}
-
-#background-photo:hover {
-  background-color: #bcbcbc;
-  cursor: pointer;
-}
-
-#profile-photo {
-  width: 225px;
-  height: 225px;
-  border: solid 15px #fff !important;
-  border-radius: 50%;
-  background-color: #dededf;
-  position: fixed;
-  z-index: 2;
-  margin: 0 auto;
-  background-size: contain;
-  padding: 0;
+  left: -25px;
 }
 
 #default-org-name {
@@ -610,8 +618,9 @@ i {
 }
 
 #dash-org-title {
-  font-size: 1.5em;
+  font-size: 3em;
   font-weight: bold;
+  margin: 7px auto;
 }
 
 .status {

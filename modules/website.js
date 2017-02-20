@@ -6,18 +6,19 @@ const { connect } = require('react-redux')
 const Website = ({ stateProps, dispatchProps }) => {
 
   const backgroundPhoto = {
-    backgroundImage: `url(${stateProps.site_background_photo})`
+    backgroundImage: `url(${stateProps.site_background_photo})`,
+    backgroundRepeat: 'no-repeat'
   }
 
   const profilePhoto = {
-    backgroundImage: `url(${stateProps.site_photo}) no-repeat`
+    backgroundImage: `url(${stateProps.site_photo}) no-repeat`,
+    backgroundRepeat: 'no-repeat'
   }
 
   const backgroundStyle = {
     width: '100%',
     border: 'none',
     height: '300px',
-    backgroundImage: 'url(' + stateProps.site_background_photo + ')'
   }
 
   const profileStyle = {
