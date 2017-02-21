@@ -7,6 +7,7 @@ const request = require('superagent')
 const { IndexLink, browserHistory } = require('react-router')
 const stateOptions = require('./states.js')
 const News = require('./news.js')
+const Events = require('./events.js')
 
 function sendData(data, path, route) {
   const options = {
@@ -433,7 +434,9 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         }
         {
           stateProps.display_events
-          ? <Segment id="events-segment">Events</Segment>
+          ? <Segment id="events-segment">Events
+              <Events />
+            </Segment>
           : null
         }
       </Segment.Group>
