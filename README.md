@@ -16,3 +16,4 @@ Chai<br>
 Heroku<br>
 Travis CI
 
+<img src="http://i.imgur.com/maeMyOz.png" />
