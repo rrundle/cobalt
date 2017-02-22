@@ -16,4 +16,3 @@ Chai<br>
 Heroku<br>
 Travis CI
 
-<video src="https://vimeo.com/205134529"></video>
