@@ -16,7 +16,7 @@
 }
 
 #dash-title {
-  animation: fade 7s;
+  animation: fade 5s;
 }
 
 @keyframes fade {
@@ -325,6 +325,7 @@ button:focus {
   left: 0;
   top: 0;
   background-color: #363636;
+  position: fixed;
 }
 
 #dashboard {
@@ -337,9 +338,10 @@ button:focus {
 
 #dash-body {
   position: absolute;
-  top: -155px;
+  top: -255px;
   left: 73px;
-  height: 1250px;
+  height: 100%;
+  min-height: 2000px;
 }
 
 #dash-circle-1 {
@@ -575,6 +577,7 @@ i {
   top: 60%;
   margin: auto;
   left: 49%;
+  color: #7f7f7f;
 }
 
 #background-camera:hover {
@@ -586,6 +589,7 @@ i {
   top: 45%;
   font-size: 2em;
   left: 41.5%;
+  color: #7f7f7f;
 }
 
 #profile-camera:hover {
@@ -609,6 +613,7 @@ i {
   font-size: 2em;
   font-weight: bold;
   height: 100%;
+  max-width: 45%;
 }
 
 #events-segment {
@@ -629,6 +634,10 @@ i {
 
 #news-form {
   margin: 20px auto;
+}
+
+#events-form {
+  margin: 40px auto 20px;
 }
 
 ul {
@@ -652,13 +661,37 @@ ul {
   padding:  30px 15px;
   margin: 25px 0;
   left: 0;
+  overflow: hidden;
 }
 
 #news-submit {
   float: right;
 }
 
+#events-submit {
+  float: right;
+  margin: 15px auto;
+}
+
 #timestamp {
   float: right;
   font-size: .7em;
+}
+
+#website-news {
+  font-size: 2em;
+}
+
+#events-container {
+  position: relative;
+  width: 100%;
+}
+
+#news-container {
+  margin-top: 100px;
+}
+
+#plugins {
+  height: 100%;
+  min-height: 500px;
 }

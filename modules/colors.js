@@ -3,7 +3,7 @@ const { Step, Button, Icon, Checkbox, Segment } = require('semantic-ui-react')
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 const { CirclePicker, clientWidth } = require('react-color')
-const { Back, Next } = require('./buttons.js')
+const { Back, Next } = require('../components/buttons.js')
 
 const StepThree = ({ addPrimary, addSecondary }) => {
   return (

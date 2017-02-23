@@ -1,5 +1,5 @@
 /* global React, ReactDOM, Redux */
-const { Form, Button, Container, Header } = require('semantic-ui-react')
+const { Form, Button, Container, Header, Input } = require('semantic-ui-react')
 const { connect } = require('react-redux')
 
 function sendData(data, path, route) {
@@ -46,13 +46,20 @@ const Events = ({ stateProps, dispatchProps }) => {
   const contents = []
   const handleSubmit = (event, value) => {
     event.preventDefault()
+    console.log(value);
     const time = timeStamp(new Date())
     const route = 'POST'
     const path = '/events'
     const data = {
       site_id: stateProps.site_id,
-      content: value.formData.details,
-      timestamp: time
+      details: value.formData.details,
+      event_name: value.formData.event_name,
+      event_date: value.formData.date,
+      location_address: value.formData.address,
+      location_city: value.formData.city,
+      location_state: value.formData.state,
+      location_zipcode: value.formData.zip,
+      happened: time
     }
     sendData(data, path, route)
       .then(result => {
@@ -60,7 +67,7 @@ const Events = ({ stateProps, dispatchProps }) => {
         return contents
       })
       .then(function(array) {
-        console.log(contents);
+        console.log(array)
         const updates = array.map((post) =>
           <li id='event-post'>{post}
             <span id="event-timestamp">{timeStamp(new Date())}</span>
@@ -77,25 +84,39 @@ const Events = ({ stateProps, dispatchProps }) => {
     console.log(event)
   }
 
+  const buttonStyle = {
+    backgroundColor: stateProps.site_color_primary
+  }
+
   return (
     <div>
       <Form id='events-form' onSubmit={handleSubmit}>
-        <Container text>
-          <Header as='h2'>{'New Event'}</Header>
+        <Container id="events-container" text>
           <Form.Group inline>
-            <Form.Field>
+            <Form.Field control={Input} name="event_name">
               <input placeholder='Event name' />
             </Form.Field>
-            <Form.Field>
+            <Form.Field control={Input} name="date">
             <input placeholder='MM/DD/YYY' />
             </Form.Field>
           </Form.Group>
-          <Form.Field>
-            <input placeholder='Location' />
+          <Form.Field control={Input} name="address">
+            <input placeholder='Location address..' />
           </Form.Field>
+          <Form.Group widths='equal'>
+            <Form.Field control={Input} name="city">
+              <input placeholder='City' />
+            </Form.Field>
+            <Form.Field control={Input} name="state">
+              <input placeholder='ST' />
+            </Form.Field>
+            <Form.Field control={Input} name="zip">
+              <input placeholder='Zip' />
+            </Form.Field>
+          </Form.Group>
           <Form.TextArea id='events-text-area' name='details' placeholder='Event details...' rows='4' />
         </Container>
-        <Button id='events-submit' primary type='submit'>Publish</Button>
+        <Button id='events-submit' primary type='submit' style={buttonStyle}>Publish</Button>
       </Form>
       <Container id='events-container'></Container>
     </div>
@@ -106,6 +127,7 @@ const mapStateToProps = state => {
   return {
     stateProps: {
       site_id: state.site_id,
+      site_color_primary: state.site_color_primary
     }
   }
 }

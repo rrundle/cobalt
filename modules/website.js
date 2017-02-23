@@ -18,7 +18,8 @@ const Website = ({ stateProps, dispatchProps }) => {
 
   const backgroundPhoto = {
     backgroundImage: `url(${stateProps.site_background_photo})`,
-    backgroundRepeat: 'no-repeat'
+    backgroundRepeat: 'no-repeat',
+    borderColor: stateProps.site_color_primary
   }
 
   const profilePhoto = {
