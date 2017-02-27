@@ -6,9 +6,9 @@
   "scripts": {
     "test": "mocha",
     "tdd": "mocha -w -R nyan",
-    "transform": "babel public/main.js --watch --out-file public/bundle.js",
-    "bundle": "browserify -t babelify public/main.js -o public/bundle.js",
-    "bundle:watch": "watchify -v -t babelify public/main.js -o public/bundle.js",
+    "transform": "babel public/main.js --watch --out-file build/bundle.js",
+    "bundle": "browserify -t babelify public/main.js -o build/bundle.js",
+    "bundle:watch": "watchify -v -t babelify public/main.js -o build/bundle.js",
     "watch": "nodemon index.js",
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",

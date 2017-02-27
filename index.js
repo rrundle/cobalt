@@ -17,6 +17,8 @@ const knex = connex({
 app.use(jsonParser)
 app.use(express.static('public'))
 app.use(express.static('modules'))
+app.use(express.static('build'))
+
 
 app.post('/org', (req, res) => {
   const query = knex('sites')
@@ -59,7 +61,6 @@ app.post('/dash', (req, res) => {
 })
 
 app.post('/news', (req,res) => {
-  console.log(req.body)
   const query = knex('news')
     .insert(req.body)
     .returning('content')
@@ -72,16 +73,17 @@ app.post('/events', (req,res) => {
   console.log(req.body)
   const query = knex('events')
     .insert(req.body)
-    .returning('content')
+    .returning('details')
   query
     .then(result => res.send(result))
     .catch(error => res.status(404).send(error))
 })
 
 app.post('/posts', (req, res) => {
+  console.log(req.body)
   const query = knex('news')
-    .where('site_id', req.body.site_id)
-    .select('content', 'timestamp')
+    .where(knex.raw('site_id = ' + req.body.site_id))
+    .select('content', 'happened')
   query
     .then(result => res.send(result))
 })

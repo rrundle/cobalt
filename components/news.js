@@ -56,12 +56,10 @@ const News = ({ stateProps, dispatchProps }) => {
     }
     sendData(data, path, route)
       .then(result => {
-        console.log(result)
         contents.push(result)
         return contents
       })
       .then(function(array) {
-        console.log(contents);
         const updates = array.map((post) =>
           <li id='new-post'>{post}
             <span id="timestamp">{timeStamp(new Date())}</span>
