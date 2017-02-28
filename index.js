@@ -73,7 +73,7 @@ app.post('/occasion', (req,res) => {
   console.log(req.body)
   const query = knex('events')
     .insert(req.body)
-    .returning('details')
+    .returning(['event_name', 'event_date', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened'])
   query
     .then(result => res.send(result))
     .catch(error => res.status(404).send(error))

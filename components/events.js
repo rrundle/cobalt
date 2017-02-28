@@ -43,6 +43,7 @@ const Events = ({ stateProps, dispatchProps }) => {
     return date[0] + '/' + date[1] + '/' + date[2] + ' ' + time[0] + (':') + time[1] + ' ' + suffix
   }
 
+  const newEvents = []
   const handleEvent = (event, value) => {
     event.preventDefault()
     const time = timeStamp(new Date())
@@ -59,26 +60,33 @@ const Events = ({ stateProps, dispatchProps }) => {
       details: value.formData.details,
       happened: time
     }
-    const events = []
     sendData(data, path, route)
       .then(result => {
-        console.log(result)
-        //events.push(result)
-        //return events
+        newEvents.push(result)
+        return newEvents
       })
-      /*
       .then(function(array) {
+        console.log(array)
         const updates = array.map((post) =>
-          <li id='event-post'>{post}
-            <span id="event-timestamp">{timeStamp(new Date())}</span>
+          <li id='event-post'>
+            <div>{post[0].event_name}
+              <span>{post[0].event_date}</span>
+            </div>
+            <div>
+              <span>{post[0].location_address}</span>
+              <span>{post[0].location_city}</span>
+              <span>{post[0].location_state}</span>
+              <span>{post[0].location_zipcode}</span>
+            </div>
+            <div>{post[0].details}</div>
+            <div id="event-timestamp">{'Added on' + post[0].happened}</div>
           </li>
         )
         ReactDOM.render(
           <ul id='event-list'>{updates}</ul>,
-          document.getElementById('events-container')
+          document.getElementById('new-events-container')
         )
       })
-      */
   }
 
   const buttonStyle = {
@@ -103,7 +111,7 @@ const Events = ({ stateProps, dispatchProps }) => {
         </Container>
         <Button id='events-submit' primary type='submit' style={buttonStyle}>Publish</Button>
       </Form>
-      <Container id='events-container'></Container>
+      <Container id='new-events-container'></Container>
     </div>
   )
 }
