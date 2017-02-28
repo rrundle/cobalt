@@ -1,8 +1,8 @@
 /* global React, ReactDOM, Redux */
 const { Form, Step, Button, Icon, Input, Grid, Segment, Dropdown } = require('semantic-ui-react')
 const { connect } = require('react-redux')
-const { Back, Next } = require('./buttons.js')
-const stateOptions = require('./states')
+const { Back, Next } = require('../components/buttons.js')
+const stateOptions = require('../components/states')
 
 const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 

@@ -4,7 +4,7 @@ const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
-const { Back, Next } = require('./buttons.js')
+const { Back, Next } = require('../components/buttons.js')
 
 const StepFour = ({ stateProps, addPhoto, addBackground, addId }) => {
   return (

@@ -52,7 +52,7 @@ const News = ({ stateProps, dispatchProps }) => {
     const data = {
       site_id: stateProps.site_id,
       content: value.formData.details,
-      timestamp: time
+      happened: time
     }
     sendData(data, path, route)
       .then(result => {
@@ -60,7 +60,6 @@ const News = ({ stateProps, dispatchProps }) => {
         return contents
       })
       .then(function(array) {
-        console.log(contents);
         const updates = array.map((post) =>
           <li id='new-post'>{post}
             <span id="timestamp">{timeStamp(new Date())}</span>
@@ -73,11 +72,15 @@ const News = ({ stateProps, dispatchProps }) => {
       })
   }
 
+  const buttonStyle = {
+    backgroundColor: stateProps.site_color_primary
+  }
+
   return (
     <div>
       <Form id='news-form' onSubmit={handleSubmit}>
-        <Form.TextArea id='news-form' name='details' placeholder='What is new?' rows='4' />
-        <Button id='news-submit' primary type='submit'>Publish</Button>
+        <Form.TextArea id='news-form' name='details' placeholder="What's new?" rows='4' />
+        <Button id='news-submit' primary type='submit' style={buttonStyle}>Publish</Button>
       </Form>
       <Container id='news-container'></Container>
     </div>
@@ -88,6 +91,7 @@ const mapStateToProps = state => {
   return {
     stateProps: {
       site_id: state.site_id,
+      site_color_primary: state.site_color_primary
     }
   }
 }

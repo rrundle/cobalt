@@ -5,8 +5,9 @@ const { CirclePicker, clientWidth } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { IndexLink, browserHistory } = require('react-router')
-const stateOptions = require('./states.js')
-const News = require('./news.js')
+const stateOptions = require('../components/states.js')
+const News = require('../components/news.js')
+const Events = require('../components/events.js')
 
 function sendData(data, path, route) {
   const options = {
@@ -94,7 +95,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     const value = color.hex
     dispatchProps.editPrimary(value)
     const route = 'POST'
-    const path = '/dashboard'
+    const path = '/dash'
     const data = {
       site_color_primary: value,
       site_id: stateProps.site_id
@@ -107,7 +108,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     const value = color.hex
     dispatchProps.editSecondary(value)
     const route = 'POST'
-    const path = '/dashboard'
+    const path = '/dash'
     const data = {
       site_color_secondary: value,
       site_id: stateProps.site_id
@@ -136,7 +137,7 @@ const Info = ({ stateProps, dispatchProps }) => {
       site_id: stateProps.site_id
     }
     const route = 'POST'
-    const path = '/dashboard'
+    const path = '/dash'
     sendData(data, path, route)
       .then(result => console.log(result))
   }
@@ -151,7 +152,7 @@ const Info = ({ stateProps, dispatchProps }) => {
 
   const handleRadio = (event) => {
     const route = 'POST'
-    const path = '/dashboard'
+    const path = '/dash'
 
     const field = event.target.parentNode.getAttribute('id')
     console.log(field)
@@ -283,7 +284,8 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
 
   const backgroundPhoto = {
     backgroundImage: `url(${stateProps.site_background_photo})`,
-    backgroundRepeat: 'no-repeat'
+    backgroundRepeat: 'no-repeat',
+    borderColor: stateProps.site_color_primary
   }
 
   const profilePhoto = {
@@ -332,7 +334,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         dispatchProps.addBackground(value)
 
         const route = 'POST'
-        const path = '/dashboard'
+        const path = '/dash'
         const data = {
           site_background_photo: value,
           site_id: stateProps.site_id
@@ -351,8 +353,8 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
 
   const profileStyle = {
     borderRadius: '50%',
-    border: 'none',
-    backgroundImage: 'url(' + stateProps.site_photo + ')'
+    borderColor: stateProps.site_color_primary + 'important!',
+    backgroundImage: 'url(' + stateProps.site_photo + ')',
   }
 
   const dropStyle = {
@@ -423,7 +425,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         }
         </div>
       </Segment>
-      <Segment.Group horizontal>
+      <Segment.Group id="plugins" widths='equal' horizontal>
         {
           stateProps.display_news
           ? <Segment id="news-segment">News
@@ -433,7 +435,9 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         }
         {
           stateProps.display_events
-          ? <Segment id="events-segment">Events</Segment>
+          ? <Segment id="events-segment">Events
+              <Events />
+            </Segment>
           : null
         }
       </Segment.Group>
