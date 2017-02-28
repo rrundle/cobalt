@@ -88,4 +88,13 @@ app.post('/posts', (req, res) => {
     .then(result => res.send(result))
 })
 
+app.post('/incident', (req, res) => {
+  console.log(req.body)
+  const query = knex('events')
+    .where(knex.raw('site_id = ' + req.body.site_id))
+    .select('event_name', 'event_date', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened')
+  query
+    .then(result => res.send(result))
+})
+
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}`) })
