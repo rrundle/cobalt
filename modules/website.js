@@ -49,13 +49,11 @@ const Website = ({ stateProps, dispatchProps }) => {
 
   sendData(data, path, route)
     .then(result => {
-      console.log(result)
       const updates = result.map((post) =>
         <li id='website-news-post'>{post.content}
           <span id="timestamp">{post.happened}</span>
         </li>
       )
-      console.log(updates)
       ReactDOM.render(
         <ul id='website-news-list'>{updates}</ul>,
         document.getElementById('website-news-container')

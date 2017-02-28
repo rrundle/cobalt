@@ -95,7 +95,7 @@ const Events = ({ stateProps, dispatchProps }) => {
     event.preventDefault();
     const time = timeStamp(new Date());
     const route = 'POST';
-    const path = '/events';
+    const path = '/occasion';
     const data = {
       site_id: stateProps.site_id,
       event_name: value.formData.event_name,
@@ -107,27 +107,25 @@ const Events = ({ stateProps, dispatchProps }) => {
       details: value.formData.details,
       happened: time
     };
-    const contents = [];
+    const events = [];
     sendData(data, path, route).then(result => {
-      contents.push(result);
-      return contents;
-    }).then(function (array) {
-      const updates = array.map(post => React.createElement(
-        'li',
-        { id: 'event-post' },
-        post,
-        React.createElement(
-          'span',
-          { id: 'event-timestamp' },
-          timeStamp(new Date())
-        )
-      ));
-      ReactDOM.render(React.createElement(
-        'ul',
-        { id: 'event-list' },
-        updates
-      ), document.getElementById('events-container'));
+      console.log(result);
+      //events.push(result)
+      //return events
     });
+    /*
+    .then(function(array) {
+      const updates = array.map((post) =>
+        <li id='event-post'>{post}
+          <span id="event-timestamp">{timeStamp(new Date())}</span>
+        </li>
+      )
+      ReactDOM.render(
+        <ul id='event-list'>{updates}</ul>,
+        document.getElementById('events-container')
+      )
+    })
+    */
   };
 
   const buttonStyle = {
@@ -670,7 +668,10 @@ const Info = ({ stateProps, dispatchProps }) => {
     };
     const route = 'POST';
     const path = '/dash';
-    sendData(data, path, route).then(result => console.log(result));
+    /*
+    sendData(data, path, route)
+      .then(result => console.log(result))
+    */
   };
 
   let primaryColor = {
@@ -894,7 +895,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         dispatchProps.addPhoto(value);
 
         const route = 'POST';
-        const path = '/dashboard';
+        const path = '/dash';
         const data = {
           site_photo: value,
           site_id: stateProps.site_id
@@ -1432,7 +1433,6 @@ const Website = ({ stateProps, dispatchProps }) => {
   };
 
   sendData(data, path, route).then(result => {
-    console.log(result);
     const updates = result.map(post => React.createElement(
       'li',
       { id: 'website-news-post' },
@@ -1443,7 +1443,6 @@ const Website = ({ stateProps, dispatchProps }) => {
         post.happened
       )
     ));
-    console.log(updates);
     ReactDOM.render(React.createElement(
       'ul',
       { id: 'website-news-list' },

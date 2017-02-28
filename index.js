@@ -69,7 +69,7 @@ app.post('/news', (req,res) => {
     .catch(error => res.status(404).send(error))
 })
 
-app.post('/events', (req,res) => {
+app.post('/occasion', (req,res) => {
   console.log(req.body)
   const query = knex('events')
     .insert(req.body)

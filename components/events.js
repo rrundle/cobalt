@@ -47,7 +47,7 @@ const Events = ({ stateProps, dispatchProps }) => {
     event.preventDefault()
     const time = timeStamp(new Date())
     const route = 'POST'
-    const path = '/events'
+    const path = '/occasion'
     const data = {
       site_id: stateProps.site_id,
       event_name: value.formData.event_name,
@@ -59,12 +59,14 @@ const Events = ({ stateProps, dispatchProps }) => {
       details: value.formData.details,
       happened: time
     }
-    const contents = []
+    const events = []
     sendData(data, path, route)
       .then(result => {
-        contents.push(result)
-        return contents
+        console.log(result)
+        //events.push(result)
+        //return events
       })
+      /*
       .then(function(array) {
         const updates = array.map((post) =>
           <li id='event-post'>{post}
@@ -76,6 +78,7 @@ const Events = ({ stateProps, dispatchProps }) => {
           document.getElementById('events-container')
         )
       })
+      */
   }
 
   const buttonStyle = {

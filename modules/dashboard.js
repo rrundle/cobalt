@@ -138,8 +138,10 @@ const Info = ({ stateProps, dispatchProps }) => {
     }
     const route = 'POST'
     const path = '/dash'
+    /*
     sendData(data, path, route)
       .then(result => console.log(result))
+    */
   }
 
   let primaryColor = {
@@ -308,7 +310,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         dispatchProps.addPhoto(value)
 
         const route = 'POST'
-        const path = '/dashboard'
+        const path = '/dash'
         const data = {
           site_photo: value,
           site_id: stateProps.site_id
