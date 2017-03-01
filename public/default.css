@@ -695,3 +695,11 @@ ul {
   height: 100%;
   min-height: 500px;
 }
+
+#calendar {
+  width: 200px;
+  height: 600px;
+  overflow: hidden;
+  border: solid 1px #dededf;
+  border-radius: 3px;
+}

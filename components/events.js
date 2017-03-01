@@ -1,5 +1,6 @@
 /* global React, ReactDOM, Redux */
 const { Form, Button, Container, Header, Input } = require('semantic-ui-react')
+const { DateField, DatePicker, Calendar } = require('react-date-picker')
 const { connect } = require('react-redux')
 
 function sendData(data, path, route) {
@@ -44,20 +45,23 @@ const Events = ({ stateProps, dispatchProps }) => {
   }
 
   const newEvents = []
+  let eventDate
+
   const handleEvent = (event, value) => {
     event.preventDefault()
+    console.log(eventDate)
     const time = timeStamp(new Date())
     const route = 'POST'
     const path = '/occasion'
     const data = {
       site_id: stateProps.site_id,
-      event_name: value.formData.event_name,
-      event_date: value.formData.date,
-      location_address: value.formData.address,
-      location_city: value.formData.city,
-      location_state: value.formData.state,
-      location_zipcode: value.formData.zip,
-      details: value.formData.details,
+      event_name: '' ? '' : value.formData.event_name,
+      event_date: '' ? '' : eventDate,
+      location_address: '' ? '' : value.formData.address,
+      location_city: '' ? '' : value.formData.city,
+      location_state: '' ? '' : value.formData.state,
+      location_zipcode: '' ? '' : value.formData.zip,
+      details: '' ? '' : value.formData.details,
       happened: time
     }
     sendData(data, path, route)
@@ -93,13 +97,25 @@ const Events = ({ stateProps, dispatchProps }) => {
     backgroundColor: stateProps.site_color_primary
   }
 
+  const onChange = (dateString, { dateMoment, timestamp }) => {
+    eventDate = dateString
+  }
+
   return (
     <div>
       <Form id='events-form' onSubmit={handleEvent}>
         <Container id="events-container" text>
           <Form.Group inline>
             <Form.Field control={Input} name="event_name" placeholder='Event name'></Form.Field>
-            <Form.Field control={Input} name="date" placeholder='MM/DD/YYY'></Form.Field>
+            <Form.Field control={Input}>
+              <Calendar
+                id="calendar"
+                dateFormat="MM-DD-YYYY"
+                placeholder="MM/DD/YYYY"
+                expanded={false}
+                onChange={onChange}
+              />
+            </Form.Field>
           </Form.Group>
           <Form.Field control={Input} name="address" placeholder='Location address..'></Form.Field>
           <Form.Group widths='equal'>
