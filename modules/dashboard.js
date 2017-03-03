@@ -208,7 +208,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     <div>
       <div id="dash-title">Cobalt</div>
       <Menu.Item id="dash-name-box" name='name'>
-        <div className="category" >Name</div>
+        <div className="category">Your name</div>
         <Input className="edit" id="dash-name" placeholder={'Name'} defaultValue={stateProps.name} onChange={handleName} onBlur={updateProfile}/>
       </Menu.Item>
       <Menu.Item id="org-menu" name='org'>
@@ -367,7 +367,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
   return (
     <Segment.Group id="dash-segments">
       <Segment id="background-photo" style={backgroundPhoto}>
-        <IndexLink to={`/dashboard/${stateProps.org_name}`} activeClassName="active" >
+        <IndexLink to={`/website/${stateProps.org_name}`} activeClassName="active" >
           <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
         </IndexLink>
         {

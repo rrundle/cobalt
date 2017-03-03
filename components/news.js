@@ -44,19 +44,40 @@ const News = ({ stateProps, dispatchProps }) => {
   }
 
   const contents = []
+
+  const data = {
+    site_id: stateProps.site_id,
+  }
+  sendData(data, '/posts', 'POST')
+    .then(result => {
+      contents.push(result)
+      return contents
+    })
+    .then(function(array) {
+      console.log(array)
+      const news = array.map((post) =>
+        <li>{post.content}
+          <span>{post.happened}</span>
+        </li>
+      )
+      ReactDOM.render(
+        <ul>{news}</ul>,
+        document.getElementById('news-container')
+      )
+    })
+
   const handleSubmit = (event, value) => {
     event.preventDefault()
     const time = timeStamp(new Date())
-    const route = 'POST'
-    const path = '/news'
-    const data = {
+    const newsData = {
       site_id: stateProps.site_id,
       content: value.formData.details,
       happened: time
     }
-    sendData(data, path, route)
+    sendData(newsData, '/news', 'POST')
       .then(result => {
         contents.push(result)
+        console.log(contents);
         return contents
       })
       .then(function(array) {
