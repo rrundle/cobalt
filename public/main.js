@@ -245,8 +245,8 @@ const routes = (
     <Route path='/contact' component={StepTwo} />
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
-    <Route path='/dashboard' component={Dashboard} />
-    <Route path='/dashboard/:orgName' component={Website} />
+    <Route path='/dashboard/:orgName' component={Dashboard} />
+    <Route path='/website/:orgName' component={Website} />
   </Route>
 )
 

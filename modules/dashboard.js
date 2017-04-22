@@ -138,8 +138,10 @@ const Info = ({ stateProps, dispatchProps }) => {
     }
     const route = 'POST'
     const path = '/dash'
+    /*
     sendData(data, path, route)
       .then(result => console.log(result))
+    */
   }
 
   let primaryColor = {
@@ -206,7 +208,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     <div>
       <div id="dash-title">Cobalt</div>
       <Menu.Item id="dash-name-box" name='name'>
-        <div className="category" >Name</div>
+        <div className="category">Your name</div>
         <Input className="edit" id="dash-name" placeholder={'Name'} defaultValue={stateProps.name} onChange={handleName} onBlur={updateProfile}/>
       </Menu.Item>
       <Menu.Item id="org-menu" name='org'>
@@ -308,7 +310,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         dispatchProps.addPhoto(value)
 
         const route = 'POST'
-        const path = '/dashboard'
+        const path = '/dash'
         const data = {
           site_photo: value,
           site_id: stateProps.site_id
@@ -365,7 +367,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
   return (
     <Segment.Group id="dash-segments">
       <Segment id="background-photo" style={backgroundPhoto}>
-        <IndexLink to={`/dashboard/${stateProps.org_name}`} activeClassName="active" >
+        <IndexLink to={`/website/${stateProps.org_name}`} activeClassName="active" >
           <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
         </IndexLink>
         {

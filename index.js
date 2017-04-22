@@ -51,9 +51,8 @@ app.post('/display', (req, res) => {
 })
 
 app.post('/dash', (req, res) => {
-  console.log(req.body)
   const query = knex('sites')
-    .where({site_id: req.body.id})
+    .where(knex.raw('site_id = ' + req.body.site_id))
     .update(req.body)
   query
     .then(result => res.send(result))
@@ -69,21 +68,27 @@ app.post('/news', (req,res) => {
     .catch(error => res.status(404).send(error))
 })
 
-app.post('/events', (req,res) => {
-  console.log(req.body)
+app.post('/occasion', (req,res) => {
   const query = knex('events')
     .insert(req.body)
-    .returning('details')
+    .returning(['event_name', 'event_date', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened'])
   query
     .then(result => res.send(result))
     .catch(error => res.status(404).send(error))
 })
 
 app.post('/posts', (req, res) => {
-  console.log(req.body)
   const query = knex('news')
     .where(knex.raw('site_id = ' + req.body.site_id))
     .select('content', 'happened')
+  query
+    .then(result => res.send(result))
+})
+
+app.post('/incident', (req, res) => {
+  const query = knex('events')
+    .where(knex.raw('site_id = ' + req.body.site_id))
+    .select('event_name', 'event_date', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened')
   query
     .then(result => res.send(result))
 })
