@@ -158,49 +158,58 @@ const Info = ({ stateProps, dispatchProps }) => {
 
     const field = event.target.parentNode.getAttribute('id')
     console.log(field)
-    if (field === 'display_address') {
-      const data =
-      {
-        org_address: !stateProps.display_address,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+    switch (field) {
+      case 'display_address':
+        const data =
+        {
+          org_address: !stateProps.display_address,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
 
-      dispatchProps.editRadio(stateProps.display_address, field)
-    }
-    else if (field === 'display_phone') {
-      const data =
-      {
-        org_phone: !stateProps.display_phone,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+        dispatchProps.editRadio(stateProps.display_address, field)
+      break
 
-      dispatchProps.editRadio(stateProps.display_phone, field)
-    }
-    else if (field === 'display_news') {
-      const data =
-      {
-        news: !stateProps.display_news,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+      case 'display_phone':
+        const data =
+        {
+          org_phone: !stateProps.display_phone,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
 
-      dispatchProps.editRadio(stateProps.display_news, field)
-    }
-    else if (field === 'display_events') {
-      const data =
-      {
-        events: !stateProps.display_events,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+        dispatchProps.editRadio(stateProps.display_phone, field)
+      break
 
-      dispatchProps.editRadio(stateProps.display_events, field)
+      case 'display_news':
+        const data =
+        {
+          news: !stateProps.display_news,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
+
+        dispatchProps.editRadio(stateProps.display_news, field)
+      break
+
+      case 'display_events':
+        const data =
+        {
+          events: !stateProps.display_events,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
+
+        dispatchProps.editRadio(stateProps.display_events, field)
+      break
+
+      default:
+        console.log('uh oh!')
+      break
     }
   }
 
@@ -364,10 +373,13 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     borderRadius: '50%'
   }
 
+  const orgName = stateProps.org_name.toLowerCase().replace(/\s/g, "")
+  console.log(orgName)
+
   return (
     <Segment.Group id="dash-segments">
       <Segment id="background-photo" style={backgroundPhoto}>
-        <IndexLink to={`/website/${stateProps.org_name}`} activeClassName="active" >
+        <IndexLink to={`/website/${orgName}`} activeClassName="active" >
           <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
         </IndexLink>
         {

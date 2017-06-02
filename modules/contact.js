@@ -3,6 +3,7 @@ const { Form, Step, Button, Icon, Input, Grid, Segment, Dropdown } = require('se
 const { connect } = require('react-redux')
 const { Back, Next } = require('../components/buttons.js')
 const stateOptions = require('../components/states')
+const InputElement = require('react-input-mask')
 
 const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
@@ -73,8 +74,8 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
       <Dropdown search selection options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} onChange={handleState} id="org-state" />
       <Input className="contact" placeholder="zipcode" type="number" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" />
       <div raised className="org-title">{'Your organization\'s phone number'}</div>
-      <Input keyboardType='numeric' placeholder="(555) 555-555" type="number" value={stateProps.org_phone} onChange={handlePhone} id="org-phone" />
-      <div id="butons">
+      <InputElement {...this.props} mask="(\ 999 )\ 999 -\ 9999" maskChar=" " placeholder="(555) 555-555" value={stateProps.org_phone} onChange={handlePhone} className="ui input contact" id="org-phone" />
+      <div id="buttons">
         <Back link={'/'}></Back>
         <Next link={'/colors'}></Next>
       </div>

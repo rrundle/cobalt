@@ -21,15 +21,16 @@ app.use(express.static('build'))
 
 
 app.post('/org', (req, res) => {
+  const url = req.body.url.toLowerCase()
   const query = knex('sites')
     .where({
-      site_url: `http://www.${req.body.url}.cobalt.com`
+      site_url: `http://www.cobalt.com/${url}`
     })
     .select()
     .returning()
   query
     .then(match => res.json(match))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/site', (req, res) => {
@@ -38,7 +39,7 @@ app.post('/site', (req, res) => {
     .returning('site_id')
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/display', (req, res) => {
@@ -47,7 +48,7 @@ app.post('/display', (req, res) => {
     .returning('site_id')
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/dash', (req, res) => {
@@ -56,7 +57,7 @@ app.post('/dash', (req, res) => {
     .update(req.body)
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/news', (req,res) => {
@@ -65,7 +66,7 @@ app.post('/news', (req,res) => {
     .returning('content')
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/occasion', (req,res) => {
@@ -74,7 +75,7 @@ app.post('/occasion', (req,res) => {
     .returning(['event_name', 'event_date', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened'])
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/posts', (req, res) => {

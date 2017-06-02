@@ -120,7 +120,7 @@ button:focus {
 #website {
   font-size: .5em;
   color: #31373d;
-  margin-top: 5px;
+  margin-top: 15px;
   font-weight: 100;
 }
 
@@ -174,12 +174,14 @@ button:focus {
   border-bottom: 1px solid #094aa9;
 }
 
-#org-phone > input {
+#org-phone {
   border-top: none;
   border-left: none;
   border-right: none;
   border-radius: 0;
   border-bottom: 1px solid #094aa9;
+  padding: 10px;
+  width: 25%;
 }
 
 .contact {
@@ -210,6 +212,10 @@ button:focus {
   display: inline-block;
 }
 
+.ui.animated.button {
+  padding-right: 9px !important;
+}
+
 #next {
   width: 150px;
   margin: 30px 75px;
@@ -232,16 +238,25 @@ button:focus {
   color: #094aa9;
 }
 
+.color-grid {
+  width: 70%;
+  margin: 0 auto !important;
+}
+
+.color-column {
+  width: 70% !important;
+}
+
+.circle-box {
+  height: 112px;
+  width: 30% !important;
+}
+
 .circle {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   background-color: #dededf;
-  margin-bottom: 30px;
-  margin-top: 30px;
-  position: absolute;
-  top: 255px;
-  left: 57%;
 }
 
 #circle-2 {

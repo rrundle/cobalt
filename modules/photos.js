@@ -158,8 +158,9 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
     const path = '/site'
     sendData(data, path, route)
       .then(result => {
-
+        console.log(result[0])
         addId(result[0])
+        console.log(route)
 
         const displayData = {
           site_id: result[0],
@@ -190,10 +191,12 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
     return result
   }
 
+  const orgName = stateProps.org_name.toLowerCase().replace(/\s/g, "")
+  console.log(orgName)
 
   return (
     <div id="finish">
-      <IndexLink to={`/dashboard/${stateProps.org_name}`} activeClassName="active">
+      <IndexLink to={`/dashboard/${orgName}`} activeClassName="active">
         <Button onClick={completeSignup} animated>
           <Button.Content visible>Finish</Button.Content>
           <Button.Content hidden>
