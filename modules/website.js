@@ -42,25 +42,46 @@ const Website = ({ stateProps, dispatchProps }) => {
   }
 
   const route = 'POST'
-  const path = '/posts'
   const data = {
     site_id: stateProps.site_id,
   }
 
-  sendData(data, path, route)
+  sendData(data, '/posts', route)
     .then(result => {
-      console.log(result)
       const updates = result.map((post) =>
         <li id='website-news-post'>{post.content}
           <span id="timestamp">{post.happened}</span>
         </li>
       )
-      console.log(updates)
       ReactDOM.render(
         <ul id='website-news-list'>{updates}</ul>,
         document.getElementById('website-news-container')
       )
     })
+
+    sendData(data, '/incident', route)
+      .then(result => {
+        console.log(result)
+        const updates = result.map((post) =>
+          <li id='website-event-post'>
+            <div>{post.event_name}
+              <span>{post.event_date}</span>
+            </div>
+            <div>
+              <span>{post.location_address}</span>
+              <span>{post.location_city}</span>
+              <span>{post.location_state}</span>
+              <span>{post.location_zipcode}</span>
+            </div>
+            <div>{post.details}</div>
+            <div id="event-timestamp">{'Added on' + post.happened}</div>
+          </li>
+        )
+        ReactDOM.render(
+          <ul id='website-news-list'>{updates}</ul>,
+          document.getElementById('website-events-container')
+        )
+      })
 
   return (
     <Segment.Group id="dash-segments">
@@ -125,7 +146,9 @@ const Website = ({ stateProps, dispatchProps }) => {
         }
         {
           stateProps.display_events
-          ? <Segment id="events-segment">Events</Segment>
+          ? <Segment id="events-segment">Events
+              <Container id='website-events-container'></Container>
+            </Segment>
           : null
         }
       </Segment.Group>

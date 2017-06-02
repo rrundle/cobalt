@@ -1,5 +1,6 @@
 /* global React, ReactDOM, Redux */
 const { Form, Button, Container, Header, Input } = require('semantic-ui-react')
+const { DateField, DatePicker, Calendar } = require('react-date-picker')
 const { connect } = require('react-redux')
 
 function sendData(data, path, route) {
@@ -43,37 +44,51 @@ const Events = ({ stateProps, dispatchProps }) => {
     return date[0] + '/' + date[1] + '/' + date[2] + ' ' + time[0] + (':') + time[1] + ' ' + suffix
   }
 
+  const newEvents = []
+  let eventDate
+
   const handleEvent = (event, value) => {
     event.preventDefault()
+    console.log(eventDate)
     const time = timeStamp(new Date())
     const route = 'POST'
-    const path = '/events'
+    const path = '/occasion'
     const data = {
       site_id: stateProps.site_id,
-      event_name: value.formData.event_name,
-      event_date: value.formData.date,
-      location_address: value.formData.address,
-      location_city: value.formData.city,
-      location_state: value.formData.state,
-      location_zipcode: value.formData.zip,
-      details: value.formData.details,
+      event_name: '' ? '' : value.formData.event_name,
+      event_date: '' ? '' : eventDate,
+      location_address: '' ? '' : value.formData.address,
+      location_city: '' ? '' : value.formData.city,
+      location_state: '' ? '' : value.formData.state,
+      location_zipcode: '' ? '' : value.formData.zip,
+      details: '' ? '' : value.formData.details,
       happened: time
     }
-    const contents = []
     sendData(data, path, route)
       .then(result => {
-        contents.push(result)
-        return contents
+        newEvents.push(result)
+        return newEvents
       })
       .then(function(array) {
+        console.log(array)
         const updates = array.map((post) =>
-          <li id='event-post'>{post}
-            <span id="event-timestamp">{timeStamp(new Date())}</span>
+          <li id='event-post'>
+            <div>{post[0].event_name}
+              <span>{post[0].event_date}</span>
+            </div>
+            <div>
+              <span>{post[0].location_address}</span>
+              <span>{post[0].location_city}</span>
+              <span>{post[0].location_state}</span>
+              <span>{post[0].location_zipcode}</span>
+            </div>
+            <div>{post[0].details}</div>
+            <div id="event-timestamp">{'Added on' + post[0].happened}</div>
           </li>
         )
         ReactDOM.render(
           <ul id='event-list'>{updates}</ul>,
-          document.getElementById('events-container')
+          document.getElementById('new-events-container')
         )
       })
   }
@@ -82,13 +97,25 @@ const Events = ({ stateProps, dispatchProps }) => {
     backgroundColor: stateProps.site_color_primary
   }
 
+  const onChange = (dateString, { dateMoment, timestamp }) => {
+    eventDate = dateString
+  }
+
   return (
     <div>
       <Form id='events-form' onSubmit={handleEvent}>
         <Container id="events-container" text>
           <Form.Group inline>
             <Form.Field control={Input} name="event_name" placeholder='Event name'></Form.Field>
-            <Form.Field control={Input} name="date" placeholder='MM/DD/YYY'></Form.Field>
+            <Form.Field control={Input}>
+              <Calendar
+                id="calendar"
+                dateFormat="MM-DD-YYYY"
+                placeholder="MM/DD/YYYY"
+                expanded={false}
+                onChange={onChange}
+              />
+            </Form.Field>
           </Form.Group>
           <Form.Field control={Input} name="address" placeholder='Location address..'></Form.Field>
           <Form.Group widths='equal'>
@@ -100,7 +127,7 @@ const Events = ({ stateProps, dispatchProps }) => {
         </Container>
         <Button id='events-submit' primary type='submit' style={buttonStyle}>Publish</Button>
       </Form>
-      <Container id='events-container'></Container>
+      <Container id='new-events-container'></Container>
     </div>
   )
 }
