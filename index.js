@@ -61,6 +61,7 @@ app.post('/dash', (req, res) => {
 })
 
 app.post('/news', (req,res) => {
+  console.log(req.body)
   const query = knex('news')
     .insert(req.body)
     .returning('content')
@@ -70,6 +71,7 @@ app.post('/news', (req,res) => {
 })
 
 app.post('/occasion', (req,res) => {
+  console.log(req.body)
   const query = knex('events')
     .insert(req.body)
     .returning(['event_name', 'event_date', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened'])

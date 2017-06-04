@@ -96,7 +96,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     dispatchProps.editPrimary(value)
     const route = 'POST'
     const path = '/dash'
-    const data = {
+    let data = {
       site_color_primary: value,
       site_id: stateProps.site_id
     }
@@ -109,7 +109,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     dispatchProps.editSecondary(value)
     const route = 'POST'
     const path = '/dash'
-    const data = {
+    let data = {
       site_color_secondary: value,
       site_id: stateProps.site_id
     }
@@ -131,7 +131,7 @@ const Info = ({ stateProps, dispatchProps }) => {
       return target.id === event.target.parentNode.id
     })
     console.log(uniqueId)
-    const data =
+    let data =
     {
       [uniqueId[0].property]: document.getElementById(`${uniqueId[0].id}`).childNodes[0].value,
       site_id: stateProps.site_id
@@ -160,7 +160,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     console.log(field)
     switch (field) {
       case 'display_address':
-        const data =
+        let data =
         {
           org_address: !stateProps.display_address,
           site_id: stateProps.site_id
@@ -172,7 +172,7 @@ const Info = ({ stateProps, dispatchProps }) => {
       break
 
       case 'display_phone':
-        const data =
+        data =
         {
           org_phone: !stateProps.display_phone,
           site_id: stateProps.site_id
@@ -184,7 +184,7 @@ const Info = ({ stateProps, dispatchProps }) => {
       break
 
       case 'display_news':
-        const data =
+        data =
         {
           news: !stateProps.display_news,
           site_id: stateProps.site_id
@@ -196,7 +196,7 @@ const Info = ({ stateProps, dispatchProps }) => {
       break
 
       case 'display_events':
-        const data =
+        data =
         {
           events: !stateProps.display_events,
           site_id: stateProps.site_id
@@ -320,7 +320,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
 
         const route = 'POST'
         const path = '/dash'
-        const data = {
+        let data = {
           site_photo: value,
           site_id: stateProps.site_id
         }
@@ -346,7 +346,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
 
         const route = 'POST'
         const path = '/dash'
-        const data = {
+        let data = {
           site_background_photo: value,
           site_id: stateProps.site_id
         }
@@ -373,7 +373,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     borderRadius: '50%'
   }
 
-  const orgName = stateProps.org_name.toLowerCase().replace(/\s/g, "")
+  const orgName = stateProps.org_name.toLowerCase().replace(/[^A-Z0-9]/ig, '')
   console.log(orgName)
 
   return (

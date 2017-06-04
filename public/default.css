@@ -212,10 +212,6 @@ button:focus {
   display: inline-block;
 }
 
-.ui.animated.button {
-  padding-right: 9px !important;
-}
-
 #next {
   width: 150px;
   margin: 30px 75px;
@@ -223,11 +219,19 @@ button:focus {
   right: 100px;
 }
 
+#next > a > button {
+  padding-right: 9px !important;
+}
+
 #back {
   width: 150px;
   margin: 30px 75px;
   position: absolute;
   left: 100px;
+}
+
+#back > a > button {
+  padding-right: 9px !important;
 }
 
 #next > button > a > div {
@@ -265,7 +269,7 @@ button:focus {
 }
 
 #color-title {
-  font-variant-caps: all-petite-caps;-caps;
+  font-variant-caps: all-petite-caps;
   margin: 20px auto;
   font-size: 1.5em;
   font-weight: bold;
@@ -286,8 +290,8 @@ button:focus {
 }
 
 .photos-title {
-  font-variant-caps: all-petite-caps;-caps;
-  margin: 20px auto 0px;
+  font-variant-caps: all-petite-caps;
+  margin: 20px auto 0;
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -666,7 +670,7 @@ ul {
 #news-form {
   font-size: 1em;
   padding: 5px auto;
-  width: fill;
+  width: 100%;
   margin-bottom: 30px;
 }
 

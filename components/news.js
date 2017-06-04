@@ -65,6 +65,7 @@ const News = ({ stateProps, dispatchProps }) => {
         document.getElementById('news-container')
       )
     })
+    .catch(console.log('no news posts'))
 
   const handleSubmit = (event, value) => {
     event.preventDefault()
@@ -74,6 +75,8 @@ const News = ({ stateProps, dispatchProps }) => {
       content: value.formData.details,
       happened: time
     }
+    console.log(newsData)
+
     sendData(newsData, '/news', 'POST')
       .then(result => {
         contents.push(result)

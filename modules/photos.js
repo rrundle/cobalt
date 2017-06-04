@@ -191,16 +191,12 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
     return result
   }
 
-  const orgName = stateProps.org_name.toLowerCase().replace(/\s/g, "")
+  const orgName = stateProps.org_name.toLowerCase().replace(/[^A-Z0-9]/ig, '')
   console.log(orgName)
 
   return (
     <div id="finish">
-<<<<<<< HEAD
       <IndexLink to={`/dashboard/${orgName}`} activeClassName="active">
-=======
-      <IndexLink to={`/dashboard/${stateProps.org_name}`} activeClassName="active">
->>>>>>> 2613a586d8dc072635090a149f14f22c61d1a27c
         <Button onClick={completeSignup} animated>
           <Button.Content visible>Finish</Button.Content>
           <Button.Content hidden>

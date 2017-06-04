@@ -163,7 +163,7 @@ const Signup = () => {
 
     const route = 'POST'
     const path = '/org'
-    const url = {url: event.target.value.replace(/\s/g, "")}
+    const url = {url: event.target.value.replace(/[^A-Z0-9]/ig, '')}
     console.log(url)
     dispatch({ type: 'URL', url })
 

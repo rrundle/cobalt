@@ -1,7 +1,9 @@
 /* global React, ReactDOM, Redux */
 const { Form, Button, Container, Header, Input } = require('semantic-ui-react')
-const { DateField, DatePicker, Calendar } = require('react-date-picker')
+const DayPicker = require('react-day-picker')
 const { connect } = require('react-redux')
+const TimePicker = require('rc-time-picker')
+const moment = require('moment')
 
 function sendData(data, path, route) {
   const options = {
@@ -46,17 +48,23 @@ const Events = ({ stateProps, dispatchProps }) => {
 
   const newEvents = []
   let eventDate
+  let startTime
+  let endTime
 
   const handleEvent = (event, value) => {
     event.preventDefault()
     console.log(eventDate)
+    console.log(startTime)
+    console.log(endTime)
     const time = timeStamp(new Date())
     const route = 'POST'
     const path = '/occasion'
     const data = {
       site_id: stateProps.site_id,
       event_name: '' ? '' : value.formData.event_name,
-      event_date: '' ? '' : eventDate,
+      event_date: '' ? '' : `${eventDate}`,
+      event_start_time: '' ? '' : `${startTime}`,
+      event_end_time: '' ? '' : `${endTime}`,
       location_address: '' ? '' : value.formData.address,
       location_city: '' ? '' : value.formData.city,
       location_state: '' ? '' : value.formData.state,
@@ -64,6 +72,7 @@ const Events = ({ stateProps, dispatchProps }) => {
       details: '' ? '' : value.formData.details,
       happened: time
     }
+    console.log(data)
     sendData(data, path, route)
       .then(result => {
         newEvents.push(result)
@@ -93,27 +102,66 @@ const Events = ({ stateProps, dispatchProps }) => {
       })
   }
 
+ const handleDayClick = (day) => {
+   eventDate = day
+   console.log(eventDate)
+  };
+
   const buttonStyle = {
     backgroundColor: stateProps.site_color_primary
   }
 
-  const onChange = (dateString, { dateMoment, timestamp }) => {
-    eventDate = dateString
+  const showSecond = false;
+  const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+
+
+  const timeStart = (value) => {
+    console.log(value && value.format(str));
+    startTime = value.format(str)
+  }
+
+  const timeEnd = (value) => {
+    console.log(value && value.format(str));
+    endTime = value.format(str)
   }
 
   return (
     <div>
       <Form id='events-form' onSubmit={handleEvent}>
         <Container id="events-container" text>
-          <Form.Group inline>
+          <Form.Group>
             <Form.Field control={Input} name="event_name" placeholder='Event name'></Form.Field>
             <Form.Field control={Input}>
-              <Calendar
+              <DayPicker
                 id="calendar"
-                dateFormat="MM-DD-YYYY"
-                placeholder="MM/DD/YYYY"
-                expanded={false}
-                onChange={onChange}
+                selectedDays={this.eventDate}
+                onDayClick={handleDayClick}
+                control={Input}
+                name="event_date"
+              />
+            </Form.Field>
+          </Form.Group>
+          <Form.Group>
+            <Form.Field control={Input}>
+              <TimePicker
+                style={{ width: 200 }}
+                showSecond={showSecond}
+                defaultValue={moment()}
+                className="time-picker"
+                onChange={timeStart}
+                control={Input}
+                name="event_start_time"
+              />
+            </Form.Field>
+            <Form.Field control={Input}>
+              <TimePicker
+                style={{ width: 200 }}
+                showSecond={showSecond}
+                defaultValue={moment()}
+                className="time-picker-end"
+                onChange={timeEnd}
+                control={Input}
+                name="event_end_time"
               />
             </Form.Field>
           </Form.Group>
