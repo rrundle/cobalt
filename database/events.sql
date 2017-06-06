@@ -10,5 +10,6 @@ CREATE TABLE events (
   location_city     varchar,
   location_state    varchar,
   location_zipcode  varchar,
-  details           varchar
+  details           varchar,
+  happened          varchar
 );
