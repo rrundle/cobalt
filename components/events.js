@@ -1,8 +1,9 @@
 /* global React, ReactDOM, Redux */
-const { Form, Button, Container, Header, Input } = require('semantic-ui-react')
+const { Form, Button, Container, Header, Input, Dropdown } = require('semantic-ui-react')
 const DayPicker = require('react-day-picker')
 const { connect } = require('react-redux')
 const TimePicker = require('rc-time-picker')
+const stateOptions = require('./states')
 const moment = require('moment')
 
 function sendData(data, path, route) {
@@ -168,8 +169,10 @@ const Events = ({ stateProps, dispatchProps }) => {
           <Form.Field control={Input} name="address" placeholder='Location address..'></Form.Field>
           <Form.Group widths='equal'>
             <Form.Field control={Input} name="city" placeholder='City'></Form.Field>
-            <Form.Field control={Input} name="state" placeholder='ST'></Form.Field>
-            <Form.Field control={Input} name="zip" placeholder='Zip'></Form.Field>
+            <Form.Field>
+              <Dropdown control={Input} search selection name="state" options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} id="org-state" />
+            </Form.Field>
+            <Form.Field control={Input} name="zip" placeholder='Zip' type="number" maxLength="5"></Form.Field>
           </Form.Group>
           <Form.TextArea id='events-text-area' name='details' placeholder='Event details...' rows='4' />
         </Container>

@@ -72,7 +72,7 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
       <Input className="contact" placeholder="address" value={stateProps.org_address} onChange={handleAddress} id="org-address" />
       <Input className="contact" placeholder="city" value={stateProps.org_city} onChange={handleCity} id="org-city" />
       <Dropdown search selection options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} onChange={handleState} id="org-state" />
-      <Input className="contact" placeholder="zipcode" type="number" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" />
+      <Input className="contact" placeholder="zipcode" pattern="\d*" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" maxLength="5"/>
       <div raised className="org-title">{'Your organization\'s phone number'}</div>
       <InputElement {...this.props} mask="(\ 999 )\ 999 -\ 9999" maskChar=" " placeholder="(555) 555-555" value={stateProps.org_phone} onChange={handlePhone} className="ui input contact" id="org-phone" />
       <div id="buttons">
