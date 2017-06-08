@@ -29,6 +29,7 @@ const initialState = {
   display_phone: true,
   display_news: true,
   display_events: true,
+  match: false
 }
 
 const reducer = (state, action) => {
@@ -130,6 +131,16 @@ const reducer = (state, action) => {
         })
       }
 
+    case "MATCH":
+      return Object.assign({}, state, {
+        match: true
+      })
+
+    case 'NOMATCH':
+      return Object.assign({}, state, {
+        match: false
+      })
+
     default:
       return state
   }
@@ -141,7 +152,6 @@ function sendData(data, path, route) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(data)
   }
-  console.log(options)
   const result = fetch(path, options)
     .then(res => res.json())
   return result
@@ -171,13 +181,17 @@ const Signup = () => {
     const button = document.getElementById('go')
     sendData(url, path, route)
       .then(result => {
+        console.log(result)
         if (result.length === 0) {
           matches.textContent = 'available'
           matches.style.color = '#009f5a'
+          dispatch({ type: 'NOMATCH' })
         }
         else {
           matches.textContent = 'unavailable'
           matches.style.color = '#e26454'
+          dispatch({ type: 'MATCH' })
+
         }
       })
   }
@@ -218,7 +232,7 @@ const Signup = () => {
           </div>
         </div>
         {
-          (state.org_name !== '')
+          (state.match !== true)
           ? <IndexLink to='/contact' activeClassName="active" id="link-go">
               <Button animated primary type="submit" id="go" onBlur={handleBlur}>
                 <Button.Content visible>{'Let\'s go!'}</Button.Content>

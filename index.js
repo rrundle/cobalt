@@ -24,7 +24,7 @@ app.post('/org', (req, res) => {
   const url = req.body.url.toLowerCase()
   const query = knex('sites')
     .where({
-      site_url: `http://www.cobalt.com/${url}`
+      site_url: `http://www.cobaltcms.com/${url}`
     })
     .select()
     .returning()
