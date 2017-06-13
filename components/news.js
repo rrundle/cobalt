@@ -104,7 +104,7 @@ const News = ({ stateProps, dispatchProps }) => {
     <div>
       <Form id='news-form' onSubmit={handleSubmit}>
         <Form.TextArea id='news-form' name='details' placeholder="What's new?" rows='4' />
-        <Button id='news-submit' primary type='submit' style={buttonStyle}>Publish</Button>
+        <Button className="dash-button" id='news-submit' primary type='submit' style={buttonStyle}>Publish</Button>
       </Form>
       <Container id='news-container'></Container>
     </div>

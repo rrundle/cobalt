@@ -340,11 +340,9 @@ button:focus {
 #sidebar {
   width: 22%;
   min-width: 200px;
-  height: 100%;
-  left: 0;
-  top: 0;
   background-color: #363636;
-  position: fixed;
+  position: sticky;
+  display: block;
 }
 
 #dashboard {
@@ -725,4 +723,8 @@ ul {
   overflow: hidden;
   border: solid 1px #dededf;
   border-radius: 3px;
+}
+
+.dash-button:hover {
+  filter: brightness(1.3);
 }

@@ -8,6 +8,7 @@ const { IndexLink, browserHistory } = require('react-router')
 const stateOptions = require('../components/states.js')
 const News = require('../components/news.js')
 const Events = require('../components/events.js')
+const InputElement = require('react-input-mask')
 
 function sendData(data, path, route) {
   const options = {
@@ -128,6 +129,7 @@ const Info = ({ stateProps, dispatchProps }) => {
       {id: 'dash-phone', property: 'org_phone'}
     ]
     const uniqueId = ids.filter(function(target) {
+      console.log(event.target.parentNode.id)
       return target.id === event.target.parentNode.id
     })
     console.log(uniqueId)
@@ -136,12 +138,13 @@ const Info = ({ stateProps, dispatchProps }) => {
       [uniqueId[0].property]: document.getElementById(`${uniqueId[0].id}`).childNodes[0].value,
       site_id: stateProps.site_id
     }
+    console.log(data)
     const route = 'POST'
     const path = '/dash'
-    /*
+
     sendData(data, path, route)
       .then(result => console.log(result))
-    */
+
   }
 
   let primaryColor = {
@@ -158,9 +161,10 @@ const Info = ({ stateProps, dispatchProps }) => {
 
     const field = event.target.parentNode.getAttribute('id')
     console.log(field)
+    let data
     switch (field) {
       case 'display_address':
-        let data =
+        data =
         {
           org_address: !stateProps.display_address,
           site_id: stateProps.site_id
@@ -177,6 +181,7 @@ const Info = ({ stateProps, dispatchProps }) => {
           org_phone: !stateProps.display_phone,
           site_id: stateProps.site_id
         }
+        console.log(data)
         sendData(data, path, route)
           .then(result => console.log(result))
 
@@ -227,7 +232,9 @@ const Info = ({ stateProps, dispatchProps }) => {
         <Input className="edit" id="dash-city" placeholder={'City'} defaultValue={stateProps.org_city} onBlur={updateProfile} onChange={handleCity} />
         <Dropdown id="dash-state" search selection options={stateOptions} placeholder={'ST'} defaultValue={stateProps.org_state} onBlur={updateProfile} onChange={handleState} />
         <Input className="edit" id="dash-zipcode" type="number" placeholder={'Zipcode'} defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
-        <Input className="edit" id="dash-phone" type="number" placeholder={'Phone'} defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone}/>
+        <div id="dash-phone">
+          <InputElement {...this.props} mask="(\ 999 )\ 999 -\ 9999" maskChar=" " placeholder={'Phone'} defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone} className="ui input edit" />
+        </div>
       </Menu.Item>
       <Menu.Item name='color'>
         <div className="category">Primary Site Color</div>

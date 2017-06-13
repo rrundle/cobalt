@@ -10,26 +10,33 @@ const StepFour = ({ stateProps, addPhoto, addBackground, addId }) => {
   return (
     <div className="status">
       <Step.Group ordered>
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Setup</Step.Title>
-            <Step.Description></Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Setup</Step.Title>
+              <Step.Description></Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Contact</Step.Title>
-            <Step.Description>Enter your contact info</Step.Description>
-          </Step.Content>
-        </Step>
 
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Colors</Step.Title>
-            <Step.Description>Add your sites design colors</Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/contact'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Contact</Step.Title>
+              <Step.Description>Enter your contact info</Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
+
+        <IndexLink to={'/colors'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Colors</Step.Title>
+              <Step.Description>Add your sites design colors</Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
         <Step active title='Photos' description='Enter profile & background photos' />
       </Step.Group>

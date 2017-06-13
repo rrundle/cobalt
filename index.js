@@ -52,8 +52,11 @@ app.post('/display', (req, res) => {
 })
 
 app.post('/dash', (req, res) => {
+  console.log(req.body)
   const query = knex('sites')
-    .where(knex.raw('site_id = ' + req.body.site_id))
+    .where({
+      site_url: req.body.site_url
+    })
     .update(req.body)
   query
     .then(result => res.send(result))

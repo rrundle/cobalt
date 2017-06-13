@@ -176,7 +176,7 @@ const Events = ({ stateProps, dispatchProps }) => {
           </Form.Group>
           <Form.TextArea id='events-text-area' name='details' placeholder='Event details...' rows='4' />
         </Container>
-        <Button id='events-submit' primary type='submit' style={buttonStyle}>Publish</Button>
+        <Button className="dash-button" id='events-submit' primary type='submit' style={buttonStyle}>Publish</Button>
       </Form>
       <Container id='new-events-container'></Container>
     </div>

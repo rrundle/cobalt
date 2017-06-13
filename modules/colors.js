@@ -9,23 +9,29 @@ const StepThree = ({ addPrimary, addSecondary, site_color_primary, site_color_se
   return (
     <div className="status">
       <Step.Group ordered>
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Setup</Step.Title>
-            <Step.Description></Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Setup</Step.Title>
+              <Step.Description></Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Contact</Step.Title>
-            <Step.Description>Enter your contact info</Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/contact'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Contact</Step.Title>
+              <Step.Description>Enter your contact info</Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
         <Step active title='Colors' description='Add your sites design colors' />
 
-        <Step title='Photos' description='Enter profile & background photos' />
+        <IndexLink to={'/photos'} activeClassName="active">
+          <Step title='Photos' description='Enter profile & background photos' />
+        </IndexLink>
       </Step.Group>
 
       <ColorSetup

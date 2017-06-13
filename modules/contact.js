@@ -4,24 +4,31 @@ const { connect } = require('react-redux')
 const { Back, Next } = require('../components/buttons.js')
 const stateOptions = require('../components/states')
 const InputElement = require('react-input-mask')
+const { IndexLink } = require('react-router')
 
 const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
   return (
     <div className="status">
       <Step.Group ordered>
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Setup</Step.Title>
-            <Step.Description></Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Setup</Step.Title>
+              <Step.Description></Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
         <Step active title='Contact' description='Enter your contact info' />
 
-        <Step title='Colors' description='Add your sites design colors' />
+        <IndexLink to={'/colors'} activeClassName="active">
+          <Step title='Colors' description='Add your sites design colors' link={'/colors'}/>
+        </IndexLink>
 
-        <Step title='Photos' description='Enter profile & background photos' />
+        <IndexLink to={'/photos'} activeClassName="active">
+          <Step title='Photos' description='Enter profile & background photos' link={'/photos'}/>
+        </IndexLink>
       </Step.Group>
 
       <Contact
