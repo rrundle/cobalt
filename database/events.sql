@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS events;
 
 CREATE TABLE events (
-  site_id           varchar,
+  site_id           integer,
   event_name        varchar,
   event_date        varchar,
   event_start_time  varchar,

@@ -114,6 +114,7 @@ const Events = ({ stateProps, dispatchProps }) => {
 
   const showSecond = false;
   const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+  const use12Hours = true
 
 
   const timeStart = (value) => {
@@ -147,6 +148,7 @@ const Events = ({ stateProps, dispatchProps }) => {
               <TimePicker
                 style={{ width: 200 }}
                 showSecond={showSecond}
+                use12Hours={use12Hours}
                 defaultValue={moment()}
                 className="time-picker"
                 onChange={timeStart}
@@ -158,6 +160,7 @@ const Events = ({ stateProps, dispatchProps }) => {
               <TimePicker
                 style={{ width: 200 }}
                 showSecond={showSecond}
+                use12Hours={use12Hours}
                 defaultValue={moment()}
                 className="time-picker-end"
                 onChange={timeEnd}
