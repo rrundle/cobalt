@@ -781,3 +781,8 @@ td {
 #dash-circle-1 > .color-picker {
   margin-left: 0 !important;
 }
+
+#final {
+  background-color: #0047ab;
+  color: #FFFFFF;
+}
