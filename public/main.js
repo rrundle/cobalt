@@ -24,11 +24,13 @@ const initialState = {
   site_color_secondary: '',
   site_photo: '',
   site_background_photo: '',
+  selectedDays: [],
   view: true,
   display_address: true,
   display_phone: true,
   display_news: true,
   display_events: true,
+  match: false
 }
 
 const reducer = (state, action) => {
@@ -46,8 +48,12 @@ const reducer = (state, action) => {
 
     case 'ORG':
       return Object.assign({}, state, {
-        org_name: action.value,
-        site_url: `http://www.${action.value.toLowerCase()}.cobaltcms.com`
+        org_name: action.name,
+      })
+
+    case 'URL':
+      return Object.assign({}, state, {
+        site_url: `http://www.cobaltcms.com/${action.url.url.toLowerCase()}`
       })
 
     case 'NAME':
@@ -115,16 +121,31 @@ const reducer = (state, action) => {
       }
 
     case "RADIO":
-    if (action.value === true) {
+      if (action.value === true) {
+        return Object.assign({}, state, {
+          [action.field]: false
+        })
+      }
+      else {
+        return Object.assign({}, state, {
+          [action.field]: true
+        })
+      }
+
+    case "MATCH":
       return Object.assign({}, state, {
-        [action.field]: false
+        match: true
       })
-    }
-    else {
+
+    case 'NOMATCH':
       return Object.assign({}, state, {
-        [action.field]: true
+        match: false
       })
-    }
+
+    case 'CALENDAR':
+      return Object.assign({}, state, {
+        selectedDays: action.value
+      })
 
     default:
       return state
@@ -149,28 +170,34 @@ const Signup = () => {
 
   const handleName = event => {
     const value = event.target.value
-    dispatch({ type: 'NAME', value})
+    dispatch({ type: 'NAME', value })
   }
 
   const handleOrg = event => {
-    const value = event.target.value.replace(/\s/g, "")
-    dispatch({ type: 'ORG', value})
-    const data = {
-      url: state.org_name
-    }
+    const name = event.target.value
+    dispatch({ type: 'ORG', name })
+
     const route = 'POST'
     const path = '/org'
+    const url = {url: event.target.value.replace(/[^A-Z0-9]/ig, '')}
+    console.log(url)
+    dispatch({ type: 'URL', url })
+
     const matches = document.getElementById('matches')
     const button = document.getElementById('go')
-    sendData(data, path, route)
+    sendData(url, path, route)
       .then(result => {
+        console.log(result)
         if (result.length === 0) {
           matches.textContent = 'available'
           matches.style.color = '#009f5a'
+          dispatch({ type: 'NOMATCH' })
         }
         else {
           matches.textContent = 'unavailable'
           matches.style.color = '#e26454'
+          dispatch({ type: 'MATCH' })
+
         }
       })
   }
@@ -183,8 +210,6 @@ const Signup = () => {
       linkGo.disabled = false
     }
   }
-
-  const required = true
 
   return (
     <div>
@@ -202,18 +227,18 @@ const Signup = () => {
         <p id="call-action">{'Get started'}</p>
       </div>
       <Form>
-        <Form.Input label="" name="name" value={state.name} placeholder="Name" className="name" id="name" required={required} onChange={handleName} />
+        <Form.Input label="" name="name" value={state.name} className="name" id="name" onChange={handleName} />
         <div className="title">{'Your name'}</div>
-        <Form.Input label="" name="org" value={state.org_name} placeholder="Organization" className="org" id="org" required={required} onChange={handleOrg} />
+        <Form.Input label="" name="org" value={state.org_name} className="org" id="org" onChange={handleOrg} />
         <div className="title">{'Organization name'}</div>
         <div className="org-display">
-          <div>{`http://www.${state.org_name.toLowerCase()}.cobaltcms.com`}
+          <div>{state.site_url}
             <div id="website" >{'Your website url'}</div>
             <span id="matches"></span>
           </div>
         </div>
         {
-          (state.org_name !== '')
+          (state.match !== true)
           ? <IndexLink to='/contact' activeClassName="active" id="link-go">
               <Button animated primary type="submit" id="go" onBlur={handleBlur}>
                 <Button.Content visible>{'Let\'s go!'}</Button.Content>
@@ -245,8 +270,8 @@ const routes = (
     <Route path='/contact' component={StepTwo} />
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
-    <Route path='/dashboard' component={Dashboard} />
-    <Route path='/dashboard/:orgName' component={Website} />
+    <Route path='/dashboard/:orgName' component={Dashboard} />
+    <Route path='/website/:orgName' component={Website} />
   </Route>
 )
 

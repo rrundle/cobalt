@@ -1,46 +1,54 @@
 /* global React, ReactDOM, Redux */
-const { Step, Button, Icon, Checkbox, Segment } = require('semantic-ui-react')
+const { Step, Button, Icon, Checkbox, Segment, Grid } = require('semantic-ui-react')
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
-const { CirclePicker, clientWidth } = require('react-color')
+const { SwatchesPicker, clientWidth } = require('react-color')
 const { Back, Next } = require('../components/buttons.js')
 
-const StepThree = ({ addPrimary, addSecondary }) => {
+const StepThree = ({ addPrimary, addSecondary, site_color_primary, site_color_secondary }) => {
   return (
     <div className="status">
       <Step.Group ordered>
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Setup</Step.Title>
-            <Step.Description></Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Setup</Step.Title>
+              <Step.Description></Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Contact</Step.Title>
-            <Step.Description>Enter your contact info</Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/contact'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Contact</Step.Title>
+              <Step.Description>Enter your contact info</Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
         <Step active title='Colors' description='Add your sites design colors' />
 
-        <Step title='Photos' description='Enter profile & background photos' />
+        <IndexLink to={'/photos'} activeClassName="active">
+          <Step title='Photos' description='Enter profile & background photos' />
+        </IndexLink>
       </Step.Group>
 
       <ColorSetup
         addPrimary={addPrimary}
         addSecondary={addSecondary}
+        site_color_primary={site_color_primary}
+        site_color_secondary={site_color_secondary}
       >
       </ColorSetup>
     </div>
   )
 }
 
-const ColorSetup = ({ addPrimary, addSecondary }) => {
-
+const ColorSetup = ({ addPrimary, addSecondary, site_color_primary, site_color_secondary }) => {
+  
   const handlePrimary = (color, event) => {
-    const value = event.target.title
+    const value = color.hex
     addPrimary(value)
 
     const circleOne = document.getElementById('circle-1')
@@ -48,7 +56,7 @@ const ColorSetup = ({ addPrimary, addSecondary }) => {
   }
 
   const handleSecondary = (color, event) => {
-    const value = event.target.title
+    const value = color.hex
     addSecondary(value)
 
     const circleTwo = document.getElementById('circle-2')
@@ -59,15 +67,21 @@ const ColorSetup = ({ addPrimary, addSecondary }) => {
     <div>
       <div id="color-title">{'Choose your site\'s color scheme'}</div>
       <div id="primary-title">{'Primary site color'}</div>
-      <div>
-        <CirclePicker id="circle-group-1" onChange={handlePrimary}/>
-        <div className="circle" id="circle-1"></div>
-      </div>
-      <div id="secondary-title">{'Secondary site color'}</div>
-      <div>
-        <CirclePicker id="circle-group-2" onChange={handleSecondary}/>
-        <div className="circle" id="circle-2"></div>
-      </div>
+      <Grid columns={1} className="color-grid">
+        <Grid.Row>
+          <SwatchesPicker id="circle-group-1" onChange={handlePrimary}/>
+          <div className="circle-container">
+            <div style={{backgroundColor: site_color_primary}} className="circle" id="circle-1"></div>
+          </div>
+        </Grid.Row>
+        <div id="secondary-title">{'Secondary site color'}</div>
+        <Grid.Row>
+          <SwatchesPicker id="circle-group-2" onChange={handleSecondary}/>
+          <div className="circle-container">
+            <div style={{backgroundColor: site_color_secondary}} className="circle" id="circle-2"></div>
+          </div>
+        </Grid.Row>
+      </Grid>
       <Back link={'/contact'}/>
       <Next link={'/photos'}/>
     </div>

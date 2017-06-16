@@ -3,24 +3,32 @@ const { Form, Step, Button, Icon, Input, Grid, Segment, Dropdown } = require('se
 const { connect } = require('react-redux')
 const { Back, Next } = require('../components/buttons.js')
 const stateOptions = require('../components/states')
+const InputElement = require('react-input-mask')
+const { IndexLink } = require('react-router')
 
 const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPhone }) => {
 
   return (
     <div className="status">
       <Step.Group ordered>
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Setup</Step.Title>
-            <Step.Description></Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Setup</Step.Title>
+              <Step.Description></Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
         <Step active title='Contact' description='Enter your contact info' />
 
-        <Step title='Colors' description='Add your sites design colors' />
+        <IndexLink to={'/colors'} activeClassName="active">
+          <Step title='Colors' description='Add your sites design colors' link={'/colors'}/>
+        </IndexLink>
 
-        <Step title='Photos' description='Enter profile & background photos' />
+        <IndexLink to={'/photos'} activeClassName="active">
+          <Step title='Photos' description='Enter profile & background photos' link={'/photos'}/>
+        </IndexLink>
       </Step.Group>
 
       <Contact
@@ -71,10 +79,10 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
       <Input className="contact" placeholder="address" value={stateProps.org_address} onChange={handleAddress} id="org-address" />
       <Input className="contact" placeholder="city" value={stateProps.org_city} onChange={handleCity} id="org-city" />
       <Dropdown search selection options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} onChange={handleState} id="org-state" />
-      <Input className="contact" placeholder="zipcode" type="number" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" />
+      <Input className="contact" placeholder="zipcode" pattern="\d*" value={stateProps.org_zipcode} onChange={handleZipcode} id="org-zipcode" maxLength="5"/>
       <div raised className="org-title">{'Your organization\'s phone number'}</div>
-      <Input keyboardType='numeric' placeholder="(555) 555-555" type="number" value={stateProps.org_phone} onChange={handlePhone} id="org-phone" />
-      <div id="butons">
+      <InputElement {...this.props} mask="(\ 999 )\ 999 -\ 9999" maskChar=" " placeholder="(555) 555-555" value={stateProps.org_phone} onChange={handlePhone} className="ui input contact" id="org-phone" />
+      <div id="buttons">
         <Back link={'/'}></Back>
         <Next link={'/colors'}></Next>
       </div>

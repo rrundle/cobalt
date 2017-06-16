@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 2999
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -21,15 +21,16 @@ app.use(express.static('build'))
 
 
 app.post('/org', (req, res) => {
+  const url = req.body.url.toLowerCase()
   const query = knex('sites')
     .where({
-      site_url: `http://www.${req.body.url}.cobalt.com`
+      site_url: `http://www.cobaltcms.com/${url}`
     })
     .select()
     .returning()
   query
     .then(match => res.json(match))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/site', (req, res) => {
@@ -38,7 +39,7 @@ app.post('/site', (req, res) => {
     .returning('site_id')
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/display', (req, res) => {
@@ -47,43 +48,53 @@ app.post('/display', (req, res) => {
     .returning('site_id')
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/dash', (req, res) => {
   console.log(req.body)
   const query = knex('sites')
-    .where({site_id: req.body.id})
+    .where({
+      site_url: req.body.site_url
+    })
     .update(req.body)
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/news', (req,res) => {
+  console.log(req.body)
   const query = knex('news')
     .insert(req.body)
     .returning('content')
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
-app.post('/events', (req,res) => {
+app.post('/occasion', (req,res) => {
   console.log(req.body)
   const query = knex('events')
     .insert(req.body)
-    .returning('details')
+    .returning(['event_name', 'event_date', 'event_start_time', 'event_end_time', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened'])
   query
     .then(result => res.send(result))
-    .catch(error => res.status(404).send(error))
+    .catch(error => res.sendStatus(404).send(error))
 })
 
 app.post('/posts', (req, res) => {
-  console.log(req.body)
   const query = knex('news')
     .where(knex.raw('site_id = ' + req.body.site_id))
     .select('content', 'happened')
+  query
+    .then(result => res.send(result))
+})
+
+app.post('/incident', (req, res) => {
+  const query = knex('events')
+    .where(knex.raw('site_id = ' + req.body.site_id))
+    .select('event_name', 'event_date', 'location_address', 'location_city', 'location_state', 'location_zipcode', 'details', 'happened')
   query
     .then(result => res.send(result))
 })

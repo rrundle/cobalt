@@ -1,13 +1,14 @@
 /* global React, ReactDOM, Redux */
 const { connect } = require('react-redux')
 const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio, Dropdown } = require('semantic-ui-react')
-const { CirclePicker, clientWidth } = require('react-color')
+const { SwatchesPicker } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { IndexLink, browserHistory } = require('react-router')
 const stateOptions = require('../components/states.js')
 const News = require('../components/news.js')
 const Events = require('../components/events.js')
+const InputElement = require('react-input-mask')
 
 function sendData(data, path, route) {
   const options = {
@@ -96,7 +97,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     dispatchProps.editPrimary(value)
     const route = 'POST'
     const path = '/dash'
-    const data = {
+    let data = {
       site_color_primary: value,
       site_id: stateProps.site_id
     }
@@ -109,7 +110,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     dispatchProps.editSecondary(value)
     const route = 'POST'
     const path = '/dash'
-    const data = {
+    let data = {
       site_color_secondary: value,
       site_id: stateProps.site_id
     }
@@ -128,18 +129,22 @@ const Info = ({ stateProps, dispatchProps }) => {
       {id: 'dash-phone', property: 'org_phone'}
     ]
     const uniqueId = ids.filter(function(target) {
+      console.log(event.target.parentNode.id)
       return target.id === event.target.parentNode.id
     })
     console.log(uniqueId)
-    const data =
+    let data =
     {
       [uniqueId[0].property]: document.getElementById(`${uniqueId[0].id}`).childNodes[0].value,
       site_id: stateProps.site_id
     }
+    console.log(data)
     const route = 'POST'
     const path = '/dash'
+
     sendData(data, path, route)
       .then(result => console.log(result))
+
   }
 
   let primaryColor = {
@@ -156,49 +161,60 @@ const Info = ({ stateProps, dispatchProps }) => {
 
     const field = event.target.parentNode.getAttribute('id')
     console.log(field)
-    if (field === 'display_address') {
-      const data =
-      {
-        org_address: !stateProps.display_address,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+    let data
+    switch (field) {
+      case 'display_address':
+        data =
+        {
+          org_address: !stateProps.display_address,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
 
-      dispatchProps.editRadio(stateProps.display_address, field)
-    }
-    else if (field === 'display_phone') {
-      const data =
-      {
-        org_phone: !stateProps.display_phone,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+        dispatchProps.editRadio(stateProps.display_address, field)
+      break
 
-      dispatchProps.editRadio(stateProps.display_phone, field)
-    }
-    else if (field === 'display_news') {
-      const data =
-      {
-        news: !stateProps.display_news,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+      case 'display_phone':
+        data =
+        {
+          org_phone: !stateProps.display_phone,
+          site_id: stateProps.site_id
+        }
+        console.log(data)
+        sendData(data, path, route)
+          .then(result => console.log(result))
 
-      dispatchProps.editRadio(stateProps.display_news, field)
-    }
-    else if (field === 'display_events') {
-      const data =
-      {
-        events: !stateProps.display_events,
-        site_id: stateProps.site_id
-      }
-      sendData(data, path, route)
-        .then(result => console.log(result))
+        dispatchProps.editRadio(stateProps.display_phone, field)
+      break
 
-      dispatchProps.editRadio(stateProps.display_events, field)
+      case 'display_news':
+        data =
+        {
+          news: !stateProps.display_news,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
+
+        dispatchProps.editRadio(stateProps.display_news, field)
+      break
+
+      case 'display_events':
+        data =
+        {
+          events: !stateProps.display_events,
+          site_id: stateProps.site_id
+        }
+        sendData(data, path, route)
+          .then(result => console.log(result))
+
+        dispatchProps.editRadio(stateProps.display_events, field)
+      break
+
+      default:
+        console.log('uh oh!')
+      break
     }
   }
 
@@ -206,7 +222,7 @@ const Info = ({ stateProps, dispatchProps }) => {
     <div>
       <div id="dash-title">Cobalt</div>
       <Menu.Item id="dash-name-box" name='name'>
-        <div className="category" >Name</div>
+        <div className="category">Your name</div>
         <Input className="edit" id="dash-name" placeholder={'Name'} defaultValue={stateProps.name} onChange={handleName} onBlur={updateProfile}/>
       </Menu.Item>
       <Menu.Item id="org-menu" name='org'>
@@ -216,7 +232,9 @@ const Info = ({ stateProps, dispatchProps }) => {
         <Input className="edit" id="dash-city" placeholder={'City'} defaultValue={stateProps.org_city} onBlur={updateProfile} onChange={handleCity} />
         <Dropdown id="dash-state" search selection options={stateOptions} placeholder={'ST'} defaultValue={stateProps.org_state} onBlur={updateProfile} onChange={handleState} />
         <Input className="edit" id="dash-zipcode" type="number" placeholder={'Zipcode'} defaultValue={stateProps.org_zipcode} onBlur={updateProfile} onChange={handleZip}/>
-        <Input className="edit" id="dash-phone" type="number" placeholder={'Phone'} defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone}/>
+        <div id="dash-phone">
+          <InputElement {...this.props} mask="(\ 999 )\ 999 -\ 9999" maskChar=" " placeholder={'Phone'} defaultValue={stateProps.org_phone} onBlur={updateProfile} onChange={handlePhone} className="ui input edit" />
+        </div>
       </Menu.Item>
       <Menu.Item name='color'>
         <div className="category">Primary Site Color</div>
@@ -226,7 +244,7 @@ const Info = ({ stateProps, dispatchProps }) => {
           flowing
           hoverable
         >
-          <CirclePicker onChangeComplete={handlePrimary} />
+          <SwatchesPicker onChangeComplete={handlePrimary} />
         </Popup>
       </Menu.Item>
       <Menu.Item>
@@ -237,7 +255,7 @@ const Info = ({ stateProps, dispatchProps }) => {
           flowing
           hoverable
         >
-          <CirclePicker onChangeComplete={handleSecondary} />
+          <SwatchesPicker onChangeComplete={handleSecondary} />
         </Popup>
       </Menu.Item>
       <Menu.Item>
@@ -308,8 +326,8 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
         dispatchProps.addPhoto(value)
 
         const route = 'POST'
-        const path = '/dashboard'
-        const data = {
+        const path = '/dash'
+        let data = {
           site_photo: value,
           site_id: stateProps.site_id
         }
@@ -335,7 +353,7 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
 
         const route = 'POST'
         const path = '/dash'
-        const data = {
+        let data = {
           site_background_photo: value,
           site_id: stateProps.site_id
         }
@@ -362,10 +380,13 @@ const Body = ({ stateProps, addPhoto, addBackground, dispatchProps }) => {
     borderRadius: '50%'
   }
 
+  const orgName = stateProps.org_name.toLowerCase().replace(/[^A-Z0-9]/ig, '')
+  console.log(orgName)
+
   return (
     <Segment.Group id="dash-segments">
       <Segment id="background-photo" style={backgroundPhoto}>
-        <IndexLink to={`/dashboard/${stateProps.org_name}`} activeClassName="active" >
+        <IndexLink to={`/website/${orgName}`} activeClassName="active" >
           <Button id="view-site" content="View site" icon="computer" labelPosition="right" />
         </IndexLink>
         {

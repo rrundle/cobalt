@@ -10,26 +10,33 @@ const StepFour = ({ stateProps, addPhoto, addBackground, addId }) => {
   return (
     <div className="status">
       <Step.Group ordered>
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Setup</Step.Title>
-            <Step.Description></Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Setup</Step.Title>
+              <Step.Description></Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Contact</Step.Title>
-            <Step.Description>Enter your contact info</Step.Description>
-          </Step.Content>
-        </Step>
 
-        <Step completed>
-        <Step.Content>
-            <Step.Title>Colors</Step.Title>
-            <Step.Description>Add your sites design colors</Step.Description>
-          </Step.Content>
-        </Step>
+        <IndexLink to={'/contact'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Contact</Step.Title>
+              <Step.Description>Enter your contact info</Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
+
+        <IndexLink to={'/colors'} activeClassName="active">
+          <Step completed>
+            <Step.Content>
+              <Step.Title>Colors</Step.Title>
+              <Step.Description>Add your sites design colors</Step.Description>
+            </Step.Content>
+          </Step>
+        </IndexLink>
 
         <Step active title='Photos' description='Enter profile & background photos' />
       </Step.Group>
@@ -158,8 +165,9 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
     const path = '/site'
     sendData(data, path, route)
       .then(result => {
-
+        console.log(result[0])
         addId(result[0])
+        console.log(route)
 
         const displayData = {
           site_id: result[0],
@@ -190,11 +198,13 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
     return result
   }
 
+  const orgName = stateProps.org_name.toLowerCase().replace(/[^A-Z0-9]/ig, '')
+  console.log(orgName)
 
   return (
     <div id="finish">
-      <IndexLink to={'/dashboard'} activeClassName="active">
-        <Button onClick={completeSignup} animated>
+      <IndexLink to={`/dashboard/${orgName}`} activeClassName="active">
+        <Button id="final" onClick={completeSignup} animated>
           <Button.Content visible>Finish</Button.Content>
           <Button.Content hidden>
             <Icon name='right arrow' />
