@@ -728,3 +728,36 @@ ul {
 .dash-button:hover {
   filter: brightness(1.3);
 }
+
+.DayPicker {
+  margin: 15px auto 0 auto!important;
+}
+
+.DayPicker-Caption {
+  margin-bottom: 10px !important;
+}
+
+.rc-time-picker-input {
+  width: 200px !important;
+  height: 40px !important;
+}
+
+#event-state {
+  margin: 0;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+table {
+  border-collapse: separate !important;
+  border-spacing: 10px 5px !important;
+}
+
+td {
+  text-align: left;
+}
+
+.label {
+  padding-left: 7px !important;
+}

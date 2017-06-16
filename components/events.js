@@ -103,11 +103,31 @@ const Events = ({ stateProps, dispatchProps }) => {
       })
   }
 
- const handleDayClick = (day) => {
-   eventDate = day
-   console.log(eventDate)
-  };
 
+ const handleDayClick = (day, { selected }) => {
+
+   const { selectedDays } = stateProps
+   console.log(selectedDays)
+   console.log(selected)
+
+   if (selected) {
+     const selectedIndex = selectedDays.findIndex(selectedDay =>
+       //DateUtils.isSameDay(selectedDay, day)
+       console.log(selectedDay, day)
+     );
+     selectedDays.splice(selectedIndex, 1);
+     console.log(selectedDays)
+   }
+
+   else {
+     selectedDays.push(day);
+     console.log(selectedDays)
+   }
+
+   dispatchProps.selectDays(selectedDays)
+   
+  };
+  
   const buttonStyle = {
     backgroundColor: stateProps.site_color_primary
   }
@@ -115,7 +135,6 @@ const Events = ({ stateProps, dispatchProps }) => {
   const showSecond = false;
   const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
   const use12Hours = true
-
 
   const timeStart = (value) => {
     console.log(value && value.format(str));
@@ -131,49 +150,59 @@ const Events = ({ stateProps, dispatchProps }) => {
     <div>
       <Form id='events-form' onSubmit={handleEvent}>
         <Container id="events-container" text>
+          <Form.Field required control={Input} name="event_name" placeholder='Event name'></Form.Field>
+          <Form.Field control={Input}>
+            <DayPicker
+              id="calendar"
+              selectedDays={stateProps.selectedDays}
+              onDayClick={handleDayClick}
+              control={Input}
+              name="event_date"
+            />
+          </Form.Field>
           <Form.Group>
-            <Form.Field control={Input} name="event_name" placeholder='Event name'></Form.Field>
-            <Form.Field control={Input}>
-              <DayPicker
-                id="calendar"
-                selectedDays={this.eventDate}
-                onDayClick={handleDayClick}
-                control={Input}
-                name="event_date"
-              />
-            </Form.Field>
-          </Form.Group>
-          <Form.Group>
-            <Form.Field control={Input}>
-              <TimePicker
-                style={{ width: 200 }}
-                showSecond={showSecond}
-                use12Hours={use12Hours}
-                defaultValue={moment()}
-                className="time-picker"
-                onChange={timeStart}
-                control={Input}
-                name="event_start_time"
-              />
-            </Form.Field>
-            <Form.Field control={Input}>
-              <TimePicker
-                style={{ width: 200 }}
-                showSecond={showSecond}
-                use12Hours={use12Hours}
-                defaultValue={moment()}
-                className="time-picker-end"
-                onChange={timeEnd}
-                control={Input}
-                name="event_end_time"
-              />
-            </Form.Field>
+            <table>
+              <tr>
+                <td className="label">Start time</td>
+                <td className="label">End time</td>
+              </tr>
+              <tr>
+                <td>
+                  <Form.Field control={Input}>
+                    <TimePicker
+                      style={{ width: 200 }}
+                      showSecond={showSecond}
+                      use12Hours={use12Hours}
+                      defaultValue={moment()}
+                      className="time-picker"
+                      onChange={timeStart}
+                      control={Input}
+                      name="event_start_time"
+                    />
+                  </Form.Field>
+                </td>
+                <td>
+                  <Form.Field control={Input}>
+                    <TimePicker
+                      style={{ width: 200 }}
+                      showSecond={showSecond}
+                      use12Hours={use12Hours}
+                      defaultValue={moment()}
+                      className="time-picker-end"
+                      onChange={timeEnd}
+                      control={Input}
+                      name="event_end_time"
+                    />
+                  </Form.Field>
+                </td>
+              </tr>
+            </table>
           </Form.Group>
           <Form.Field control={Input} name="address" placeholder='Location address..'></Form.Field>
           <Form.Group widths='equal'>
             <Form.Field control={Input} name="city" placeholder='City'></Form.Field>
             <Form.Field>
-              <Dropdown control={Input} search selection name="state" options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} id="org-state" />
+              <Dropdown control={Input} search selection name="state" options={stateOptions} className="contact" placeholder="CA" value={stateProps.org_state} id="event-state"/>
             </Form.Field>
             <Form.Field control={Input} name="zip" placeholder='Zip' type="number" maxLength="5"></Form.Field>
           </Form.Group>
@@ -190,9 +219,18 @@ const mapStateToProps = state => {
   return {
     stateProps: {
       site_id: state.site_id,
-      site_color_primary: state.site_color_primary
+      site_color_primary: state.site_color_primary,
+      selectedDays: state.selectedDays
     }
   }
 }
 
-module.exports = connect(mapStateToProps)(Events)
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatchProps: {
+      selectDays: (value) => dispatch({type:'CALENDAR', value}),
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Events)

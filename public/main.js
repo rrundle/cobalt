@@ -24,6 +24,7 @@ const initialState = {
   site_color_secondary: '',
   site_photo: '',
   site_background_photo: '',
+  selectedDays: [],
   view: true,
   display_address: true,
   display_phone: true,
@@ -139,6 +140,11 @@ const reducer = (state, action) => {
     case 'NOMATCH':
       return Object.assign({}, state, {
         match: false
+      })
+
+    case 'CALENDAR':
+      return Object.assign({}, state, {
+        selectedDays: action.value
       })
 
     default:
