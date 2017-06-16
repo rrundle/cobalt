@@ -2,7 +2,7 @@
 const { Step, Button, Icon, Checkbox, Segment, Grid } = require('semantic-ui-react')
 const { IndexLink } = require('react-router')
 const { connect } = require('react-redux')
-const { CirclePicker, clientWidth } = require('react-color')
+const { SwatchesPicker, clientWidth } = require('react-color')
 const { Back, Next } = require('../components/buttons.js')
 
 const StepThree = ({ addPrimary, addSecondary, site_color_primary, site_color_secondary }) => {
@@ -48,7 +48,7 @@ const StepThree = ({ addPrimary, addSecondary, site_color_primary, site_color_se
 const ColorSetup = ({ addPrimary, addSecondary, site_color_primary, site_color_secondary }) => {
   
   const handlePrimary = (color, event) => {
-    const value = event.target.title
+    const value = color.hex
     addPrimary(value)
 
     const circleOne = document.getElementById('circle-1')
@@ -56,7 +56,7 @@ const ColorSetup = ({ addPrimary, addSecondary, site_color_primary, site_color_s
   }
 
   const handleSecondary = (color, event) => {
-    const value = event.target.title
+    const value = color.hex
     addSecondary(value)
 
     const circleTwo = document.getElementById('circle-2')
@@ -69,21 +69,17 @@ const ColorSetup = ({ addPrimary, addSecondary, site_color_primary, site_color_s
       <div id="primary-title">{'Primary site color'}</div>
       <Grid columns={1} className="color-grid">
         <Grid.Row>
-          <Grid.Column className="color-column">
-            <CirclePicker id="circle-group-1" onChange={handlePrimary}/>
-          </Grid.Column>
-          <Grid.Column className="circle-box">
+          <SwatchesPicker id="circle-group-1" onChange={handlePrimary}/>
+          <div className="circle-container">
             <div style={{backgroundColor: site_color_primary}} className="circle" id="circle-1"></div>
-          </Grid.Column>
+          </div>
         </Grid.Row>
         <div id="secondary-title">{'Secondary site color'}</div>
         <Grid.Row>
-          <Grid.Column className="color-column">
-            <CirclePicker id="circle-group-2" onChange={handleSecondary}/>
-          </Grid.Column>
-          <Grid.Column className="circle-box">
+          <SwatchesPicker id="circle-group-2" onChange={handleSecondary}/>
+          <div className="circle-container">
             <div style={{backgroundColor: site_color_secondary}} className="circle" id="circle-2"></div>
-          </Grid.Column>
+          </div>
         </Grid.Row>
       </Grid>
       <Back link={'/contact'}/>

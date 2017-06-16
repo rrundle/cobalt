@@ -1,7 +1,7 @@
 /* global React, ReactDOM, Redux */
 const { connect } = require('react-redux')
 const { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Popup, Radio, Dropdown } = require('semantic-ui-react')
-const { CirclePicker, clientWidth } = require('react-color')
+const { SwatchesPicker } = require('react-color')
 const Dropzone = require('react-dropzone')
 const request = require('superagent')
 const { IndexLink, browserHistory } = require('react-router')
@@ -244,7 +244,7 @@ const Info = ({ stateProps, dispatchProps }) => {
           flowing
           hoverable
         >
-          <CirclePicker onChangeComplete={handlePrimary} />
+          <SwatchesPicker onChangeComplete={handlePrimary} />
         </Popup>
       </Menu.Item>
       <Menu.Item>
@@ -255,7 +255,7 @@ const Info = ({ stateProps, dispatchProps }) => {
           flowing
           hoverable
         >
-          <CirclePicker onChangeComplete={handleSecondary} />
+          <SwatchesPicker onChangeComplete={handleSecondary} />
         </Popup>
       </Menu.Item>
       <Menu.Item>

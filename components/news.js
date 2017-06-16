@@ -84,6 +84,9 @@ const News = ({ stateProps, dispatchProps }) => {
         return contents
       })
       .then(function(array) {
+        const textArea = document.getElementsByTagName('textarea')
+        console.log(textArea)
+        textArea[0].textContent = ''
         const updates = array.map((post) =>
           <li id='new-post'>{post}
             <span id="timestamp">{timeStamp(new Date())}</span>
