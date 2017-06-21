@@ -51,6 +51,13 @@ const Authenticate = ({ stateProps, updateUsername, updatePassword }) => {
 
   return (
     <div>
+      <div id="company">
+        <span id="logo">cobalt</span>
+      </div>
+      <div id="tagline-container">
+        <h1 id="tagline">Dead simple content management.</h1>
+        <p>Create content and share with your followers or members.</p>
+      </div>
       <Input className="contact" placeholder="email" value={stateProps.email} onChange={handleUsername} />
       <Input className="contact" type="password" placeholder="password" value={stateProps.password} onChange={handlePassword} />
       <Button type='submit' onClick={handleLogin}>Login</Button>

@@ -186,6 +186,16 @@ const Signup = () => {
     dispatch({ type: 'NAME', value })
   }
 
+  const handleEmail = event => {
+    const value = event.target.value
+    dispatch({ type: 'EMAIL', value })
+  }
+
+  const handlePassword = event => {
+    const value = event.target.value
+    dispatch({ type: 'PASSWORD', value })
+  }
+
   const handleOrg = event => {
     const name = event.target.value
     dispatch({ type: 'ORG', name })
@@ -198,6 +208,7 @@ const Signup = () => {
 
     const matches = document.getElementById('matches')
     const button = document.getElementById('go')
+
     sendData(url, path, route)
       .then(result => {
         console.log(result)
@@ -229,24 +240,28 @@ const Signup = () => {
       <div id="company">
         <span id="logo">cobalt</span>
       </div>
-      <div id="tagline-container">
-        <h1 id="tagline">Dead simple content management.</h1>
-        <p>Create content and share with your followers or members.</p>
-      </div>
       <div id="action-container">
         <p id="call-action">{'Get started'}</p>
       </div>
       <Form>
-        <Form.Input label="" name="name" value={state.name} className="name" id="name" onChange={handleName} />
-        <div className="title">{'Your name'}</div>
-        <Form.Input label="" name="org" value={state.org_name} className="org" id="org" onChange={handleOrg} />
+        <Form.Input name="org" value={state.org_name} className="org" id="org" onChange={handleOrg} />
         <div className="title">{'Organization name'}</div>
+
         <div className="org-display">
           <div>{state.site_url}
             <div id="website" >{'Your website url'}</div>
             <span id="matches"></span>
           </div>
         </div>
+
+        <Form.Input label="" name="name" value={state.name} className="name" id="name" onChange={handleName} />
+        <div className="title">{'Your name'}</div>
+
+        <Form.Input required name="email" value={state.email} type="email" className="name" onChange={handleEmail} />
+        <div className="title">{'Your email'}</div>
+
+        <Form.Input required name="password" value={state.password} type="password" className="name" onChange={handlePassword} />
+        <div className="title">{'Password'}</div>
         {
           (state.match !== true)
           ? <IndexLink to='/contact' activeClassName="active" id="link-go">
