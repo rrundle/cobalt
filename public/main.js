@@ -6,12 +6,15 @@ const { Router, Route, hashHistory, IndexLink, browserHistory, applyRouterMiddle
 const StepTwo = require('../modules/contact.js')
 const StepThree = require('../modules/colors.js')
 const StepFour = require('../modules/photos.js')
+const Login = require('../modules/login.js')
 const Dashboard = require('../modules/dashboard.js')
 const Website = require('../modules/website.js')
 
 
 const initialState = {
   site_id: '',
+  email: '',
+  password: '',
   name: '',
   org_name: '',
   site_url: '',
@@ -44,6 +47,16 @@ const reducer = (state, action) => {
     case 'ID':
       return Object.assign({}, state, {
         site_id: action.value
+      })
+
+    case 'EMAIL':
+      return Object.assign({}, state, {
+        email: action.value
+      })
+
+    case 'PASSWORD':
+      return Object.assign({}, state, {
+        password: action.value
       })
 
     case 'ORG':
@@ -220,9 +233,6 @@ const Signup = () => {
         <h1 id="tagline">Dead simple content management.</h1>
         <p>Create content and share with your followers or members.</p>
       </div>
-      <div id="select">{'Select existing site'}
-        <Dropdown fluid selection />
-      </div>
       <div id="action-container">
         <p id="call-action">{'Get started'}</p>
       </div>
@@ -266,12 +276,13 @@ store.subscribe(draw)
 
 const routes = (
   <Route>
-    <Route path='/' component={Signup} />
+    <Route path='/signup' component={Signup} />
     <Route path='/contact' component={StepTwo} />
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
     <Route path='/dashboard/:orgName' component={Dashboard} />
     <Route path='/website/:orgName' component={Website} />
+    <Route path='/login' component={Login} />
   </Route>
 )
 

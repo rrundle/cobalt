@@ -11,7 +11,7 @@ const StepTwo = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
   return (
     <div className="status">
       <Step.Group ordered>
-        <IndexLink to={'/'} activeClassName="active">
+        <IndexLink to={'/signup'} activeClassName="active">
           <Step completed>
             <Step.Content>
               <Step.Title>Setup</Step.Title>
@@ -83,7 +83,7 @@ const Contact = ({ stateProps, addAddress, addCity, addState, addZipcode, addPho
       <div raised className="org-title">{'Your organization\'s phone number'}</div>
       <InputElement {...this.props} mask="(\ 999 )\ 999 -\ 9999" maskChar=" " placeholder="(555) 555-555" value={stateProps.org_phone} onChange={handlePhone} className="ui input contact" id="org-phone" />
       <div id="buttons">
-        <Back link={'/'}></Back>
+        <Back link={'/signup'}></Back>
         <Next link={'/colors'}></Next>
       </div>
     </div>
