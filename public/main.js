@@ -9,6 +9,7 @@ const StepFour = require('../modules/photos.js')
 const Login = require('../modules/login.js')
 const Dashboard = require('../modules/dashboard.js')
 const Website = require('../modules/website.js')
+const IndSignup = require('../modules/individual-signup.js')
 
 
 const initialState = {
@@ -176,7 +177,7 @@ function sendData(data, path, route) {
   return result
 }
 
-const Signup = () => {
+const OrgSignup = () => {
 
   const state = store.getState()
   const { dispatch } = store
@@ -189,6 +190,17 @@ const Signup = () => {
   const handleEmail = event => {
     const value = event.target.value
     dispatch({ type: 'EMAIL', value })
+  }
+
+  const submitPassword = event => {
+    const password = document.getElementById('org-password').children[0].value
+    console.log(password)
+    sendData({password: password}, '/password', 'POST')
+      .then(result => {
+        console.log(result)
+        const value = result.password
+        dispatch({ type: 'PASSWORD', value })        
+      })
   }
 
   const handlePassword = event => {
@@ -260,11 +272,11 @@ const Signup = () => {
         <Form.Input required name="email" value={state.email} type="email" className="name" onChange={handleEmail} />
         <div className="title">{'Your email'}</div>
 
-        <Form.Input required name="password" value={state.password} type="password" className="name" onChange={handlePassword} />
+        <Form.Input required name="password" value={state.password} type="password" className="name" id="org-password" onChange={handlePassword}/>
         <div className="title">{'Password'}</div>
         {
           (state.match !== true)
-          ? <IndexLink to='/contact' activeClassName="active" id="link-go">
+          ? <IndexLink to='/contact' activeClassName="active" id="link-go" onClick={submitPassword}>
               <Button animated primary type="submit" id="go" onBlur={handleBlur}>
                 <Button.Content visible>{'Let\'s go!'}</Button.Content>
                 <Button.Content hidden>
@@ -291,13 +303,14 @@ store.subscribe(draw)
 
 const routes = (
   <Route>
-    <Route path='/signup' component={Signup} />
+    <Route path='/' component={Login} />
+    <Route path='/indsignup' component={IndSignup} />
+    <Route path='/orgsignup' component={OrgSignup} />
     <Route path='/contact' component={StepTwo} />
     <Route path='/colors' component={StepThree} />
     <Route path='/photos' component={StepFour} />
     <Route path='/dashboard/:orgName' component={Dashboard} />
     <Route path='/website/:orgName' component={Website} />
-    <Route path='/login' component={Login} />
   </Route>
 )
 

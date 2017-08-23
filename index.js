@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 2999
+const auth = require('./services/auth.js')
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -33,7 +34,35 @@ app.post('/org', (req, res) => {
     .catch(error => res.sendStatus(404).send(error))
 })
 
+app.post('/password', (req, res) => {
+  console.log(req.body)
+  //need to hash the password before inserting it
+  auth.createPassword(req, res)
+  
+  // const query = knex('sites')
+  //   .where({
+  //     site_url: `http://www.cobaltcms.com/${url}`
+  //   })
+  //   .select()
+  //   .returning()
+  // query
+  //   .then(match => res.json(match))
+  //   .catch(error => res.sendStatus(404).send(error))
+})
+
 app.post('/site', (req, res) => {
+  //need to hash the password before inserting it
+  // auth.signUp(req, res)
+  //   .then(result => {
+  //     console.log(result)
+  //   })
+  /*
+  auth.signup(req.body)
+    .then(data => {
+      console.log(data)
+      //now run knex query
+    })
+   */
   const query = knex('sites')
     .insert(req.body)
     .returning('site_id')
