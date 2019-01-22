@@ -4,6 +4,8 @@ CREATE TABLE sites (
   site_id               serial,
   site_url              varchar,
   name                  varchar,
+  email                 varchar,
+  password              varchar,
   org_name              varchar,
   org_address           varchar,
   org_city              varchar,

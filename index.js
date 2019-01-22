@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 2999
-const auth = require('./services/auth.js')
+const auth = require('./controllers/auth.js')
 
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -23,6 +23,23 @@ app.use(express.static('build'))
 
 app.post('/org', (req, res) => {
   const url = req.body.url.toLowerCase()
+  const query = knex('sites')
+    .where({
+      site_url: `http://www.cobaltcms.com/${url}`
+    })
+    .select()
+    .returning()
+  query
+    .then(match => res.json(match))
+    .catch(error => res.sendStatus(404).send(error))
+})
+
+app.post('/orgsignup', (req, res) => {
+  const url = req.body.url.toLowerCase()
+
+  //check db for existing users
+  
+
   const query = knex('sites')
     .where({
       site_url: `http://www.cobaltcms.com/${url}`

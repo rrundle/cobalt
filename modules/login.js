@@ -15,9 +15,18 @@ const Login = ({ stateProps, updateUsername, updatePassword }) => {
       >
       </Authenticate>
 
-      <IndexLink to='/signup' activeClassName="active" id="link-go">
+      <IndexLink to='/orgsignup' activeClassName="active" id="link-go">
         <Button animated primary type="submit" id="go">
-          <Button.Content visible>{'Signup'}</Button.Content>
+          <Button.Content visible>{'Organization Signup'}</Button.Content>
+          <Button.Content hidden>
+            <Icon name='rocket' />
+          </Button.Content>
+        </Button>
+      </IndexLink>
+
+      <IndexLink to='/indsignup' activeClassName="active" id="link-go">
+        <Button animated primary type="submit" id="go">
+          <Button.Content visible>{'Individual Signup'}</Button.Content>
           <Button.Content hidden>
             <Icon name='rocket' />
           </Button.Content>

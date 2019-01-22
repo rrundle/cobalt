@@ -150,6 +150,8 @@ const Finish = ({ stateProps, addPhoto, addBackground, addId }) => {
     const data = {
       site_url: stateProps.site_url,
       name: stateProps.name,
+      email: stateProps.email,
+      password: stateProps.password,
       org_name: stateProps.org_name,
       org_address: stateProps.org_address,
       org_city: stateProps.org_city,
@@ -221,6 +223,8 @@ const mapStateToProps = state => {
       site_id: state.site_id,
       site_url: state.site_url,
       name: state.name,
+      email: state.email,
+      password: state.password,
       org_name: state.org_name,
       org_address: state.org_address,
       org_phone: state.org_phone,

@@ -18,7 +18,7 @@ const initialState = {
   password: '',
   name: '',
   org_name: '',
-  site_url: '',
+  site_url: 'http://www.cobaltcms.com/',
   org_address: '',
   org_city: '',
   org_state: '',
@@ -34,7 +34,8 @@ const initialState = {
   display_phone: true,
   display_news: true,
   display_events: true,
-  match: false
+  match: false,
+  signupComplete: false
 }
 
 const reducer = (state, action) => {
@@ -161,6 +162,11 @@ const reducer = (state, action) => {
         selectedDays: action.value
       })
 
+    case 'SIGNUP COMPLETE':
+    return Object.assign({}, state, {
+      signupComplete: action.value
+    })
+
     default:
       return state
   }
@@ -192,14 +198,14 @@ const OrgSignup = () => {
     dispatch({ type: 'EMAIL', value })
   }
 
-  const submitPassword = event => {
+  const submitOrg = () => {
     const password = document.getElementById('org-password').children[0].value
-    console.log(password)
-    sendData({password: password}, '/password', 'POST')
+    console.log(state)
+    sendData({state}, '/orgsignup', 'POST')
       .then(result => {
         console.log(result)
-        const value = result.password
-        dispatch({ type: 'PASSWORD', value })        
+        // const value = result.password
+        // dispatch({ type: 'PASSWORD', value })        
       })
   }
 
@@ -276,7 +282,7 @@ const OrgSignup = () => {
         <div className="title">{'Password'}</div>
         {
           (state.match !== true)
-          ? <IndexLink to='/contact' activeClassName="active" id="link-go" onClick={submitPassword}>
+          ? <IndexLink to='/contact' activeClassName="active" id="link-go" onClick={submitOrg}>
               <Button animated primary type="submit" id="go" onBlur={handleBlur}>
                 <Button.Content visible>{'Let\'s go!'}</Button.Content>
                 <Button.Content hidden>
